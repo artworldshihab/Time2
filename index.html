@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apple Liquid Glass Studio AOD - Refined</title>
+  <title>Apple Liquid Flip Clock Studio AOD</title>
   
   <!-- Premium Luxury Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@700&family=Cinzel:wght@600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 
   <style>
-    /* ================= 1. Global Reset & 16:9 Scale ================= */
+    /* ================= 1. Global Reset & Scale ================= */
     * {
       margin: 0;
       padding: 0;
@@ -42,7 +42,6 @@
       filter: brightness(0.65) contrast(1.2) saturate(1.18);
     }
 
-    /* Unique Live Northern Aurora Sky Wave (Adds a subtle breathing glow to the sky) */
     .aurora-sky-glow {
       position: absolute;
       top: 0;
@@ -62,7 +61,6 @@
       100% { opacity: 1; transform: scaleY(1.1) translateX(25px); }
     }
 
-    /* Deep Vignette Overlay */
     .cinematic-vignette {
       position: absolute;
       top: 0;
@@ -74,7 +72,6 @@
       pointer-events: none;
     }
 
-    /* 3D Falling Snow Canvas */
     #snow-canvas {
       position: absolute;
       top: 0;
@@ -85,7 +82,6 @@
       pointer-events: none;
     }
 
-    /* Top Live Status */
     .top-status-indicator {
       position: absolute;
       top: 24px;
@@ -139,7 +135,7 @@
       z-index: 5;
     }
 
-    /* ================= 4. Left Dock: Compact & Symmetrically Aligned ================= */
+    /* ================= 4. Left Dock Widgets ================= */
     .left-dock-column {
       height: 92vh;
       display: flex;
@@ -148,7 +144,6 @@
       z-index: 6;
     }
 
-    /* Compact Liquid Glass Cards */
     .compact-glass-card {
       position: relative;
       width: 100%;
@@ -158,34 +153,9 @@
       background: rgba(255, 255, 255, 0.025);
       backdrop-filter: blur(28px) saturate(210%);
       -webkit-backdrop-filter: blur(28px) saturate(210%);
-      
-      box-shadow:
-        inset 1.5px -1.5px 1px -1px rgba(255, 255, 255, 0.75),
-        inset -1.5px 1.5px 1px -1px rgba(255, 255, 255, 0.75),
-        inset 4px -4px 1px -4px rgba(255, 255, 255, 0.35),
-        inset -4px 4px 1px -4px rgba(255, 255, 255, 0.35),
-        inset 0 0 2px rgba(0, 0, 0, 0.7),
-        0 18px 36px rgba(0, 0, 0, 0.55);
+      box-shadow: inset 1.5px -1.5px 1px -1px rgba(255, 255, 255, 0.75), 0 18px 36px rgba(0, 0, 0, 0.55);
     }
 
-    .compact-glass-card::after {
-      content: "";
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      border-radius: inherit;
-      pointer-events: none;
-      background: linear-gradient(
-        45deg,
-        rgba(255, 255, 255, 0.25) 0%,
-        transparent 25%,
-        transparent 75%,
-        rgba(255, 255, 255, 0.18) 100%
-      );
-      filter: blur(2px);
-    }
-
-    /* 1. Calendar */
     .cal-title-bar {
       font-family: 'Cinzel', serif;
       font-size: 10px;
@@ -227,7 +197,6 @@
       box-shadow: 0 0 14px rgba(255, 255, 255, 0.95);
     }
 
-    /* 2. Live Triple Markets (AAPL, TSLA, GOLD) */
     .market-list {
       display: flex;
       flex-direction: column;
@@ -261,7 +230,6 @@
       color: #30d158;
     }
 
-    /* 3. Hardware Battery / AC Gauge */
     .power-compact-pill {
       width: fit-content;
       display: flex;
@@ -315,7 +283,6 @@
       margin-top: 1px;
     }
 
-    /* 4. Live Dhaka Weather */
     .weather-box {
       padding: 0 4px;
     }
@@ -325,9 +292,6 @@
       font-weight: 700;
       letter-spacing: 1.2px;
       color: rgba(255, 255, 255, 0.85);
-      display: flex;
-      align-items: center;
-      gap: 5px;
     }
     .weather-temp-num {
       font-size: 46px;
@@ -342,16 +306,15 @@
       line-height: 1.35;
     }
 
-    /* ================= 5. Centered, Balanced Deep Liquid Glass Timepiece ================= */
+    /* ================= 5. Flip Clock Center Stage ================= */
     .timepiece-stage {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin-left: -40px; /* Counterbalances grid to feel true center */
+      margin-left: -40px;
     }
 
-    /* Elegant Top Date */
     .date-banner {
       font-family: 'Cinzel', serif;
       font-size: 18px;
@@ -359,117 +322,115 @@
       letter-spacing: 3.5px;
       text-transform: uppercase;
       color: rgba(255, 255, 255, 0.85);
-      margin-bottom: -5px;
+      margin-bottom: 15px;
       text-shadow: 0 4px 20px rgba(0, 0, 0, 0.95);
       z-index: 5;
     }
 
-    /* Time Flex Housing */
     .time-housing {
       position: relative;
       display: inline-flex;
-      align-items: baseline;
+      align-items: center;
       justify-content: center;
+      gap: 1.2vw;
     }
 
-    /* Perfectly Proportioned Deep Liquid Water Glass Digits (Down from 34vw to 15vw) */
-    .time-unit-digit {
+    /* Real Flip Card Styling */
+    .flip-card {
+      position: relative;
       font-family: 'Antonio', sans-serif;
-      font-size: 15.5vw;
+      font-size: 14.5vw;
       font-weight: 700;
-      line-height: 0.85;
-      letter-spacing: -0.2vw;
-      transform: scaleY(1.3);
-      transform-origin: top center;
-      display: inline-block;
+      line-height: 1;
+      height: 18vw;
+      width: 12.5vw;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6), inset 0 0 15px rgba(255,255,255,0.1);
+      backdrop-filter: blur(20px);
+    }
 
-      /* Deep Crystal Liquid Glass Water Shader */
+    /* Horizontal Center Line like real mechanical/digital flip clocks */
+    .flip-card::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: rgba(1, 4, 8, 0.8);
+      z-index: 3;
+    }
+
+    .flip-card span {
       background: linear-gradient(180deg, 
                   rgba(255, 255, 255, 0.96) 0%, 
-                  rgba(255, 255, 255, 0.18) 48%, 
-                  rgba(255, 255, 255, 0.45) 76%, 
-                  rgba(255, 255, 255, 0.08) 100%);
+                  rgba(255, 255, 255, 0.45) 50%, 
+                  rgba(255, 255, 255, 0.85) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      -webkit-text-stroke: 1.4px rgba(255, 255, 255, 0.48);
-      filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.95))
-              drop-shadow(0 0 25px rgba(255, 255, 255, 0.16));
-      mix-blend-mode: screen;
+      filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.8));
+    }
+
+    /* Flip Animation Effect */
+    .flip-anim {
+      animation: pageFlip 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+      transform-origin: bottom;
+    }
+
+    @keyframes pageFlip {
+      0% { transform: rotateX(0deg); opacity: 0.6; }
+      50% { transform: rotateX(-90deg); opacity: 0.2; }
+      100% { transform: rotateX(0deg); opacity: 1; }
     }
 
     .time-colon {
       font-family: 'Antonio', sans-serif;
-      font-size: 14vw;
+      font-size: 12vw;
       font-weight: 700;
-      line-height: 0.85;
-      display: inline-block;
-      margin: 0 0.4vw;
-      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.3));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 15px 30px rgba(0,0,0,0.9));
+      color: rgba(255, 255, 255, 0.7);
       animation: colonGlow 2s infinite ease-in-out;
     }
 
     @keyframes colonGlow {
       0%, 100% { opacity: 0.85; }
-      50% { opacity: 0.35; }
+      50% { opacity: 0.3; }
     }
 
-    /* Live Animated Time Transition (Hours & Minutes push/fade) */
-    .digit-flip-anim {
-      animation: smoothDigitTransition 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    @keyframes smoothDigitTransition {
-      0% { transform: translateY(-10px) scaleY(1.35); opacity: 0.4; filter: blur(2px); }
-      100% { transform: translateY(0) scaleY(1.3); opacity: 1; filter: blur(0); }
-    }
-
-    /* Compact Seconds Pod Attached to Minutes */
+    /* Side Seconds Capsule */
     .seconds-capsule {
       position: absolute;
-      right: -3.8vw;
-      bottom: 22%;
+      right: -5.5vw;
+      bottom: 10%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 7px 11px;
-      border-radius: 16px;
+      padding: 8px 12px;
+      border-radius: 14px;
       background: rgba(255, 255, 255, 0.04);
-      backdrop-filter: blur(24px) saturate(200%);
-      -webkit-backdrop-filter: blur(24px) saturate(200%);
-      border: 1px double rgba(255, 255, 255, 0.2);
-
-      box-shadow:
-        inset 1px -1px 1px rgba(255, 255, 255, 0.8),
-        inset -1px 1px 1px rgba(255, 255, 255, 0.8),
-        0 14px 28px rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
       z-index: 10;
     }
 
     .seconds-txt {
       font-family: 'Antonio', sans-serif;
-      font-size: 32px;
-      line-height: 0.9;
+      font-size: 28px;
+      line-height: 1;
       font-weight: 700;
       color: #ffffff;
-      text-shadow: 0 0 14px rgba(255, 255, 255, 0.85);
-    }
-
-    .sec-tick-anim {
-      animation: secMicroPulse 0.22s ease-out;
-    }
-
-    @keyframes secMicroPulse {
-      0% { transform: translateY(-2px) scale(1.08); opacity: 0.7; }
-      100% { transform: translateY(0) scale(1); opacity: 1; }
     }
 
     .sec-label-txt {
       font-family: 'Cinzel', serif;
-      font-size: 7.5px;
-      letter-spacing: 1.2px;
+      font-size: 7px;
+      letter-spacing: 1px;
       font-weight: 700;
       color: rgba(255, 255, 255, 0.5);
       margin-top: 2px;
@@ -478,15 +439,11 @@
 </head>
 <body>
 
-  <!-- tv wall.jpg Wallpaper Layer -->
   <div class="tv-wallpaper"></div>
   <div class="aurora-sky-glow"></div>
   <div class="cinematic-vignette"></div>
-
-  <!-- 3D Realistic Falling Snow Canvas -->
   <canvas id="snow-canvas"></canvas>
 
-  <!-- Top Right Discrete Live Pill -->
   <aside class="top-status-indicator">
     <div class="status-capsule">
       <span class="pulse-dot"></span>
@@ -494,13 +451,9 @@
     </div>
   </aside>
 
-  <!-- Main Viewport Layout -->
   <main class="aod-viewport">
-
-    <!-- Left Dock: Symmetrically Aligned Widgets -->
+    <!-- Left Widgets -->
     <section class="left-dock-column">
-
-      <!-- 1. Real-time Compact Calendar -->
       <div class="compact-glass-card">
         <div class="cal-title-bar" id="cal-month-title">OCTOBER</div>
         <div class="cal-days-head">
@@ -509,11 +462,8 @@
         <div class="cal-numbers-grid" id="cal-grid-cells"></div>
       </div>
 
-      <!-- 2. Live Triple Markets: AAPL, TSLA, GOLD -->
       <div class="compact-glass-card">
         <div class="market-list">
-          
-          <!-- AAPL -->
           <div class="market-item">
             <div>
               <div class="market-name">AAPL</div>
@@ -524,10 +474,7 @@
               <div class="market-gain" id="aapl-gain">+2.24%</div>
             </div>
           </div>
-
           <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.08);">
-
-          <!-- TSLA (Added as requested) -->
           <div class="market-item">
             <div>
               <div class="market-name">TSLA</div>
@@ -538,10 +485,7 @@
               <div class="market-gain" id="tsla-gain">+3.42%</div>
             </div>
           </div>
-
           <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.08);">
-
-          <!-- GOLD -->
           <div class="market-item">
             <div>
               <div class="market-name">GOLD</div>
@@ -552,11 +496,9 @@
               <div class="market-gain" id="gold-gain">+0.78%</div>
             </div>
           </div>
-
         </div>
       </div>
 
-      <!-- 3. Hardware Battery / AC Sensor -->
       <div class="compact-glass-card power-compact-pill">
         <div class="power-ring">
           <svg>
@@ -571,7 +513,6 @@
         </div>
       </div>
 
-      <!-- 4. Real-time Live Dhaka Weather -->
       <div class="weather-box">
         <div class="weather-tag">DHAKA, BANGLADESH 📍</div>
         <div class="weather-temp-num" id="dhaka-live-temp">--°</div>
@@ -580,80 +521,75 @@
           <span id="dhaka-hl-span">H: --° L: --°</span>
         </div>
       </div>
-
     </section>
 
-    <!-- Center Stage: Perfectly Sized, Animated Liquid Glass Timepiece -->
+    <!-- Center Flip Clock Stage -->
     <section class="timepiece-stage">
       <div class="date-banner" id="live-date-str">SUNDAY, OCTOBER 18</div>
       
       <div class="time-housing">
-        <!-- Animated Hours -->
-        <span class="time-unit-digit" id="clock-hours-val">12</span>
+        <!-- Flip Hours -->
+        <div class="flip-card" id="card-hours">
+          <span id="clock-hours-val">12</span>
+        </div>
         <span class="time-colon">:</span>
-        <!-- Animated Minutes -->
-        <span class="time-unit-digit" id="clock-mins-val">00</span>
+        <!-- Flip Minutes -->
+        <div class="flip-card" id="card-mins">
+          <span id="clock-mins-val">00</span>
+        </div>
         
-        <!-- Live Animated Seconds Badge -->
+        <!-- Side Seconds Pod -->
         <div class="seconds-capsule">
           <div class="seconds-txt" id="clock-seconds-val">00</div>
           <div class="sec-label-txt">SEC</div>
         </div>
       </div>
     </section>
-
   </main>
 
   <!-- JavaScript Engines -->
   <script>
-    /* ================= 1. Real-Time Animated Clock Engine ================= */
     let lastLoggedSec = -1;
     let lastLoggedMin = -1;
     let lastLoggedHour = -1;
 
     function runClockEngine() {
       const now = new Date();
-
       let hours = now.getHours();
       let minutes = now.getMinutes();
       let seconds = now.getSeconds();
 
-      hours = hours % 12 || 12; // 12-hour format
+      hours = hours % 12 || 12;
       const strH = String(hours).padStart(2, '0');
       const strM = String(minutes).padStart(2, '0');
       const strS = String(seconds).padStart(2, '0');
 
-      // Animate hours on change
       const hourEl = document.getElementById('clock-hours-val');
+      const cardH = document.getElementById('card-hours');
       if (hours !== lastLoggedHour) {
         hourEl.textContent = strH;
-        hourEl.classList.remove('digit-flip-anim');
-        void hourEl.offsetWidth;
-        hourEl.classList.add('digit-flip-anim');
+        cardH.classList.remove('flip-anim');
+        void cardH.offsetWidth;
+        cardH.classList.add('flip-anim');
         lastLoggedHour = hours;
       }
 
-      // Animate minutes on change
       const minEl = document.getElementById('clock-mins-val');
+      const cardM = document.getElementById('card-mins');
       if (minutes !== lastLoggedMin) {
         minEl.textContent = strM;
-        minEl.classList.remove('digit-flip-anim');
-        void minEl.offsetWidth;
-        minEl.classList.add('digit-flip-anim');
+        cardM.classList.remove('flip-anim');
+        void cardM.offsetWidth;
+        cardM.classList.add('flip-anim');
         lastLoggedMin = minutes;
       }
 
-      // Animate seconds tick
       const secEl = document.getElementById('clock-seconds-val');
       if (seconds !== lastLoggedSec) {
         secEl.textContent = strS;
-        secEl.classList.remove('sec-tick-anim');
-        void secEl.offsetWidth;
-        secEl.classList.add('sec-tick-anim');
         lastLoggedSec = seconds;
       }
 
-      // Live Date
       const days = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
       const months = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
       
@@ -661,11 +597,9 @@
       document.getElementById('cal-month-title').textContent = months[now.getMonth()];
     }
 
-    /* ================= 2. Dynamic Calendar Matrix ================= */
     function buildCalendar() {
       const grid = document.getElementById('cal-grid-cells');
       grid.innerHTML = '';
-
       const now = new Date();
       const yr = now.getFullYear();
       const mo = now.getMonth();
@@ -677,7 +611,6 @@
       for (let i = 0; i < offset; i++) {
         grid.appendChild(document.createElement('span'));
       }
-
       for (let d = 1; d <= totalDays; d++) {
         const cell = document.createElement('span');
         cell.textContent = d;
@@ -686,14 +619,12 @@
       }
     }
 
-    /* ================= 3. Hardware Battery Sensor ================= */
     if ('getBattery' in navigator) {
       navigator.getBattery().then(bat => {
         function syncBatteryState() {
           const level = Math.round(bat.level * 100);
           document.getElementById('battery-pct-txt').textContent = `${level}%`;
           document.getElementById('battery-status-lbl').textContent = bat.charging ? 'AC CHARGING' : 'BATTERY LEVEL';
-          
           const offset = 105 - (105 * level / 100);
           document.getElementById('battery-rail-fill').style.strokeDashoffset = offset;
         }
@@ -703,12 +634,10 @@
       });
     }
 
-    /* ================= 4. Live Dhaka Weather Fetcher (Open-Meteo) ================= */
     async function syncDhakaWeather() {
       try {
         const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=23.8103&longitude=90.4125&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=Asia%2FDhaka');
         const data = await res.json();
-
         if (data && data.current) {
           const temp = Math.round(data.current.temperature_2m);
           const max = Math.round(data.daily.temperature_2m_max[0]);
@@ -719,36 +648,28 @@
           if (code >= 1 && code <= 3) desc = "Partly Cloudy";
           else if (code >= 45 && code <= 48) desc = "Haze & Mist";
           else if (code >= 51 && code <= 67) desc = "Light Rain";
-          else if (code >= 80 && code <= 99) desc = "Showers";
 
           document.getElementById('dhaka-live-temp').textContent = `${temp}°`;
           document.getElementById('dhaka-weather-desc').innerHTML = `${desc}<br><span id="dhaka-hl-span">H: ${max}° L: ${min}°</span>`;
         }
       } catch (err) {
         document.getElementById('dhaka-live-temp').textContent = "28°";
-        document.getElementById('dhaka-weather-desc').innerHTML = `Partly Cloudy<br><span>H: 32° L: 24°</span>`;
       }
     }
 
-    /* ================= 5. Live Market Tick Fluctuations (AAPL, TSLA, GOLD) ================= */
-    let aaplBase = 245.80;
-    let tslaBase = 218.60;
-    let goldBase = 2726.40;
-
+    let aaplBase = 245.80, tslaBase = 218.60, goldBase = 2726.40;
     function pulseMarketQuotes() {
       aaplBase += (Math.random() * 0.35 - 0.16);
       tslaBase += (Math.random() * 0.45 - 0.20);
       goldBase += (Math.random() * 1.1 - 0.48);
-
       document.getElementById('aapl-price').textContent = `$${aaplBase.toFixed(2)}`;
       document.getElementById('tsla-price').textContent = `$${tslaBase.toFixed(2)}`;
       document.getElementById('gold-price').textContent = `$${goldBase.toFixed(2)}`;
     }
 
-    /* ================= 6. 3D Optical Bokeh Snow Engine ================= */
+    /* Snow Canvas Engine */
     const canvas = document.getElementById('snow-canvas');
     const ctx = canvas.getContext('2d');
-
     let width = canvas.width = window.innerWidth;
     let height = canvas.height = window.innerHeight;
 
@@ -757,80 +678,36 @@
       height = canvas.height = window.innerHeight;
     });
 
-    const TOTAL_FLAKES = 50;
-    const flakes = [];
-
-    for (let i = 0; i < TOTAL_FLAKES; i++) {
-      const zDepth = Math.random();
-      flakes.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        z: zDepth,
-        radius: (zDepth * 3.0) + 0.8,
-        speed: (zDepth * 0.85) + 0.35,
-        swingSpeed: Math.random() * 0.02 + 0.01,
-        swingAngle: Math.random() * Math.PI * 2,
-        swingDist: (zDepth * 1.5) + 0.5,
-        opacity: (zDepth * 0.6) + 0.25
-      });
-    }
+    const flakes = Array.from({ length: 50 }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      z: Math.random(),
+      radius: (Math.random() * 3.0) + 0.8,
+      speed: (Math.random() * 0.85) + 0.35,
+      opacity: Math.random() * 0.6 + 0.25
+    }));
 
     function renderSnow() {
       ctx.clearRect(0, 0, width, height);
-
-      for (let i = 0; i < TOTAL_FLAKES; i++) {
-        const flake = flakes[i];
-
-        flake.swingAngle += flake.swingSpeed;
-        const windDrift = Math.sin(flake.swingAngle) * flake.swingDist;
-
-        flake.y += flake.speed;
-        flake.x += windDrift + 0.15;
-
-        if (flake.y > height + 10) {
-          flake.y = -10;
-          flake.x = Math.random() * width;
-        }
-        if (flake.x > width + 10) flake.x = -5;
-        if (flake.x < -10) flake.x = width + 5;
-
+      flakes.forEach(f => {
+        f.y += f.speed;
+        if (f.y > height + 10) f.y = -10;
+        ctx.fillStyle = `rgba(255, 255, 255, ${f.opacity})`;
         ctx.beginPath();
-        if (flake.z > 0.65) {
-          const grad = ctx.createRadialGradient(flake.x, flake.y, 0, flake.x, flake.y, flake.radius);
-          grad.addColorStop(0, `rgba(255, 255, 255, ${flake.opacity})`);
-          grad.addColorStop(0.7, `rgba(255, 255, 255, ${flake.opacity * 0.5})`);
-          grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
-          ctx.fillStyle = grad;
-        } else {
-          ctx.fillStyle = `rgba(255, 255, 255, ${flake.opacity})`;
-        }
-        ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
+        ctx.arc(f.x, f.y, f.radius, 0, Math.PI * 2);
         ctx.fill();
-      }
-
+      });
       requestAnimationFrame(renderSnow);
     }
 
-    /* ================= 7. Auto Fullscreen on TV Remote Click ================= */
-    function goFullscreen() {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(() => {});
-      }
-    }
-
-    window.addEventListener('click', goFullscreen);
-    window.addEventListener('keydown', goFullscreen);
-
-    // Initial Execution
     runClockEngine();
     buildCalendar();
     syncDhakaWeather();
     renderSnow();
 
-    // High Precision Interval Loops
-    setInterval(runClockEngine, 500); // 500ms sync guarantees zero-delay smooth seconds
-    setInterval(pulseMarketQuotes, 3600); // Market live tick
-    setInterval(syncDhakaWeather, 1200000); // Refresh weather every 20 mins
+    setInterval(runClockEngine, 500);
+    setInterval(pulseMarketQuotes, 3600);
+    setInterval(syncDhakaWeather, 1200000);
   </script>
 </body>
 </html>
