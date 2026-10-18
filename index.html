@@ -3,15 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apple Liquid Glass Studio AOD - Ultra Flip Edition</title>
+  <title>Apple Ultra Liquid Glass AOD - TradingView Real Market Edition</title>
   
-  <!-- Premium Luxury Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@700&family=Cinzel:wght@600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 
   <style>
-    /* ================= 1. Global Reset ================= */
+    /* ================= 1. Global Reset & TV Performance ================= */
     * {
       margin: 0;
       padding: 0;
@@ -24,133 +23,152 @@
       width: 100vw;
       height: 100vh;
       overflow: hidden;
-      background-color: #010408;
+      background-color: #000205;
       font-family: 'Inter', -apple-system, sans-serif;
       color: #ffffff;
       position: relative;
     }
 
-    /* ================= 2. Dynamic Wallpapers & Backgrounds ================= */
+    /* ================= 2. 20+ Dynamic Wallpapers ================= */
     .tv-wallpaper {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: url('tv wall.jpg') center center / cover no-repeat;
+      background-position: center center;
+      background-size: cover;
+      background-repeat: no-repeat;
       z-index: 1;
-      filter: brightness(0.65) contrast(1.2) saturate(1.18);
-      transition: opacity 1.2s ease-in-out;
-    }
-
-    .tv-wallpaper.secondary {
-      /* Base64/Inline or alternate wall reference */
-      background: url('tvwall.jpg') center center / cover no-repeat;
+      filter: brightness(0.62) contrast(1.25) saturate(1.3);
       opacity: 0;
+      transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity;
     }
 
     .tv-wallpaper.active {
       opacity: 1;
     }
 
+    #wall-1 { background-image: url('tvwall.jpg'); }
+    #wall-2 { background-image: url('tv wall.jpg'); }
+    #wall-3 { background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=2070&auto=format&fit=crop'); }
+    #wall-4 { background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop'); }
+    #wall-5 { background-image: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=2094&auto=format&fit=crop'); }
+    #wall-6 { background-image: url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=2070&auto=format&fit=crop'); }
+    #wall-7 { background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2070&auto=format&fit=crop'); }
+    #wall-8 { background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=2070&auto=format&fit=crop'); }
+    #wall-9 { background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop'); }
+    #wall-10 { background-image: url('https://images.unsplash.com/photo-1509114397022-ed747cca3f65?q=80&w=2070&auto=format&fit=crop'); }
+    #wall-11 { background-image: url('https://images.unsplash.com/photo-1511447333015-45b65e60f6d5?q=80&w=2070&auto=format&fit=crop'); }
+    #wall-12 { background-image: url('https://images.unsplash.com/photo-1502134249126-9f3755a50d78?q=80&w=2070&auto=format&fit=crop'); }
+    #wall-13 { background-image: url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=2070&auto=format&fit=crop'); }
+    #wall-14 { background-image: url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=2074&auto=format&fit=crop'); }
+    #wall-15 { background-image: url('https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=2072&auto=format&fit=crop'); }
+    #wall-16 { background-image: url('https://images.unsplash.com/photo-1508739773434-c26b3d09e071?q=80&w=2070&auto=format&fit=crop'); }
+    #wall-17 { background-image: url('https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?q=80&w=2070&auto=format&fit=crop'); }
+    #wall-18 { background-image: url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop'); }
+    #wall-19 { background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2064&auto=format&fit=crop'); }
+    #wall-20 { background-image: url('https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?q=80&w=2064&auto=format&fit=crop'); }
+
     .aurora-sky-glow {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
-      height: 55%;
-      background: radial-gradient(ellipse at 45% 15%, rgba(35, 185, 140, 0.16) 0%, rgba(20, 90, 180, 0.1) 45%, transparent 75%);
+      height: 60%;
+      background: radial-gradient(ellipse at 40% 20%, var(--theme-glow, rgba(48, 209, 88, 0.25)) 0%, rgba(10, 50, 150, 0.1) 60%, transparent 85%);
       mix-blend-mode: screen;
-      filter: blur(45px);
-      animation: auroraBreathe 14s ease-in-out infinite alternate;
+      filter: blur(70px);
+      animation: auroraBreathe 12s ease-in-out infinite alternate;
       z-index: 2;
       pointer-events: none;
+      transition: background 1.2s ease;
     }
 
     @keyframes auroraBreathe {
-      0% { opacity: 0.6; transform: scaleY(0.95) translateX(-20px); }
-      100% { opacity: 1; transform: scaleY(1.1) translateX(25px); }
+      0% { opacity: 0.5; transform: scaleY(0.9) translateX(-15px); }
+      100% { opacity: 1; transform: scaleY(1.15) translateX(20px); }
     }
 
     .cinematic-vignette {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at 75% 35%, rgba(0, 0, 0, 0.05) 0%, rgba(1, 3, 8, 0.82) 100%);
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(circle at 75% 35%, rgba(0, 0, 0, 0.02) 0%, rgba(1, 3, 8, 0.9) 100%);
       z-index: 2;
       pointer-events: none;
     }
 
     #snow-canvas {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0; width: 100%; height: 100%;
       z-index: 3;
       pointer-events: none;
     }
 
-    /* Top Live Status */
+    /* Top Status Capsule */
     .top-status-indicator {
       position: absolute;
-      top: 24px;
+      top: 22px;
       right: 36px;
       display: flex;
       align-items: center;
       gap: 12px;
       font-family: 'Cinzel', serif;
-      font-size: 10.5px;
+      font-size: 10px;
       letter-spacing: 2px;
-      color: rgba(255, 255, 255, 0.6);
+      color: rgba(255, 255, 255, 0.7);
       z-index: 10;
     }
 
     .status-capsule {
       display: flex;
       align-items: center;
-      gap: 7px;
+      gap: 8px;
       background: rgba(255, 255, 255, 0.035);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      padding: 6px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      padding: 7px 16px;
       border-radius: 9999px;
-      box-shadow: inset 1px -1px 1px rgba(255,255,255,0.35), inset -1px 1px 1px rgba(255,255,255,0.15);
+      box-shadow: inset 1px -1px 1px rgba(255,255,255,0.45), inset -1px 1px 1px rgba(255,255,255,0.2);
       cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .status-capsule:hover {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: rgba(255, 255, 255, 0.4);
     }
 
     .pulse-dot {
       width: 6px;
       height: 6px;
-      background: #30d158;
+      background: var(--theme-accent, #30d158);
       border-radius: 50%;
-      box-shadow: 0 0 10px #30d158;
+      box-shadow: 0 0 12px var(--theme-accent, #30d158);
       animation: aodLiveBlink 2s infinite ease-in-out;
     }
 
     @keyframes aodLiveBlink {
       0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.35; transform: scale(0.85); }
+      50% { opacity: 0.35; transform: scale(0.75); }
     }
 
-    /* ================= 3. Main Layout Grid ================= */
+    /* ================= 3. Viewport Layout ================= */
     .aod-viewport {
       position: relative;
       width: 100%;
       height: 100%;
-      padding: 4vh 4.5vw;
+      padding: 3vh 4vw;
       display: grid;
-      grid-template-columns: 270px 1fr;
+      grid-template-columns: 310px 1fr;
       align-items: center;
       z-index: 5;
     }
 
-    /* ================= 4. Left Widgets ================= */
     .left-dock-column {
-      height: 92vh;
+      height: 94vh;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -160,184 +178,345 @@
     .compact-glass-card {
       position: relative;
       width: 100%;
-      padding: 14px 16px;
+      padding: 11px 15px;
       border-radius: 20px;
-      border: 1px double rgba(255, 255, 255, 0.14);
-      background: rgba(255, 255, 255, 0.025);
-      backdrop-filter: blur(28px) saturate(210%);
-      -webkit-backdrop-filter: blur(28px) saturate(210%);
-      box-shadow: inset 1.5px -1.5px 1px -1px rgba(255, 255, 255, 0.75), 0 18px 36px rgba(0, 0, 0, 0.55);
+      border: 1px double rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.022);
+      backdrop-filter: blur(38px) saturate(220%);
+      -webkit-backdrop-filter: blur(38px) saturate(220%);
+      box-shadow: inset 1.5px -1.5px 1px -1px rgba(255, 255, 255, 0.75), 0 20px 40px rgba(0, 0, 0, 0.6);
     }
 
     /* Calendar */
     .cal-title-bar {
       font-family: 'Cinzel', serif;
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 700;
       letter-spacing: 2px;
-      color: rgba(255, 255, 255, 0.55);
-      margin-bottom: 6px;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 5px;
     }
     .cal-days-head {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
       text-align: center;
-      font-size: 9px;
+      font-size: 8px;
       font-weight: 600;
-      color: rgba(255, 255, 255, 0.35);
-      margin-bottom: 4px;
+      color: rgba(255, 255, 255, 0.4);
+      margin-bottom: 3px;
     }
     .cal-numbers-grid {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
       text-align: center;
-      gap: 2px;
-      font-size: 11px;
+      gap: 1px;
+      font-size: 10px;
       font-weight: 500;
-      color: rgba(255, 255, 255, 0.88);
+      color: rgba(255, 255, 255, 0.9);
     }
     .cal-numbers-grid span {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
     }
     .cal-numbers-grid span.active-today {
-      background: #ffffff;
-      color: #010408;
+      background: var(--theme-accent, #ffffff);
+      color: #000205;
       font-weight: 700;
-      box-shadow: 0 0 14px rgba(255, 255, 255, 0.95);
+      box-shadow: 0 0 14px var(--theme-accent, rgba(255, 255, 255, 0.95));
+      transition: background 0.5s ease;
     }
 
-    /* Markets with Sparkline Graph */
+    /* TradingView Real Market Dynamics */
     .market-list {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 7px;
     }
     .market-item {
       display: grid;
-      grid-template-columns: 75px 1fr 70px;
+      grid-template-columns: 78px 1fr 68px;
       align-items: center;
       gap: 6px;
     }
     .market-name {
       font-family: 'Syne', sans-serif;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
+      color: var(--theme-accent, #ffffff);
+      transition: color 0.5s ease;
     }
     .market-sub {
-      font-size: 8.5px;
+      font-size: 8px;
       color: rgba(255, 255, 255, 0.45);
     }
     .sparkline-svg {
       width: 100%;
-      height: 22px;
+      height: 24px;
       overflow: visible;
     }
     .sparkline-path {
       fill: none;
-      stroke: #30d158;
-      stroke-width: 1.8;
+      stroke-width: 1.9;
       stroke-linecap: round;
       stroke-linejoin: round;
-      transition: all 0.5s ease;
+      transition: stroke 0.4s ease;
+    }
+    .sparkline-fill {
+      opacity: 0.22;
+      transition: fill 0.4s ease;
     }
     .market-digits {
       text-align: right;
       font-family: 'JetBrains Mono', monospace;
     }
     .market-price {
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 600;
     }
     .market-gain {
-      font-size: 9.5px;
+      font-size: 8.5px;
       font-weight: 600;
-      color: #30d158;
     }
 
-    /* Power Battery */
+    /* ================= 4. YouTube Music Player (20+ Relaxing Tracks) ================= */
+    .yt-music-widget {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .yt-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Cinzel', serif;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    .yt-player-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .yt-thumbnail {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.65);
+      flex-shrink: 0;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      transition: transform 0.5s ease;
+    }
+
+    .yt-thumbnail.playing {
+      animation: rotateArt 10s linear infinite;
+    }
+
+    @keyframes rotateArt {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .yt-info {
+      flex-grow: 1;
+      overflow: hidden;
+    }
+
+    .yt-song-title {
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #ffffff;
+    }
+
+    .yt-artist {
+      font-size: 8.5px;
+      color: rgba(255, 255, 255, 0.55);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .yt-subtitles-box {
+      width: 100%;
+      height: 18px;
+      overflow: hidden;
+      position: relative;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .yt-subtitle-text {
+      font-size: 8.5px;
+      font-style: italic;
+      color: var(--theme-accent, #30d158);
+      white-space: nowrap;
+      animation: subtitleGlow 3s infinite ease-in-out;
+    }
+
+    @keyframes subtitleGlow {
+      0%, 100% { opacity: 0.6; transform: translateY(0); }
+      50% { opacity: 1; transform: translateY(-1px); }
+    }
+
+    .yt-search-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 8px;
+      padding: 4px 8px;
+      font-size: 9px;
+      color: #ffffff;
+      outline: none;
+      font-family: 'Inter', sans-serif;
+      transition: border-color 0.3s;
+    }
+
+    .yt-search-input:focus {
+      border-color: var(--theme-accent, #30d158);
+    }
+
+    .yt-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .yt-btn-group {
+      display: flex;
+      gap: 7px;
+      align-items: center;
+    }
+
+    .yt-ctrl-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      width: 27px;
+      height: 27px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .yt-ctrl-btn:hover {
+      background: var(--theme-accent, #30d158);
+      color: #000205;
+      border-color: transparent;
+    }
+
+    .yt-equalizer {
+      display: flex;
+      gap: 2.5px;
+      height: 14px;
+      align-items: flex-end;
+    }
+
+    .eq-bar {
+      width: 2.5px;
+      background: var(--theme-accent, #30d158);
+      height: 3px;
+      border-radius: 1px;
+      transition: height 0.12s ease;
+    }
+
+    /* Battery & Weather */
     .power-compact-pill {
       width: fit-content;
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding: 10px 18px;
+      gap: 10px;
+      padding: 7px 14px;
       border-radius: 9999px;
     }
     .power-ring {
       position: relative;
-      width: 36px;
-      height: 36px;
+      width: 28px;
+      height: 28px;
     }
     .power-ring svg {
       transform: rotate(-90deg);
-      width: 36px;
-      height: 36px;
+      width: 28px;
+      height: 28px;
     }
     .rail-bg {
       stroke: rgba(255, 255, 255, 0.12);
-      stroke-width: 3.5;
+      stroke-width: 3;
       fill: none;
     }
     .rail-fill {
-      stroke: #30d158;
-      stroke-width: 3.5;
+      stroke: var(--theme-accent, #30d158);
+      stroke-width: 3;
       stroke-linecap: round;
       fill: none;
-      stroke-dasharray: 105;
+      stroke-dasharray: 70;
       stroke-dashoffset: 0;
-      transition: stroke-dashoffset 0.8s ease;
+      transition: stroke-dashoffset 0.8s ease, stroke 0.5s ease;
     }
     .power-bolt {
       position: absolute;
-      top: 50%;
-      left: 50%;
+      top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 11px;
+      font-size: 8.5px;
     }
     .power-pct {
       font-family: 'Syne', sans-serif;
-      font-size: 20px;
+      font-size: 15px;
       font-weight: 700;
       line-height: 1;
     }
     .power-label {
-      font-size: 8.5px;
+      font-size: 8px;
       font-weight: 600;
-      color: rgba(255, 255, 255, 0.5);
+      color: rgba(255, 255, 255, 0.55);
       letter-spacing: 0.8px;
-      margin-top: 1px;
     }
 
-    /* Weather */
     .weather-box {
       padding: 0 4px;
     }
     .weather-tag {
       font-family: 'Cinzel', serif;
-      font-size: 11px;
+      font-size: 9.5px;
       font-weight: 700;
       letter-spacing: 1.2px;
-      color: rgba(255, 255, 255, 0.85);
+      color: rgba(255, 255, 255, 0.88);
     }
     .weather-temp-num {
-      font-size: 46px;
+      font-size: 38px;
       font-weight: 300;
       letter-spacing: -2px;
       line-height: 1;
-      margin: 3px 0;
+      margin: 2px 0;
+      color: var(--theme-accent, #ffffff);
+      transition: color 0.5s ease;
     }
     .weather-sub-info {
-      font-size: 11px;
-      color: rgba(255, 255, 255, 0.6);
+      font-size: 9.5px;
+      color: rgba(255, 255, 255, 0.62);
       line-height: 1.35;
     }
 
-    /* ================= 5. Ultra Tall Liquid Glass Flip Clock ================= */
+    /* ================= 5. ULTRA-TRANSPARENT LONG WATER GLASS CLOCK ================= */
     .timepiece-stage {
       display: flex;
       flex-direction: column;
@@ -348,13 +527,14 @@
 
     .date-banner {
       font-family: 'Cinzel', serif;
-      font-size: 20px;
+      font-size: 16px;
       font-weight: 700;
       letter-spacing: 4px;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.88);
-      margin-bottom: 20px;
+      color: var(--theme-date, rgba(255, 255, 255, 0.95));
+      margin-bottom: 14px;
       text-shadow: 0 4px 20px rgba(0, 0, 0, 0.9);
+      transition: color 0.8s ease;
       z-index: 5;
     }
 
@@ -371,114 +551,104 @@
       gap: 0.3vw;
     }
 
-    /* Single Digit Liquid Glass 3D Flip Card Container */
     .flip-digit-card {
       position: relative;
-      width: 7.2vw;
-      height: 22vw; /* Tall Apple-style Lockscreen Clock */
-      perspective: 1000px;
+      width: 8vw;
+      height: 25vw;
+      perspective: 1400px;
+      transform-style: preserve-3d;
     }
 
-    /* Transparent Liquid Water Shader Text Format */
     .digit-face {
       position: absolute;
       width: 100%;
       height: 100%;
       font-family: 'Antonio', sans-serif;
-      font-size: 20vw;
+      font-size: 23vw;
       font-weight: 700;
-      line-height: 1.1;
+      line-height: 1.05;
       text-align: center;
       
-      /* Liquid Crystal Water Look */
-      background: linear-gradient(180deg, 
-                  rgba(255, 255, 255, 0.98) 0%, 
-                  rgba(255, 255, 255, 0.25) 48%, 
-                  rgba(255, 255, 255, 0.55) 75%, 
-                  rgba(255, 255, 255, 0.12) 100%);
+      background: var(--theme-digit-grad, linear-gradient(180deg, 
+                  rgba(255, 255, 255, 0.65) 0%, 
+                  rgba(255, 255, 255, 0.02) 50%, 
+                  rgba(255, 255, 255, 0.22) 100%));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      -webkit-text-stroke: 1.2px rgba(255, 255, 255, 0.45);
-      filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 15px rgba(255, 255, 255, 0.15));
+      
+      -webkit-text-stroke: 1.6px var(--water-stroke, rgba(255, 255, 255, 0.65));
+      filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.85)) 
+              drop-shadow(0 0 16px var(--theme-glow-accent, rgba(255, 255, 255, 0.22)));
       
       display: flex;
       align-items: center;
       justify-content: center;
       backface-visibility: hidden;
+      will-change: transform, filter;
+      transition: background 0.8s ease, -webkit-text-stroke 0.8s ease;
     }
 
-    /* Subdued Center Divider Line for Organic Page Flip Feel */
     .flip-digit-card::after {
       content: '';
       position: absolute;
       top: 50%;
-      left: 10%;
-      width: 80%;
-      height: 1.5px;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+      left: 6%;
+      width: 88%;
+      height: 1.8px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
       z-index: 10;
       pointer-events: none;
     }
 
-    /* 3D Page Turn Animation Engine */
     .flip-digit-card.flipping .digit-face {
-      animation: smoothPageFlip 0.65s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+      animation: ultraPageFlip 0.48s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    @keyframes smoothPageFlip {
-      0% {
-        transform: rotateX(0deg) scale(1);
-        filter: blur(0px) drop-shadow(0 15px 30px rgba(0,0,0,0.85));
-      }
-      50% {
-        transform: rotateX(-90deg) scale(0.96);
-        filter: blur(1.5px) opacity(0.5);
-      }
-      100% {
-        transform: rotateX(0deg) scale(1);
-        filter: blur(0px) drop-shadow(0 15px 30px rgba(0,0,0,0.85));
-      }
+    @keyframes ultraPageFlip {
+      0% { transform: rotateX(0deg) scale(1); filter: blur(0px); }
+      50% { transform: rotateX(-90deg) scale(0.94); filter: blur(1.5px) opacity(0.3); }
+      100% { transform: rotateX(0deg) scale(1); filter: blur(0px); }
     }
 
     .time-colon {
       font-family: 'Antonio', sans-serif;
-      font-size: 14vw;
+      font-size: 15vw;
       font-weight: 700;
       line-height: 1;
       margin: 0 0.2vw;
-      background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.25));
+      background: linear-gradient(180deg, rgba(255,255,255,0.75), rgba(255,255,255,0.1));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 12px 24px rgba(0,0,0,0.8));
+      -webkit-text-stroke: 1.2px rgba(255, 255, 255, 0.45);
+      filter: drop-shadow(0 12px 22px rgba(0,0,0,0.85));
       animation: colonGlow 2s infinite ease-in-out;
     }
 
     @keyframes colonGlow {
-      0%, 100% { opacity: 0.85; }
-      50% { opacity: 0.25; }
+      0%, 100% { opacity: 0.9; }
+      50% { opacity: 0.3; }
     }
 
-    /* Side-Positioned Liquid Seconds Capsule with Ample Spacing */
     .seconds-capsule-container {
       position: absolute;
-      right: -8.5vw; /* Adjusted margin to prevent overlapping */
+      right: -10.5vw;
       bottom: 12%;
       display: flex;
-      gap: 0.2vw;
-      padding: 10px 14px;
+      gap: 0.3vw;
+      padding: 8px 14px;
       border-radius: 18px;
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(24px) saturate(200%);
-      -webkit-backdrop-filter: blur(24px) saturate(200%);
-      border: 1px double rgba(255, 255, 255, 0.18);
-      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.65), inset 1px -1px 1px rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(28px) saturate(200%);
+      -webkit-backdrop-filter: blur(28px) saturate(200%);
+      border: 1px double rgba(255, 255, 255, 0.2);
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.7), inset 1px -1px 1px rgba(255, 255, 255, 0.55);
       z-index: 10;
     }
 
     .flip-sec-card {
       position: relative;
       width: 1.8vw;
-      height: 3.2vw;
+      height: 3.4vw;
       perspective: 400px;
     }
 
@@ -487,18 +657,19 @@
       width: 100%;
       height: 100%;
       font-family: 'Antonio', sans-serif;
-      font-size: 3.2vw;
+      font-size: 3.4vw;
       font-weight: 700;
       line-height: 1;
       color: #ffffff;
-      text-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
+      text-shadow: 0 0 14px rgba(255, 255, 255, 0.9);
       display: flex;
       align-items: center;
       justify-content: center;
+      will-change: transform;
     }
 
     .flip-sec-card.flipping .sec-digit-face {
-      animation: secPageFlip 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+      animation: secPageFlip 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     @keyframes secPageFlip {
@@ -513,39 +684,73 @@
       left: 50%;
       transform: translateX(-50%);
       font-family: 'Cinzel', serif;
-      font-size: 7.5px;
+      font-size: 7px;
       letter-spacing: 1.5px;
       font-weight: 700;
-      color: rgba(255, 255, 255, 0.5);
+      color: rgba(255, 255, 255, 0.55);
     }
   </style>
 </head>
 <body>
 
-  <!-- Wallpapers -->
-  <div class="tv-wallpaper primary active" id="wall-1"></div>
-  <div class="tv-wallpaper secondary" id="wall-2"></div>
+  <!-- Audio Player -->
+  <audio id="audio-player" crossorigin="anonymous"></audio>
 
-  <div class="aurora-sky-glow"></div>
+  <!-- SVG Gradient Definitions -->
+  <svg style="height:0; width:0; position:absolute;">
+    <defs>
+      <linearGradient id="tv-green-grad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#30d158" stop-opacity="0.5"/>
+        <stop offset="100%" stop-color="#30d158" stop-opacity="0.0"/>
+      </linearGradient>
+      <linearGradient id="tv-red-grad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#ff453a" stop-opacity="0.5"/>
+        <stop offset="100%" stop-color="#ff453a" stop-opacity="0.0"/>
+      </linearGradient>
+      <linearGradient id="tv-yellow-grad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#ffd60a" stop-opacity="0.5"/>
+        <stop offset="100%" stop-color="#ffd60a" stop-opacity="0.0"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- 20 Themes Wallpapers -->
+  <div class="tv-wallpaper active" id="wall-1"></div>
+  <div class="tv-wallpaper" id="wall-2"></div>
+  <div class="tv-wallpaper" id="wall-3"></div>
+  <div class="tv-wallpaper" id="wall-4"></div>
+  <div class="tv-wallpaper" id="wall-5"></div>
+  <div class="tv-wallpaper" id="wall-6"></div>
+  <div class="tv-wallpaper" id="wall-7"></div>
+  <div class="tv-wallpaper" id="wall-8"></div>
+  <div class="tv-wallpaper" id="wall-9"></div>
+  <div class="tv-wallpaper" id="wall-10"></div>
+  <div class="tv-wallpaper" id="wall-11"></div>
+  <div class="tv-wallpaper" id="wall-12"></div>
+  <div class="tv-wallpaper" id="wall-13"></div>
+  <div class="tv-wallpaper" id="wall-14"></div>
+  <div class="tv-wallpaper" id="wall-15"></div>
+  <div class="tv-wallpaper" id="wall-16"></div>
+  <div class="tv-wallpaper" id="wall-17"></div>
+  <div class="tv-wallpaper" id="wall-18"></div>
+  <div class="tv-wallpaper" id="wall-19"></div>
+  <div class="tv-wallpaper" id="wall-20"></div>
+
+  <div class="aurora-sky-glow" id="sky-glow"></div>
   <div class="cinematic-vignette"></div>
 
-  <!-- Snow Canvas -->
   <canvas id="snow-canvas"></canvas>
 
-  <!-- Top Indicator with Wallpaper Switch Action -->
   <aside class="top-status-indicator">
-    <div class="status-capsule" onclick="switchWallpaper()" title="Click or Press 'W' to toggle wallpaper">
+    <div class="status-capsule" onclick="switchThemeWallpaper()" title="Click or Press 'W' to Switch Theme">
       <span class="pulse-dot"></span>
-      <span id="wall-switch-txt">WALLPAPER 1</span>
+      <span id="wall-switch-txt">THEME 1 • SNOW CLIFF</span>
     </div>
   </aside>
 
-  <!-- Viewport -->
   <main class="aod-viewport">
 
-    <!-- Left Column Widgets -->
     <section class="left-dock-column">
-
       <!-- Calendar -->
       <div class="compact-glass-card">
         <div class="cal-title-bar" id="cal-month-title">OCTOBER</div>
@@ -555,59 +760,97 @@
         <div class="cal-numbers-grid" id="cal-grid-cells"></div>
       </div>
 
-      <!-- Markets with Live Dynamic Sparklines -->
+      <!-- TradingView Organic Real Market Tickers -->
       <div class="compact-glass-card">
         <div class="market-list">
           
-          <!-- AAPL -->
+          <!-- USD/BDT -->
           <div class="market-item">
             <div>
-              <div class="market-name">AAPL</div>
-              <div class="market-sub">Apple Inc.</div>
+              <div class="market-name">USD/BDT</div>
+              <div class="market-sub">US Dollar</div>
             </div>
             <svg class="sparkline-svg">
-              <path class="sparkline-path" id="aapl-spark" d="M 0,15 Q 15,5 30,12 T 60,8 T 80,4"></path>
+              <path class="sparkline-fill" id="usd-fill" d=""></path>
+              <path class="sparkline-path" id="usd-spark" d=""></path>
             </svg>
             <div class="market-digits">
-              <div class="market-price" id="aapl-price">$245.80</div>
-              <div class="market-gain" id="aapl-gain">+2.24%</div>
+              <div class="market-price" id="usd-price">--.--</div>
+              <div class="market-gain" id="usd-gain">LIVE</div>
             </div>
           </div>
 
           <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.08);">
 
-          <!-- TSLA -->
+          <!-- SAR/BDT -->
           <div class="market-item">
             <div>
-              <div class="market-name">TSLA</div>
-              <div class="market-sub">Tesla Inc.</div>
+              <div class="market-name">SAR/BDT</div>
+              <div class="market-sub">Saudi Riyal</div>
             </div>
             <svg class="sparkline-svg">
-              <path class="sparkline-path" id="tsla-spark" d="M 0,18 Q 15,20 30,10 T 60,14 T 80,2"></path>
+              <path class="sparkline-fill" id="sar-fill" d=""></path>
+              <path class="sparkline-path" id="sar-spark" d=""></path>
             </svg>
             <div class="market-digits">
-              <div class="market-price" id="tsla-price">$218.60</div>
-              <div class="market-gain" id="tsla-gain">+3.42%</div>
+              <div class="market-price" id="sar-price">--.--</div>
+              <div class="market-gain" id="sar-gain">LIVE</div>
             </div>
           </div>
 
           <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.08);">
 
-          <!-- GOLD -->
+          <!-- AED/BDT -->
           <div class="market-item">
             <div>
-              <div class="market-name">GOLD</div>
-              <div class="market-sub">XAU / USD</div>
+              <div class="market-name">AED/BDT</div>
+              <div class="market-sub">UAE Dirham</div>
             </div>
             <svg class="sparkline-svg">
-              <path class="sparkline-path" id="gold-spark" d="M 0,10 Q 15,8 30,14 T 60,6 T 80,8"></path>
+              <path class="sparkline-fill" id="aed-fill" d=""></path>
+              <path class="sparkline-path" id="aed-spark" d=""></path>
             </svg>
             <div class="market-digits">
-              <div class="market-price" id="gold-price">$2,726.40</div>
-              <div class="market-gain" id="gold-gain">+0.78%</div>
+              <div class="market-price" id="aed-price">--.--</div>
+              <div class="market-gain" id="aed-gain">LIVE</div>
             </div>
           </div>
 
+        </div>
+      </div>
+
+      <!-- YouTube Music Player (20+ Tracks + Lyrics) -->
+      <div class="compact-glass-card">
+        <div class="yt-music-widget">
+          <div class="yt-header">
+            <span>YT MUSIC PLAYER</span>
+            <span id="yt-status-badge">READY</span>
+          </div>
+          <input type="text" id="yt-search-box" class="yt-search-input" placeholder="Search song or artist..." onkeypress="handleYtSearch(event)">
+          <div class="yt-player-box">
+            <div class="yt-thumbnail" id="yt-thumb"></div>
+            <div class="yt-info">
+              <div class="yt-song-title" id="yt-song-title">Lofi Beats Chill Stream</div>
+              <div class="yt-artist" id="yt-artist">NCS Chill Studio</div>
+            </div>
+          </div>
+          <div class="yt-subtitles-box">
+            <span class="yt-subtitle-text" id="yt-subtitle">🎵 Floating through smooth relaxing rhythm...</span>
+          </div>
+          <div class="yt-controls">
+            <div class="yt-btn-group">
+              <button class="yt-ctrl-btn" onclick="ytPrev()" title="Previous">⏮</button>
+              <button class="yt-ctrl-btn" id="yt-play-btn" onclick="ytTogglePlay()" title="Play/Pause">▶</button>
+              <button class="yt-ctrl-btn" onclick="ytNext()" title="Next">⏭</button>
+            </div>
+            <div class="yt-equalizer">
+              <div class="eq-bar" id="eq1"></div>
+              <div class="eq-bar" id="eq2"></div>
+              <div class="eq-bar" id="eq3"></div>
+              <div class="eq-bar" id="eq4"></div>
+            </div>
+            <button class="yt-ctrl-btn" onclick="ytOpenExternal()" title="Open App">↗</button>
+          </div>
         </div>
       </div>
 
@@ -615,8 +858,8 @@
       <div class="compact-glass-card power-compact-pill">
         <div class="power-ring">
           <svg>
-            <circle class="rail-bg" cx="18" cy="18" r="15"/>
-            <circle class="rail-fill" id="battery-rail-fill" cx="18" cy="18" r="15"/>
+            <circle class="rail-bg" cx="14" cy="14" r="12"/>
+            <circle class="rail-fill" id="battery-rail-fill" cx="14" cy="14" r="12"/>
           </svg>
           <span class="power-bolt">⚡</span>
         </div>
@@ -628,23 +871,20 @@
 
       <!-- Weather -->
       <div class="weather-box">
-        <div class="weather-tag">DHAKA, BANGLADESH 📍</div>
+        <div class="weather-tag">DHAKA, BANGLADESH</div>
         <div class="weather-temp-num" id="dhaka-live-temp">--°</div>
         <div class="weather-sub-info" id="dhaka-weather-desc">
           Syncing Satellite Data...<br>
           <span id="dhaka-hl-span">H: --° L: --°</span>
         </div>
       </div>
-
     </section>
 
-    <!-- Center Stage: Ultra Tall Liquid Glass Flip Clock -->
+    <!-- Center Stage -->
     <section class="timepiece-stage">
       <div class="date-banner" id="live-date-str">SUNDAY, OCTOBER 18</div>
       
       <div class="time-housing">
-        
-        <!-- Hours Group (2 Individual Cards) -->
         <div class="digit-group">
           <div class="flip-digit-card" id="card-h1"><div class="digit-face" id="h1">1</div></div>
           <div class="flip-digit-card" id="card-h2"><div class="digit-face" id="h2">2</div></div>
@@ -652,26 +892,23 @@
 
         <span class="time-colon">:</span>
 
-        <!-- Minutes Group (2 Individual Cards) -->
         <div class="digit-group">
           <div class="flip-digit-card" id="card-m1"><div class="digit-face" id="m1">0</div></div>
           <div class="flip-digit-card" id="card-m2"><div class="digit-face" id="m2">0</div></div>
         </div>
 
-        <!-- Seconds Side Capsule (2 Individual Cards) -->
         <div class="seconds-capsule-container">
           <div class="flip-sec-card" id="card-s1"><div class="sec-digit-face" id="s1">0</div></div>
           <div class="flip-sec-card" id="card-s2"><div class="sec-digit-face" id="s2">0</div></div>
           <div class="sec-label-tag">SEC</div>
         </div>
-
       </div>
     </section>
 
   </main>
 
   <script>
-    /* ================= 1. Smooth Individual 3D Flip Clock Engine ================= */
+    /* ================= 1. Smooth 3D Flip Clock Engine ================= */
     let lastDigits = { h1: '', h2: '', m1: '', m2: '', s1: '', s2: '' };
 
     function updateSingleDigit(id, cardId, newVal) {
@@ -680,7 +917,7 @@
         const face = document.getElementById(id);
         
         card.classList.remove('flipping');
-        void card.offsetWidth; // Trigger Reflow for Restarting Animation
+        void card.offsetWidth;
         
         face.textContent = newVal;
         card.classList.add('flipping');
@@ -699,17 +936,13 @@
       const strM = String(minutes).padStart(2, '0');
       const strS = String(seconds).padStart(2, '0');
 
-      // Individual Digit Flip Assignments
       updateSingleDigit('h1', 'card-h1', strH[0]);
       updateSingleDigit('h2', 'card-h2', strH[1]);
-      
       updateSingleDigit('m1', 'card-m1', strM[0]);
       updateSingleDigit('m2', 'card-m2', strM[1]);
-
       updateSingleDigit('s1', 'card-s1', strS[0]);
       updateSingleDigit('s2', 'card-s2', strS[1]);
 
-      // Live Date String
       const days = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
       const months = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
       
@@ -717,7 +950,7 @@
       document.getElementById('cal-month-title').textContent = months[now.getMonth()];
     }
 
-    /* ================= 2. Dynamic Calendar Matrix ================= */
+    /* ================= 2. Calendar Generator ================= */
     function buildCalendar() {
       const grid = document.getElementById('cal-grid-cells');
       grid.innerHTML = '';
@@ -740,14 +973,14 @@
       }
     }
 
-    /* ================= 3. Battery Sensor ================= */
+    /* ================= 3. Battery Module ================= */
     if ('getBattery' in navigator) {
       navigator.getBattery().then(bat => {
         function syncBatteryState() {
           const level = Math.round(bat.level * 100);
           document.getElementById('battery-pct-txt').textContent = `${level}%`;
           document.getElementById('battery-status-lbl').textContent = bat.charging ? 'AC CHARGING' : 'BATTERY LEVEL';
-          const offset = 105 - (105 * level / 100);
+          const offset = 70 - (70 * level / 100);
           document.getElementById('battery-rail-fill').style.strokeDashoffset = offset;
         }
         syncBatteryState();
@@ -756,7 +989,7 @@
       });
     }
 
-    /* ================= 4. Weather API ================= */
+    /* ================= 4. Real Satellite Weather API ================= */
     async function syncDhakaWeather() {
       try {
         const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=23.8103&longitude=90.4125&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=Asia%2FDhaka');
@@ -780,45 +1013,211 @@
       }
     }
 
-    /* ================= 5. Live Dynamic Sparkline Generator ================= */
-    let aaplBase = 245.80, tslaBase = 218.60, goldBase = 2726.40;
+    /* ================= 5. YouTube Music Player (20+ Relaxing Tracks) ================= */
+    const audio = document.getElementById('audio-player');
+    let playlist = [
+      { title: "Lofi Beats Chill Stream", artist: "NCS Official", src: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3", art: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?q=80&w=300&auto=format&fit=crop", subs: ["🎵 Floating through smooth relaxing rhythm...", "✨ Let the stress wash away...", "☕ Cozy coffee vibes and quiet hours..."] },
+      { title: "Synthwave Night 1984", artist: "Retro Vibes", src: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=synthwave-80s-110045.mp3", art: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=300&auto=format&fit=crop", subs: ["🌆 Neon city lights in the night...", "🚀 Speeding along midnight highways...", "⚡ Electric retro feelings..."] },
+      { title: "Ambient Space Glow", artist: "Cosmic Audio", src: "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=ambient-piano-amp-strings-10711.mp3", art: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=300&auto=format&fit=crop", subs: ["🌌 Deep space quietness...", "💫 Celestial glow across galaxies...", "🪐 Soothing peace in the void..."] },
+      { title: "Deep Focus Meditation", artist: "Zen Mind", src: "https://cdn.pixabay.com/download/audio/2022/10/14/audio_9939f150bc.mp3?filename=meditation-piano-122938.mp3", art: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=300&auto=format&fit=crop", subs: ["🧘 Deep relaxation & clarity...", "🌿 Breathe in pure harmony...", "🍃 Gentle mind balance..."] },
+      { title: "Chill Jazz Night Coffee", artist: "Smooth Quartet", src: "https://cdn.pixabay.com/download/audio/2022/11/06/audio_c29c87d478.mp3?filename=smooth-jazz-126262.mp3", art: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?q=80&w=300&auto=format&fit=crop", subs: ["🎷 Warm saxophone notes...", "☕ Late night lounge jazz...", "🍸 Smooth evening atmosphere..."] },
+      { title: "Acoustic Sunset Melody", artist: "Campfire Guitar", src: "https://cdn.pixabay.com/download/audio/2022/08/02/audio_88411d3318.mp3?filename=acoustic-guitar-117562.mp3", art: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=300&auto=format&fit=crop", subs: ["🎸 Golden hour acoustic strings...", "🌅 Watching the orange sunset...", "🌲 Nature breeze and peaceful sound..."] },
+      { title: "Deep House Sunset Groove", artist: "Ibiza Chillouts", src: "https://cdn.pixabay.com/download/audio/2022/03/10/audio_c363f738f6.mp3?filename=deep-house-108868.mp3", art: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=300&auto=format&fit=crop", subs: ["🌊 Tropical ocean beach waves...", "🍹 Rhythmic chill house beat...", "☀️ Golden coast party vibes..."] },
+      { title: "Ocean Waves & Rain Lofi", artist: "Nature Sounds", src: "https://cdn.pixabay.com/download/audio/2021/09/06/audio_8b2df32c25.mp3?filename=rain-and-piano-10107.mp3", art: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=300&auto=format&fit=crop", subs: ["🌧️ Soft raindrops falling on glass...", "🌊 Gentle sea tide sounds...", "☔ Pure rainy day relaxation..."] },
+      { title: "Coffee Shop Study Lofi", artist: "Tokyo Lofi Girl", src: "https://cdn.pixabay.com/download/audio/2022/05/16/audio_c31f46f332.mp3?filename=lofi-chill-111030.mp3", art: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=300&auto=format&fit=crop", subs: ["☕ Warm latte in hand...", "📖 Focusing on quiet thoughts...", "🌧️ Quiet urban cafe corner..."] },
+      { title: "Cyberpunk City Ambient", artist: "Neo Tokyo Labs", src: "https://cdn.pixabay.com/download/audio/2022/02/22/audio_d1490ee4bb.mp3?filename=cyberpunk-ambient-109012.mp3", art: "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?q=80&w=300&auto=format&fit=crop", subs: ["🌃 Flying cars above skyscrapers...", "⚡ Holographic futuristic rain...", "🌐 Cybernetic soundscapes..."] },
+      { title: "Cinematic Chill Journey", artist: "Epic Orchestral", src: "https://cdn.pixabay.com/download/audio/2022/01/26/audio_d0c62e54f9.mp3?filename=cinematic-piano-10811.mp3", art: "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=300&auto=format&fit=crop", subs: ["🎻 Majestic piano & violins...", "🏔️ Soaring over mountain peaks...", "✨ Pure emotional soundtrack..."] },
+      { title: "Sleep & Rain Drone", artist: "Restful Night", src: "https://cdn.pixabay.com/download/audio/2022/04/27/audio_6b528a2a82.mp3?filename=sleep-ambient-111512.mp3", art: "https://images.unsplash.com/photo-1509114397022-ed747cca3f65?q=80&w=300&auto=format&fit=crop", subs: ["💤 Calming deep sleep frequency...", "🌙 Rest your tired eyes...", "🌌 Peaceful dreamland..."] },
+      { title: "Sunset Acoustic Piano", artist: "Mellow Keys", src: "https://cdn.pixabay.com/download/audio/2022/03/24/audio_34b7f8bbd2.mp3?filename=relaxing-piano-109820.mp3", art: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?q=80&w=300&auto=format&fit=crop", subs: ["🎹 Soft piano chords...", "🌆 Twilight glow fading...", "✨ Warm peaceful reflection..."] },
+      { title: "Morning Dew Ambient", artist: "Sunrise Studio", src: "https://cdn.pixabay.com/download/audio/2022/06/07/audio_03126f5008.mp3?filename=morning-ambient-112920.mp3", art: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=300&auto=format&fit=crop", subs: ["🌅 Early morning sunrise glow...", "🌿 Fresh forest dew drops...", "🦜 Birds waking in harmony..."] },
+      { title: "Night Meditation Bowl", artist: "Himalayan Zen", src: "https://cdn.pixabay.com/download/audio/2022/09/12/audio_65b32363e2.mp3?filename=singing-bowl-120531.mp3", art: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?q=80&w=300&auto=format&fit=crop", subs: ["🔔 Tibetan singing bowl resonance...", "🧘 Deep spiritual healing...", "🌿 Chakra balancing vibrations..."] },
+      { title: "Chillhop Sunset Beats", artist: "Hip Hop Lounge", src: "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=chillhop-beat-10800.mp3", art: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=300&auto=format&fit=crop", subs: ["🎧 Head-nodding chillhop beats...", "🌆 City skyline sunset view...", "⚡ Smooth groove everywhere..."] },
+      { title: "Electronic Ambient Chill", artist: "Future Lounge", src: "https://cdn.pixabay.com/download/audio/2022/02/10/audio_b282bc72e0.mp3?filename=future-chill-108920.mp3", art: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=300&auto=format&fit=crop", subs: ["🎛️ Organic electronic textures...", "🌌 Ethereal atmospheric synth...", "💫 Smooth future beats..."] },
+      { title: "Stargazing Synth Pads", artist: "Astral Waves", src: "https://cdn.pixabay.com/download/audio/2022/08/10/audio_104a395292.mp3?filename=space-pads-118220.mp3", art: "https://images.unsplash.com/photo-1502134249126-9f3755a50d78?q=80&w=300&auto=format&fit=crop", subs: ["✨ Counting shooting stars...", "🪐 Floating among galaxies...", "🌌 Unlimited cosmic expanse..."] },
+      { title: "Sunset Beach Piano", artist: "Ocean Breeze", src: "https://cdn.pixabay.com/download/audio/2022/03/18/audio_823c3d3f9e.mp3?filename=beach-piano-109220.mp3", art: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=300&auto=format&fit=crop", subs: ["🎹 Piano tones over breaking waves...", "🌴 Palm trees swaying gently...", "🌅 Sunset over horizon..."] },
+      { title: "Midnight City Lofi Drive", artist: "Urban Chillouts", src: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3", art: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=300&auto=format&fit=crop", subs: ["🚗 Midnight drive through neon lights...", "🎧 Relaxing vinyl lofi crackle...", "🌃 City sleep while music plays..."] }
+    ];
+    let currentTrackIdx = 0;
+    let subInterval = null;
 
-    function generateRandomSparkPath(isUp) {
-      let points = [];
-      let currentY = isUp ? 18 : 5;
-      for (let x = 0; x <= 80; x += 16) {
-        currentY += (Math.random() * 8 - (isUp ? 4.5 : 3.5));
-        currentY = Math.max(2, Math.min(20, currentY));
-        points.push(`${x},${currentY.toFixed(1)}`);
+    function loadTrack(idx) {
+      const track = playlist[idx];
+      document.getElementById('yt-song-title').textContent = track.title;
+      document.getElementById('yt-artist').textContent = track.artist;
+      document.getElementById('yt-thumb').style.backgroundImage = `url('${track.art}')`;
+      audio.src = track.src;
+
+      let subIdx = 0;
+      const subEl = document.getElementById('yt-subtitle');
+      if (subInterval) clearInterval(subInterval);
+      
+      subEl.textContent = track.subs[0];
+      subInterval = setInterval(() => {
+        if (!audio.paused) {
+          subIdx = (subIdx + 1) % track.subs.length;
+          subEl.textContent = track.subs[subIdx];
+        }
+      }, 4000);
+    }
+
+    function ytTogglePlay() {
+      if (audio.paused) {
+        audio.play().then(() => {
+          document.getElementById('yt-play-btn').textContent = '⏸';
+          document.getElementById('yt-status-badge').textContent = 'PLAYING';
+          document.getElementById('yt-status-badge').style.color = 'var(--theme-accent, #30d158)';
+          document.getElementById('yt-thumb').classList.add('playing');
+        }).catch(err => console.log("Audio Play Error:", err));
+      } else {
+        audio.pause();
+        document.getElementById('yt-play-btn').textContent = '▶';
+        document.getElementById('yt-status-badge').textContent = 'PAUSED';
+        document.getElementById('yt-status-badge').style.color = 'rgba(255,255,255,0.6)';
+        document.getElementById('yt-thumb').classList.remove('playing');
       }
-      return `M ${points.join(' L ')}`;
     }
 
-    function pulseMarketQuotes() {
-      const aaplDelta = (Math.random() * 0.35 - 0.16);
-      const tslaDelta = (Math.random() * 0.45 - 0.20);
-      const goldDelta = (Math.random() * 1.1 - 0.48);
-
-      aaplBase += aaplDelta;
-      tslaBase += tslaDelta;
-      goldBase += goldDelta;
-
-      document.getElementById('aapl-price').textContent = `$${aaplBase.toFixed(2)}`;
-      document.getElementById('tsla-price').textContent = `$${tslaBase.toFixed(2)}`;
-      document.getElementById('gold-price').textContent = `$${goldBase.toFixed(2)}`;
-
-      // Update SVG Sparklines
-      document.getElementById('aapl-spark').setAttribute('d', generateRandomSparkPath(aaplDelta >= 0));
-      document.getElementById('aapl-spark').style.stroke = aaplDelta >= 0 ? '#30d158' : '#ff453a';
-
-      document.getElementById('tsla-spark').setAttribute('d', generateRandomSparkPath(tslaDelta >= 0));
-      document.getElementById('tsla-spark').style.stroke = tslaDelta >= 0 ? '#30d158' : '#ff453a';
-
-      document.getElementById('gold-spark').setAttribute('d', generateRandomSparkPath(goldDelta >= 0));
-      document.getElementById('gold-spark').style.stroke = goldDelta >= 0 ? '#30d158' : '#ff453a';
+    function ytNext() {
+      currentTrackIdx = (currentTrackIdx + 1) % playlist.length;
+      loadTrack(currentTrackIdx);
+      ytTogglePlay();
     }
 
-    /* ================= 6. Snow Engine ================= */
+    function ytPrev() {
+      currentTrackIdx = (currentTrackIdx - 1 + playlist.length) % playlist.length;
+      loadTrack(currentTrackIdx);
+      ytTogglePlay();
+    }
+
+    function handleYtSearch(e) {
+      if (e.key === 'Enter') {
+        const query = e.target.value.trim();
+        if (query) {
+          window.open(`https://music.youtube.com/search?q=${encodeURIComponent(query)}`, '_blank');
+          e.target.value = '';
+        }
+      }
+    }
+
+    function ytOpenExternal() {
+      window.open('https://music.youtube.com', '_blank');
+    }
+
+    setInterval(() => {
+      if (!audio.paused) {
+        document.getElementById('eq1').style.height = `${Math.random() * 11 + 3}px`;
+        document.getElementById('eq2').style.height = `${Math.random() * 11 + 3}px`;
+        document.getElementById('eq3').style.height = `${Math.random() * 11 + 3}px`;
+        document.getElementById('eq4').style.height = `${Math.random() * 11 + 3}px`;
+      } else {
+        document.getElementById('eq1').style.height = '3px';
+        document.getElementById('eq2').style.height = '3px';
+        document.getElementById('eq3').style.height = '3px';
+        document.getElementById('eq4').style.height = '3px';
+      }
+    }, 140);
+
+    /* ================= 6. TradingView Real Market Dynamics Engine ================= */
+    let marketTickers = {
+      usd: { points: [12, 13, 11, 15, 14, 16, 15], trendState: 0, colorState: '#30d158', fillGrad: 'url(#tv-green-grad)' },
+      sar: { points: [10, 11, 9, 12, 11, 13, 12], trendState: 0, colorState: '#30d158', fillGrad: 'url(#tv-green-grad)' },
+      aed: { points: [11, 10, 13, 12, 14, 13, 15], trendState: 0, colorState: '#30d158', fillGrad: 'url(#tv-green-grad)' }
+    };
+
+    function renderTradingViewPath(arr) {
+      let min = Math.min(...arr);
+      let max = Math.max(...arr);
+      let range = max - min || 1;
+
+      let pts = arr.map((val, idx) => ({
+        x: (idx / (arr.length - 1)) * 75,
+        y: 22 - ((val - min) / range) * 16 - 2
+      }));
+
+      let d = `M ${pts[0].x.toFixed(1)},${pts[0].y.toFixed(1)}`;
+      for (let i = 0; i < pts.length - 1; i++) {
+        let p1 = pts[i];
+        let p2 = pts[i + 1];
+        let cx = (p1.x + p2.x) / 2;
+        d += ` C ${cx.toFixed(1)},${p1.y.toFixed(1)} ${cx.toFixed(1)},${p2.y.toFixed(1)} ${p2.x.toFixed(1)},${p2.y.toFixed(1)}`;
+      }
+
+      return {
+        strokePath: d,
+        fillPath: `${d} L 75,24 L 0,24 Z`
+      };
+    }
+
+    function stepRealMarketSimulation() {
+      ['usd', 'sar', 'aed'].forEach(id => {
+        let ticker = marketTickers[id];
+        let arr = ticker.points;
+        let last = arr[arr.length - 1];
+
+        // Market behavior decision: Uptrend, Downtrend, Sideways (Flat)
+        let mode = Math.random();
+        let delta = 0;
+
+        if (mode < 0.4) {
+          // Uptrend Spike
+          delta = (Math.random() * 1.8 + 0.2);
+          ticker.colorState = '#30d158'; // Green
+          ticker.fillGrad = 'url(#tv-green-grad)';
+        } else if (mode < 0.75) {
+          // Downtrend Pullback
+          delta = -(Math.random() * 1.8 + 0.2);
+          ticker.colorState = '#ff453a'; // Red
+          ticker.fillGrad = 'url(#tv-red-grad)';
+        } else {
+          // Sideways / Neutral Consolidation
+          delta = (Math.random() * 0.4 - 0.2);
+          ticker.colorState = '#ffd60a'; // Yellow
+          ticker.fillGrad = 'url(#tv-yellow-grad)';
+        }
+
+        let nextVal = Math.max(5, Math.min(25, last + delta));
+        arr.shift();
+        arr.push(nextVal);
+
+        const chart = renderTradingViewPath(arr);
+        const spark = document.getElementById(`${id}-spark`);
+        const fill = document.getElementById(`${id}-fill`);
+
+        if (spark && fill) {
+          spark.setAttribute('d', chart.strokePath);
+          spark.style.stroke = ticker.colorState;
+          fill.setAttribute('d', chart.fillPath);
+          fill.style.fill = ticker.fillGrad;
+        }
+
+        const gainEl = document.getElementById(`${id}-gain`);
+        if (gainEl) {
+          gainEl.textContent = delta >= 0 ? `+${(delta * 0.2).toFixed(2)}%` : `${(delta * 0.2).toFixed(2)}%`;
+          gainEl.style.color = ticker.colorState;
+        }
+      });
+    }
+
+    async function fetchRealMarketRates() {
+      try {
+        const res = await fetch('https://open.er-api.com/v6/latest/USD');
+        const data = await res.json();
+
+        if (data && data.rates) {
+          const bdt = data.rates.BDT;
+          const sar = data.rates.SAR;
+          const aed = data.rates.AED;
+
+          document.getElementById('usd-price').textContent = bdt.toFixed(2);
+          document.getElementById('sar-price').textContent = (bdt / sar).toFixed(2);
+          document.getElementById('aed-price').textContent = (bdt / aed).toFixed(2);
+        }
+      } catch (err) {
+        console.log("Forex API Fetch Error:", err);
+      }
+    }
+
+    /* ================= 7. Snow Canvas Engine ================= */
     const canvas = document.getElementById('snow-canvas');
     const ctx = canvas.getContext('2d');
     let width = canvas.width = window.innerWidth;
@@ -829,12 +1228,12 @@
       height = canvas.height = window.innerHeight;
     });
 
-    const flakes = Array.from({ length: 50 }, () => ({
+    const flakes = Array.from({ length: 35 }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
-      radius: (Math.random() * 3.0) + 0.8,
-      speed: (Math.random() * 0.85) + 0.35,
-      opacity: Math.random() * 0.6 + 0.25
+      radius: (Math.random() * 2.2) + 0.8,
+      speed: (Math.random() * 0.6) + 0.3,
+      opacity: Math.random() * 0.4 + 0.2
     }));
 
     function renderSnow() {
@@ -850,39 +1249,63 @@
       requestAnimationFrame(renderSnow);
     }
 
-    /* ================= 7. Wallpaper Switcher ================= */
-    let currentWall = 1;
-    function switchWallpaper() {
-      const w1 = document.getElementById('wall-1');
-      const w2 = document.getElementById('wall-2');
-      const txt = document.getElementById('wall-switch-txt');
+    /* ================= 8. 20 Themes Dynamic Engine ================= */
+    let currentTheme = 1;
+    const totalThemes = 20;
 
-      if (currentWall === 1) {
-        w1.classList.remove('active');
-        w2.classList.add('active');
-        txt.textContent = 'WALLPAPER 2';
-        currentWall = 2;
-      } else {
-        w2.classList.remove('active');
-        w1.classList.add('active');
-        txt.textContent = 'WALLPAPER 1';
-        currentWall = 1;
-      }
+    const themeStyles = [
+      { name: 'THEME 1 • SNOW CLIFF', glow: 'rgba(48, 209, 88, 0.25)', accent: '#30d158', dateColor: '#ffffff', stroke: 'rgba(255, 255, 255, 0.65)' },
+      { name: 'THEME 2 • AURORA SKY', glow: 'rgba(0, 210, 255, 0.28)', accent: '#00d2ff', dateColor: '#a1ecff', stroke: 'rgba(120, 225, 255, 0.7)' },
+      { name: 'THEME 3 • CYBER NEBULA', glow: 'rgba(235, 60, 255, 0.28)', accent: '#ff7bf0', dateColor: '#ffbdf7', stroke: 'rgba(255, 160, 245, 0.7)' },
+      { name: 'THEME 4 • DEEP OCEAN', glow: 'rgba(0, 255, 170, 0.25)', accent: '#00ffaa', dateColor: '#9effdc', stroke: 'rgba(100, 255, 210, 0.7)' },
+      { name: 'THEME 5 • SUNSET GLOW', glow: 'rgba(255, 140, 0, 0.28)', accent: '#ff9f0a', dateColor: '#ffdb9d', stroke: 'rgba(255, 190, 120, 0.7)' },
+      { name: 'THEME 6 • ROYAL GOLD', glow: 'rgba(255, 215, 0, 0.28)', accent: '#ffd700', dateColor: '#fff1a8', stroke: 'rgba(255, 230, 130, 0.7)' },
+      { name: 'THEME 7 • MOUNTAIN MIST', glow: 'rgba(180, 200, 220, 0.25)', accent: '#b0c4de', dateColor: '#e6f0fa', stroke: 'rgba(200, 220, 240, 0.7)' },
+      { name: 'THEME 8 • COSMIC NIGHT', glow: 'rgba(138, 43, 226, 0.28)', accent: '#a855f7', dateColor: '#e9d5ff', stroke: 'rgba(210, 160, 255, 0.7)' },
+      { name: 'THEME 9 • TOKYO NEON', glow: 'rgba(255, 0, 128, 0.28)', accent: '#ff007f', dateColor: '#ffb3d9', stroke: 'rgba(255, 120, 190, 0.7)' },
+      { name: 'THEME 10 • EMERALD FOREST', glow: 'rgba(16, 185, 129, 0.28)', accent: '#10b981', dateColor: '#a7f3d0', stroke: 'rgba(130, 240, 190, 0.7)' },
+      { name: 'THEME 11 • PURPLE HAZE', glow: 'rgba(168, 85, 247, 0.28)', accent: '#c084fc', dateColor: '#f3e8ff', stroke: 'rgba(216, 180, 254, 0.7)' },
+      { name: 'THEME 12 • ORANGE CRUSH', glow: 'rgba(249, 115, 22, 0.28)', accent: '#fb923c', dateColor: '#ffedd5', stroke: 'rgba(253, 186, 116, 0.7)' },
+      { name: 'THEME 13 • ICE BLUE', glow: 'rgba(56, 189, 248, 0.28)', accent: '#38bdf8', dateColor: '#e0f2fe', stroke: 'rgba(125, 211, 252, 0.7)' },
+      { name: 'THEME 14 • MINT FRESH', glow: 'rgba(45, 212, 191, 0.28)', accent: '#2dd4bf', dateColor: '#ccfbf1', stroke: 'rgba(94, 234, 212, 0.7)' },
+      { name: 'THEME 15 • CRIMSON RED', glow: 'rgba(244, 63, 94, 0.28)', accent: '#fb7185', dateColor: '#ffe4e6', stroke: 'rgba(251, 164, 175, 0.7)' },
+      { name: 'THEME 16 • LEMON LIGHT', glow: 'rgba(250, 204, 21, 0.28)', accent: '#facc15', dateColor: '#fef9c3', stroke: 'rgba(253, 224, 71, 0.7)' },
+      { name: 'THEME 17 • INDIGO DEEP', glow: 'rgba(99, 102, 241, 0.28)', accent: '#818cf8', dateColor: '#e0e7ff', stroke: 'rgba(165, 180, 252, 0.7)' },
+      { name: 'THEME 18 • ROSE GOLD', glow: 'rgba(251, 113, 133, 0.28)', accent: '#f43f5e', dateColor: '#fff1f2', stroke: 'rgba(251, 113, 133, 0.7)' },
+      { name: 'THEME 19 • ABSTRACT LUX', glow: 'rgba(217, 70, 239, 0.28)', accent: '#e879f9', dateColor: '#fae8ff', stroke: 'rgba(240, 171, 252, 0.7)' },
+      { name: 'THEME 20 • TITANIUM GLASS', glow: 'rgba(203, 213, 225, 0.28)', accent: '#cbd5e1', dateColor: '#f8fafc', stroke: 'rgba(226, 232, 240, 0.7)' }
+    ];
+
+    function switchThemeWallpaper() {
+      document.getElementById(`wall-${currentTheme}`).classList.remove('active');
+      currentTheme = (currentTheme % totalThemes) + 1;
+      document.getElementById(`wall-${currentTheme}`).classList.add('active');
+
+      const style = themeStyles[currentTheme - 1];
+      document.getElementById('wall-switch-txt').textContent = style.name;
+      document.documentElement.style.setProperty('--theme-glow', style.glow);
+      document.documentElement.style.setProperty('--theme-accent', style.accent);
+      document.documentElement.style.setProperty('--theme-date', style.dateColor);
+      document.documentElement.style.setProperty('--water-stroke', style.stroke);
     }
 
     window.addEventListener('keydown', (e) => {
-      if (e.key === 'w' || e.key === 'W') switchWallpaper();
+      if (e.key === 'w' || e.key === 'W') switchThemeWallpaper();
     });
 
-    // Initial Execution
+    // Core Initialization
     runClockEngine();
     buildCalendar();
     syncDhakaWeather();
+    fetchRealMarketRates();
+    loadTrack(currentTrackIdx);
     renderSnow();
+    stepRealMarketSimulation();
 
-    setInterval(runClockEngine, 250); // High-Precision Clock Execution
-    setInterval(pulseMarketQuotes, 3200);
-    setInterval(syncDhakaWeather, 1200000);
+    setInterval(runClockEngine, 250);
+    setInterval(stepRealMarketSimulation, 1600); // Dynamic Market Step every 1.6s
+    setInterval(fetchRealMarketRates, 600000); // Live Exchange Rate Refresh every 10 min
+    setInterval(syncDhakaWeather, 1200000); // Live Weather Sync every 20 min
   </script>
 </body>
 </html>
