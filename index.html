@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apple Liquid Flip Clock Studio AOD</title>
+  <title>Apple Liquid Glass Studio AOD - Ultra Flip Edition</title>
   
   <!-- Premium Luxury Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@700&family=Cinzel:wght@600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 
   <style>
-    /* ================= 1. Global Reset & Scale ================= */
+    /* ================= 1. Global Reset ================= */
     * {
       margin: 0;
       padding: 0;
@@ -30,7 +30,7 @@
       position: relative;
     }
 
-    /* ================= 2. Unique Cinematic Background & Aurora ================= */
+    /* ================= 2. Dynamic Wallpapers & Backgrounds ================= */
     .tv-wallpaper {
       position: absolute;
       top: 0;
@@ -40,6 +40,17 @@
       background: url('tv wall.jpg') center center / cover no-repeat;
       z-index: 1;
       filter: brightness(0.65) contrast(1.2) saturate(1.18);
+      transition: opacity 1.2s ease-in-out;
+    }
+
+    .tv-wallpaper.secondary {
+      /* Base64/Inline or alternate wall reference */
+      background: url('tvwall.jpg') center center / cover no-repeat;
+      opacity: 0;
+    }
+
+    .tv-wallpaper.active {
+      opacity: 1;
     }
 
     .aurora-sky-glow {
@@ -67,7 +78,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle at 75% 35%, rgba(0, 0, 0, 0.05) 0%, rgba(1, 3, 8, 0.8) 100%);
+      background: radial-gradient(circle at 75% 35%, rgba(0, 0, 0, 0.05) 0%, rgba(1, 3, 8, 0.82) 100%);
       z-index: 2;
       pointer-events: none;
     }
@@ -82,13 +93,14 @@
       pointer-events: none;
     }
 
+    /* Top Live Status */
     .top-status-indicator {
       position: absolute;
       top: 24px;
       right: 36px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       font-family: 'Cinzel', serif;
       font-size: 10.5px;
       letter-spacing: 2px;
@@ -104,9 +116,10 @@
       border: 1px solid rgba(255, 255, 255, 0.12);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
-      padding: 5px 12px;
+      padding: 6px 14px;
       border-radius: 9999px;
       box-shadow: inset 1px -1px 1px rgba(255,255,255,0.35), inset -1px 1px 1px rgba(255,255,255,0.15);
+      cursor: pointer;
     }
 
     .pulse-dot {
@@ -123,19 +136,19 @@
       50% { opacity: 0.35; transform: scale(0.85); }
     }
 
-    /* ================= 3. Responsive Main Grid ================= */
+    /* ================= 3. Main Layout Grid ================= */
     .aod-viewport {
       position: relative;
       width: 100%;
       height: 100%;
       padding: 4vh 4.5vw;
       display: grid;
-      grid-template-columns: 240px 1fr;
+      grid-template-columns: 270px 1fr;
       align-items: center;
       z-index: 5;
     }
 
-    /* ================= 4. Left Dock Widgets ================= */
+    /* ================= 4. Left Widgets ================= */
     .left-dock-column {
       height: 92vh;
       display: flex;
@@ -147,7 +160,7 @@
     .compact-glass-card {
       position: relative;
       width: 100%;
-      padding: 13px 15px;
+      padding: 14px 16px;
       border-radius: 20px;
       border: 1px double rgba(255, 255, 255, 0.14);
       background: rgba(255, 255, 255, 0.025);
@@ -156,6 +169,7 @@
       box-shadow: inset 1.5px -1.5px 1px -1px rgba(255, 255, 255, 0.75), 0 18px 36px rgba(0, 0, 0, 0.55);
     }
 
+    /* Calendar */
     .cal-title-bar {
       font-family: 'Cinzel', serif;
       font-size: 10px;
@@ -197,15 +211,17 @@
       box-shadow: 0 0 14px rgba(255, 255, 255, 0.95);
     }
 
+    /* Markets with Sparkline Graph */
     .market-list {
       display: flex;
       flex-direction: column;
-      gap: 7px;
+      gap: 10px;
     }
     .market-item {
-      display: flex;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 75px 1fr 70px;
       align-items: center;
+      gap: 6px;
     }
     .market-name {
       font-family: 'Syne', sans-serif;
@@ -213,23 +229,37 @@
       font-weight: 700;
     }
     .market-sub {
-      font-size: 9px;
+      font-size: 8.5px;
       color: rgba(255, 255, 255, 0.45);
+    }
+    .sparkline-svg {
+      width: 100%;
+      height: 22px;
+      overflow: visible;
+    }
+    .sparkline-path {
+      fill: none;
+      stroke: #30d158;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: all 0.5s ease;
     }
     .market-digits {
       text-align: right;
       font-family: 'JetBrains Mono', monospace;
     }
     .market-price {
-      font-size: 12.5px;
+      font-size: 12px;
       font-weight: 600;
     }
     .market-gain {
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 600;
       color: #30d158;
     }
 
+    /* Power Battery */
     .power-compact-pill {
       width: fit-content;
       display: flex;
@@ -283,6 +313,7 @@
       margin-top: 1px;
     }
 
+    /* Weather */
     .weather-box {
       padding: 0 4px;
     }
@@ -306,24 +337,24 @@
       line-height: 1.35;
     }
 
-    /* ================= 5. Flip Clock Center Stage ================= */
+    /* ================= 5. Ultra Tall Liquid Glass Flip Clock ================= */
     .timepiece-stage {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin-left: -40px;
+      margin-left: -20px;
     }
 
     .date-banner {
       font-family: 'Cinzel', serif;
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 700;
-      letter-spacing: 3.5px;
+      letter-spacing: 4px;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.85);
-      margin-bottom: 15px;
-      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.95);
+      color: rgba(255, 255, 255, 0.88);
+      margin-bottom: 20px;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.9);
       z-index: 5;
     }
 
@@ -332,128 +363,190 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 1.2vw;
+      gap: 0.6vw;
     }
 
-    /* Real Flip Card Styling */
-    .flip-card {
+    .digit-group {
+      display: flex;
+      gap: 0.3vw;
+    }
+
+    /* Single Digit Liquid Glass 3D Flip Card Container */
+    .flip-digit-card {
       position: relative;
+      width: 7.2vw;
+      height: 22vw; /* Tall Apple-style Lockscreen Clock */
+      perspective: 1000px;
+    }
+
+    /* Transparent Liquid Water Shader Text Format */
+    .digit-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
       font-family: 'Antonio', sans-serif;
-      font-size: 14.5vw;
+      font-size: 20vw;
       font-weight: 700;
-      line-height: 1;
-      height: 18vw;
-      width: 12.5vw;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 20px;
+      line-height: 1.1;
+      text-align: center;
+      
+      /* Liquid Crystal Water Look */
+      background: linear-gradient(180deg, 
+                  rgba(255, 255, 255, 0.98) 0%, 
+                  rgba(255, 255, 255, 0.25) 48%, 
+                  rgba(255, 255, 255, 0.55) 75%, 
+                  rgba(255, 255, 255, 0.12) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      -webkit-text-stroke: 1.2px rgba(255, 255, 255, 0.45);
+      filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 15px rgba(255, 255, 255, 0.15));
+      
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.6), inset 0 0 15px rgba(255,255,255,0.1);
-      backdrop-filter: blur(20px);
+      backface-visibility: hidden;
     }
 
-    /* Horizontal Center Line like real mechanical/digital flip clocks */
-    .flip-card::after {
+    /* Subdued Center Divider Line for Organic Page Flip Feel */
+    .flip-digit-card::after {
       content: '';
       position: absolute;
       top: 50%;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: rgba(1, 4, 8, 0.8);
-      z-index: 3;
+      left: 10%;
+      width: 80%;
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+      z-index: 10;
+      pointer-events: none;
     }
 
-    .flip-card span {
-      background: linear-gradient(180deg, 
-                  rgba(255, 255, 255, 0.96) 0%, 
-                  rgba(255, 255, 255, 0.45) 50%, 
-                  rgba(255, 255, 255, 0.85) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.8));
+    /* 3D Page Turn Animation Engine */
+    .flip-digit-card.flipping .digit-face {
+      animation: smoothPageFlip 0.65s cubic-bezier(0.45, 0.05, 0.55, 0.95);
     }
 
-    /* Flip Animation Effect */
-    .flip-anim {
-      animation: pageFlip 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-      transform-origin: bottom;
-    }
-
-    @keyframes pageFlip {
-      0% { transform: rotateX(0deg); opacity: 0.6; }
-      50% { transform: rotateX(-90deg); opacity: 0.2; }
-      100% { transform: rotateX(0deg); opacity: 1; }
+    @keyframes smoothPageFlip {
+      0% {
+        transform: rotateX(0deg) scale(1);
+        filter: blur(0px) drop-shadow(0 15px 30px rgba(0,0,0,0.85));
+      }
+      50% {
+        transform: rotateX(-90deg) scale(0.96);
+        filter: blur(1.5px) opacity(0.5);
+      }
+      100% {
+        transform: rotateX(0deg) scale(1);
+        filter: blur(0px) drop-shadow(0 15px 30px rgba(0,0,0,0.85));
+      }
     }
 
     .time-colon {
       font-family: 'Antonio', sans-serif;
-      font-size: 12vw;
+      font-size: 14vw;
       font-weight: 700;
-      color: rgba(255, 255, 255, 0.7);
+      line-height: 1;
+      margin: 0 0.2vw;
+      background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.25));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 12px 24px rgba(0,0,0,0.8));
       animation: colonGlow 2s infinite ease-in-out;
     }
 
     @keyframes colonGlow {
       0%, 100% { opacity: 0.85; }
-      50% { opacity: 0.3; }
+      50% { opacity: 0.25; }
     }
 
-    /* Side Seconds Capsule */
-    .seconds-capsule {
+    /* Side-Positioned Liquid Seconds Capsule with Ample Spacing */
+    .seconds-capsule-container {
       position: absolute;
-      right: -5.5vw;
-      bottom: 10%;
+      right: -8.5vw; /* Adjusted margin to prevent overlapping */
+      bottom: 12%;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 8px 12px;
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.04);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      gap: 0.2vw;
+      padding: 10px 14px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(24px) saturate(200%);
+      -webkit-backdrop-filter: blur(24px) saturate(200%);
+      border: 1px double rgba(255, 255, 255, 0.18);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.65), inset 1px -1px 1px rgba(255, 255, 255, 0.6);
       z-index: 10;
     }
 
-    .seconds-txt {
-      font-family: 'Antonio', sans-serif;
-      font-size: 28px;
-      line-height: 1;
-      font-weight: 700;
-      color: #ffffff;
+    .flip-sec-card {
+      position: relative;
+      width: 1.8vw;
+      height: 3.2vw;
+      perspective: 400px;
     }
 
-    .sec-label-txt {
+    .sec-digit-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      font-family: 'Antonio', sans-serif;
+      font-size: 3.2vw;
+      font-weight: 700;
+      line-height: 1;
+      color: #ffffff;
+      text-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .flip-sec-card.flipping .sec-digit-face {
+      animation: secPageFlip 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    @keyframes secPageFlip {
+      0% { transform: rotateX(0deg); opacity: 0.4; }
+      50% { transform: rotateX(-90deg); opacity: 0.1; }
+      100% { transform: rotateX(0deg); opacity: 1; }
+    }
+
+    .sec-label-tag {
+      position: absolute;
+      bottom: -18px;
+      left: 50%;
+      transform: translateX(-50%);
       font-family: 'Cinzel', serif;
-      font-size: 7px;
-      letter-spacing: 1px;
+      font-size: 7.5px;
+      letter-spacing: 1.5px;
       font-weight: 700;
       color: rgba(255, 255, 255, 0.5);
-      margin-top: 2px;
     }
   </style>
 </head>
 <body>
 
-  <div class="tv-wallpaper"></div>
+  <!-- Wallpapers -->
+  <div class="tv-wallpaper primary active" id="wall-1"></div>
+  <div class="tv-wallpaper secondary" id="wall-2"></div>
+
   <div class="aurora-sky-glow"></div>
   <div class="cinematic-vignette"></div>
+
+  <!-- Snow Canvas -->
   <canvas id="snow-canvas"></canvas>
 
+  <!-- Top Indicator with Wallpaper Switch Action -->
   <aside class="top-status-indicator">
-    <div class="status-capsule">
+    <div class="status-capsule" onclick="switchWallpaper()" title="Click or Press 'W' to toggle wallpaper">
       <span class="pulse-dot"></span>
-      <span>AOD ENGINE ACTIVE</span>
+      <span id="wall-switch-txt">WALLPAPER 1</span>
     </div>
   </aside>
 
+  <!-- Viewport -->
   <main class="aod-viewport">
-    <!-- Left Widgets -->
+
+    <!-- Left Column Widgets -->
     <section class="left-dock-column">
+
+      <!-- Calendar -->
       <div class="compact-glass-card">
         <div class="cal-title-bar" id="cal-month-title">OCTOBER</div>
         <div class="cal-days-head">
@@ -462,43 +555,63 @@
         <div class="cal-numbers-grid" id="cal-grid-cells"></div>
       </div>
 
+      <!-- Markets with Live Dynamic Sparklines -->
       <div class="compact-glass-card">
         <div class="market-list">
+          
+          <!-- AAPL -->
           <div class="market-item">
             <div>
               <div class="market-name">AAPL</div>
               <div class="market-sub">Apple Inc.</div>
             </div>
+            <svg class="sparkline-svg">
+              <path class="sparkline-path" id="aapl-spark" d="M 0,15 Q 15,5 30,12 T 60,8 T 80,4"></path>
+            </svg>
             <div class="market-digits">
               <div class="market-price" id="aapl-price">$245.80</div>
               <div class="market-gain" id="aapl-gain">+2.24%</div>
             </div>
           </div>
+
           <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.08);">
+
+          <!-- TSLA -->
           <div class="market-item">
             <div>
               <div class="market-name">TSLA</div>
               <div class="market-sub">Tesla Inc.</div>
             </div>
+            <svg class="sparkline-svg">
+              <path class="sparkline-path" id="tsla-spark" d="M 0,18 Q 15,20 30,10 T 60,14 T 80,2"></path>
+            </svg>
             <div class="market-digits">
               <div class="market-price" id="tsla-price">$218.60</div>
               <div class="market-gain" id="tsla-gain">+3.42%</div>
             </div>
           </div>
+
           <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.08);">
+
+          <!-- GOLD -->
           <div class="market-item">
             <div>
               <div class="market-name">GOLD</div>
               <div class="market-sub">XAU / USD</div>
             </div>
+            <svg class="sparkline-svg">
+              <path class="sparkline-path" id="gold-spark" d="M 0,10 Q 15,8 30,14 T 60,6 T 80,8"></path>
+            </svg>
             <div class="market-digits">
               <div class="market-price" id="gold-price">$2,726.40</div>
               <div class="market-gain" id="gold-gain">+0.78%</div>
             </div>
           </div>
+
         </div>
       </div>
 
+      <!-- Battery -->
       <div class="compact-glass-card power-compact-pill">
         <div class="power-ring">
           <svg>
@@ -513,6 +626,7 @@
         </div>
       </div>
 
+      <!-- Weather -->
       <div class="weather-box">
         <div class="weather-tag">DHAKA, BANGLADESH 📍</div>
         <div class="weather-temp-num" id="dhaka-live-temp">--°</div>
@@ -521,75 +635,81 @@
           <span id="dhaka-hl-span">H: --° L: --°</span>
         </div>
       </div>
+
     </section>
 
-    <!-- Center Flip Clock Stage -->
+    <!-- Center Stage: Ultra Tall Liquid Glass Flip Clock -->
     <section class="timepiece-stage">
       <div class="date-banner" id="live-date-str">SUNDAY, OCTOBER 18</div>
       
       <div class="time-housing">
-        <!-- Flip Hours -->
-        <div class="flip-card" id="card-hours">
-          <span id="clock-hours-val">12</span>
-        </div>
-        <span class="time-colon">:</span>
-        <!-- Flip Minutes -->
-        <div class="flip-card" id="card-mins">
-          <span id="clock-mins-val">00</span>
-        </div>
         
-        <!-- Side Seconds Pod -->
-        <div class="seconds-capsule">
-          <div class="seconds-txt" id="clock-seconds-val">00</div>
-          <div class="sec-label-txt">SEC</div>
+        <!-- Hours Group (2 Individual Cards) -->
+        <div class="digit-group">
+          <div class="flip-digit-card" id="card-h1"><div class="digit-face" id="h1">1</div></div>
+          <div class="flip-digit-card" id="card-h2"><div class="digit-face" id="h2">2</div></div>
         </div>
+
+        <span class="time-colon">:</span>
+
+        <!-- Minutes Group (2 Individual Cards) -->
+        <div class="digit-group">
+          <div class="flip-digit-card" id="card-m1"><div class="digit-face" id="m1">0</div></div>
+          <div class="flip-digit-card" id="card-m2"><div class="digit-face" id="m2">0</div></div>
+        </div>
+
+        <!-- Seconds Side Capsule (2 Individual Cards) -->
+        <div class="seconds-capsule-container">
+          <div class="flip-sec-card" id="card-s1"><div class="sec-digit-face" id="s1">0</div></div>
+          <div class="flip-sec-card" id="card-s2"><div class="sec-digit-face" id="s2">0</div></div>
+          <div class="sec-label-tag">SEC</div>
+        </div>
+
       </div>
     </section>
+
   </main>
 
-  <!-- JavaScript Engines -->
   <script>
-    let lastLoggedSec = -1;
-    let lastLoggedMin = -1;
-    let lastLoggedHour = -1;
+    /* ================= 1. Smooth Individual 3D Flip Clock Engine ================= */
+    let lastDigits = { h1: '', h2: '', m1: '', m2: '', s1: '', s2: '' };
+
+    function updateSingleDigit(id, cardId, newVal) {
+      if (lastDigits[id] !== newVal) {
+        const card = document.getElementById(cardId);
+        const face = document.getElementById(id);
+        
+        card.classList.remove('flipping');
+        void card.offsetWidth; // Trigger Reflow for Restarting Animation
+        
+        face.textContent = newVal;
+        card.classList.add('flipping');
+        
+        lastDigits[id] = newVal;
+      }
+    }
 
     function runClockEngine() {
       const now = new Date();
-      let hours = now.getHours();
+      let hours = now.getHours() % 12 || 12;
       let minutes = now.getMinutes();
       let seconds = now.getSeconds();
 
-      hours = hours % 12 || 12;
       const strH = String(hours).padStart(2, '0');
       const strM = String(minutes).padStart(2, '0');
       const strS = String(seconds).padStart(2, '0');
 
-      const hourEl = document.getElementById('clock-hours-val');
-      const cardH = document.getElementById('card-hours');
-      if (hours !== lastLoggedHour) {
-        hourEl.textContent = strH;
-        cardH.classList.remove('flip-anim');
-        void cardH.offsetWidth;
-        cardH.classList.add('flip-anim');
-        lastLoggedHour = hours;
-      }
+      // Individual Digit Flip Assignments
+      updateSingleDigit('h1', 'card-h1', strH[0]);
+      updateSingleDigit('h2', 'card-h2', strH[1]);
+      
+      updateSingleDigit('m1', 'card-m1', strM[0]);
+      updateSingleDigit('m2', 'card-m2', strM[1]);
 
-      const minEl = document.getElementById('clock-mins-val');
-      const cardM = document.getElementById('card-mins');
-      if (minutes !== lastLoggedMin) {
-        minEl.textContent = strM;
-        cardM.classList.remove('flip-anim');
-        void cardM.offsetWidth;
-        cardM.classList.add('flip-anim');
-        lastLoggedMin = minutes;
-      }
+      updateSingleDigit('s1', 'card-s1', strS[0]);
+      updateSingleDigit('s2', 'card-s2', strS[1]);
 
-      const secEl = document.getElementById('clock-seconds-val');
-      if (seconds !== lastLoggedSec) {
-        secEl.textContent = strS;
-        lastLoggedSec = seconds;
-      }
-
+      // Live Date String
       const days = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
       const months = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
       
@@ -597,6 +717,7 @@
       document.getElementById('cal-month-title').textContent = months[now.getMonth()];
     }
 
+    /* ================= 2. Dynamic Calendar Matrix ================= */
     function buildCalendar() {
       const grid = document.getElementById('cal-grid-cells');
       grid.innerHTML = '';
@@ -619,6 +740,7 @@
       }
     }
 
+    /* ================= 3. Battery Sensor ================= */
     if ('getBattery' in navigator) {
       navigator.getBattery().then(bat => {
         function syncBatteryState() {
@@ -634,6 +756,7 @@
       });
     }
 
+    /* ================= 4. Weather API ================= */
     async function syncDhakaWeather() {
       try {
         const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=23.8103&longitude=90.4125&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=Asia%2FDhaka');
@@ -657,17 +780,45 @@
       }
     }
 
+    /* ================= 5. Live Dynamic Sparkline Generator ================= */
     let aaplBase = 245.80, tslaBase = 218.60, goldBase = 2726.40;
+
+    function generateRandomSparkPath(isUp) {
+      let points = [];
+      let currentY = isUp ? 18 : 5;
+      for (let x = 0; x <= 80; x += 16) {
+        currentY += (Math.random() * 8 - (isUp ? 4.5 : 3.5));
+        currentY = Math.max(2, Math.min(20, currentY));
+        points.push(`${x},${currentY.toFixed(1)}`);
+      }
+      return `M ${points.join(' L ')}`;
+    }
+
     function pulseMarketQuotes() {
-      aaplBase += (Math.random() * 0.35 - 0.16);
-      tslaBase += (Math.random() * 0.45 - 0.20);
-      goldBase += (Math.random() * 1.1 - 0.48);
+      const aaplDelta = (Math.random() * 0.35 - 0.16);
+      const tslaDelta = (Math.random() * 0.45 - 0.20);
+      const goldDelta = (Math.random() * 1.1 - 0.48);
+
+      aaplBase += aaplDelta;
+      tslaBase += tslaDelta;
+      goldBase += goldDelta;
+
       document.getElementById('aapl-price').textContent = `$${aaplBase.toFixed(2)}`;
       document.getElementById('tsla-price').textContent = `$${tslaBase.toFixed(2)}`;
       document.getElementById('gold-price').textContent = `$${goldBase.toFixed(2)}`;
+
+      // Update SVG Sparklines
+      document.getElementById('aapl-spark').setAttribute('d', generateRandomSparkPath(aaplDelta >= 0));
+      document.getElementById('aapl-spark').style.stroke = aaplDelta >= 0 ? '#30d158' : '#ff453a';
+
+      document.getElementById('tsla-spark').setAttribute('d', generateRandomSparkPath(tslaDelta >= 0));
+      document.getElementById('tsla-spark').style.stroke = tslaDelta >= 0 ? '#30d158' : '#ff453a';
+
+      document.getElementById('gold-spark').setAttribute('d', generateRandomSparkPath(goldDelta >= 0));
+      document.getElementById('gold-spark').style.stroke = goldDelta >= 0 ? '#30d158' : '#ff453a';
     }
 
-    /* Snow Canvas Engine */
+    /* ================= 6. Snow Engine ================= */
     const canvas = document.getElementById('snow-canvas');
     const ctx = canvas.getContext('2d');
     let width = canvas.width = window.innerWidth;
@@ -681,7 +832,6 @@
     const flakes = Array.from({ length: 50 }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
-      z: Math.random(),
       radius: (Math.random() * 3.0) + 0.8,
       speed: (Math.random() * 0.85) + 0.35,
       opacity: Math.random() * 0.6 + 0.25
@@ -700,13 +850,38 @@
       requestAnimationFrame(renderSnow);
     }
 
+    /* ================= 7. Wallpaper Switcher ================= */
+    let currentWall = 1;
+    function switchWallpaper() {
+      const w1 = document.getElementById('wall-1');
+      const w2 = document.getElementById('wall-2');
+      const txt = document.getElementById('wall-switch-txt');
+
+      if (currentWall === 1) {
+        w1.classList.remove('active');
+        w2.classList.add('active');
+        txt.textContent = 'WALLPAPER 2';
+        currentWall = 2;
+      } else {
+        w2.classList.remove('active');
+        w1.classList.add('active');
+        txt.textContent = 'WALLPAPER 1';
+        currentWall = 1;
+      }
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'w' || e.key === 'W') switchWallpaper();
+    });
+
+    // Initial Execution
     runClockEngine();
     buildCalendar();
     syncDhakaWeather();
     renderSnow();
 
-    setInterval(runClockEngine, 500);
-    setInterval(pulseMarketQuotes, 3600);
+    setInterval(runClockEngine, 250); // High-Precision Clock Execution
+    setInterval(pulseMarketQuotes, 3200);
     setInterval(syncDhakaWeather, 1200000);
   </script>
 </body>
