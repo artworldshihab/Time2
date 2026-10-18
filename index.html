@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apple Liquid Glass Studio AOD</title>
+  <title>Apple Liquid Glass Studio AOD - Refined</title>
   
-  <!-- Premium Fonts -->
+  <!-- Premium Luxury Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@700&family=Cinzel:wght@600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@700&family=Cinzel:wght@600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 
   <style>
-    /* ================= 1. Global Reset & 16:9 TV Ratio ================= */
+    /* ================= 1. Global Reset & 16:9 Scale ================= */
     * {
       margin: 0;
       padding: 0;
@@ -24,13 +24,13 @@
       width: 100vw;
       height: 100vh;
       overflow: hidden;
-      background-color: #020408;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+      background-color: #010408;
+      font-family: 'Inter', -apple-system, sans-serif;
       color: #ffffff;
       position: relative;
     }
 
-    /* ================= 2. tv wall.jpg Cinematic Layer ================= */
+    /* ================= 2. Unique Cinematic Background & Aurora ================= */
     .tv-wallpaper {
       position: absolute;
       top: 0;
@@ -39,22 +39,42 @@
       height: 100%;
       background: url('tv wall.jpg') center center / cover no-repeat;
       z-index: 1;
-      filter: brightness(0.70) contrast(1.18) saturate(1.12); /* Balanced for OLED TVs */
+      filter: brightness(0.65) contrast(1.2) saturate(1.18);
     }
 
-    /* Ambient Soft Edge Vignette */
-    .ambient-vignette {
+    /* Unique Live Northern Aurora Sky Wave (Adds a subtle breathing glow to the sky) */
+    .aurora-sky-glow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 55%;
+      background: radial-gradient(ellipse at 45% 15%, rgba(35, 185, 140, 0.16) 0%, rgba(20, 90, 180, 0.1) 45%, transparent 75%);
+      mix-blend-mode: screen;
+      filter: blur(45px);
+      animation: auroraBreathe 14s ease-in-out infinite alternate;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    @keyframes auroraBreathe {
+      0% { opacity: 0.6; transform: scaleY(0.95) translateX(-20px); }
+      100% { opacity: 1; transform: scaleY(1.1) translateX(25px); }
+    }
+
+    /* Deep Vignette Overlay */
+    .cinematic-vignette {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle at 75% 35%, rgba(0, 0, 0, 0.05) 0%, rgba(2, 4, 10, 0.75) 100%);
+      background: radial-gradient(circle at 75% 35%, rgba(0, 0, 0, 0.05) 0%, rgba(1, 3, 8, 0.8) 100%);
       z-index: 2;
       pointer-events: none;
     }
 
-    /* 3D Realistic Falling Snow Canvas */
+    /* 3D Falling Snow Canvas */
     #snow-canvas {
       position: absolute;
       top: 0;
@@ -65,91 +85,90 @@
       pointer-events: none;
     }
 
-    /* Top Discrete Status Badge */
-    .top-status-bar {
+    /* Top Live Status */
+    .top-status-indicator {
       position: absolute;
-      top: 28px;
-      right: 40px;
+      top: 24px;
+      right: 36px;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       font-family: 'Cinzel', serif;
-      font-size: 11px;
+      font-size: 10.5px;
       letter-spacing: 2px;
-      color: rgba(255, 255, 255, 0.65);
+      color: rgba(255, 255, 255, 0.6);
       z-index: 10;
     }
 
     .status-capsule {
       display: flex;
       align-items: center;
-      gap: 8px;
-      background: rgba(255, 255, 255, 0.04);
+      gap: 7px;
+      background: rgba(255, 255, 255, 0.035);
       border: 1px solid rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      padding: 6px 14px;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      padding: 5px 12px;
       border-radius: 9999px;
-      box-shadow: inset 1px -1px 1px rgba(255,255,255,0.4), inset -1px 1px 1px rgba(255,255,255,0.2);
+      box-shadow: inset 1px -1px 1px rgba(255,255,255,0.35), inset -1px 1px 1px rgba(255,255,255,0.15);
     }
 
     .pulse-dot {
-      width: 7px;
-      height: 7px;
+      width: 6px;
+      height: 6px;
       background: #30d158;
       border-radius: 50%;
       box-shadow: 0 0 10px #30d158;
-      animation: aodBlink 2.2s infinite ease-in-out;
+      animation: aodLiveBlink 2s infinite ease-in-out;
     }
 
-    @keyframes aodBlink {
+    @keyframes aodLiveBlink {
       0%, 100% { opacity: 1; transform: scale(1); }
       50% { opacity: 0.35; transform: scale(0.85); }
     }
 
-    /* ================= 3. Perfect Responsive AOD Layout ================= */
+    /* ================= 3. Responsive Main Grid ================= */
     .aod-viewport {
       position: relative;
       width: 100%;
       height: 100%;
-      padding: 4.5vh 4vw;
+      padding: 4vh 4.5vw;
       display: grid;
-      grid-template-columns: 280px 1fr;
+      grid-template-columns: 240px 1fr;
       align-items: center;
       z-index: 5;
     }
 
-    /* ================= 4. Left Widgets Stack ================= */
-    .left-widget-dock {
-      height: 90vh;
+    /* ================= 4. Left Dock: Compact & Symmetrically Aligned ================= */
+    .left-dock-column {
+      height: 92vh;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       z-index: 6;
     }
 
-    /* Pure Optical Liquid Glass Card */
-    .liquid-card {
+    /* Compact Liquid Glass Cards */
+    .compact-glass-card {
       position: relative;
       width: 100%;
-      padding: 16px 18px;
-      border-radius: 24px;
-      border: 1px double rgba(255, 255, 255, 0.16);
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(30px) saturate(210%);
-      -webkit-backdrop-filter: blur(30px) saturate(210%);
+      padding: 13px 15px;
+      border-radius: 20px;
+      border: 1px double rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.025);
+      backdrop-filter: blur(28px) saturate(210%);
+      -webkit-backdrop-filter: blur(28px) saturate(210%);
       
-      /* Optical Inset Specular formula */
       box-shadow:
-        inset 2px -2px 1px -1px rgba(255, 255, 255, 0.8),
-        inset -2px 2px 1px -1px rgba(255, 255, 255, 0.8),
-        inset 6px -6px 1px -6px rgba(255, 255, 255, 0.4),
-        inset -6px 6px 1px -6px rgba(255, 255, 255, 0.4),
-        inset 0 0 3px rgba(0, 0, 0, 0.75),
-        0 20px 45px rgba(0, 0, 0, 0.55);
+        inset 1.5px -1.5px 1px -1px rgba(255, 255, 255, 0.75),
+        inset -1.5px 1.5px 1px -1px rgba(255, 255, 255, 0.75),
+        inset 4px -4px 1px -4px rgba(255, 255, 255, 0.35),
+        inset -4px 4px 1px -4px rgba(255, 255, 255, 0.35),
+        inset 0 0 2px rgba(0, 0, 0, 0.7),
+        0 18px 36px rgba(0, 0, 0, 0.55);
     }
 
-    .liquid-card::after {
+    .compact-glass-card::after {
       content: "";
       position: absolute;
       top: 0; left: 0;
@@ -158,274 +177,299 @@
       pointer-events: none;
       background: linear-gradient(
         45deg,
-        rgba(255, 255, 255, 0.3) 0%,
-        transparent 20%,
-        transparent 80%,
-        rgba(255, 255, 255, 0.2) 100%
+        rgba(255, 255, 255, 0.25) 0%,
+        transparent 25%,
+        transparent 75%,
+        rgba(255, 255, 255, 0.18) 100%
       );
-      filter: blur(3px);
+      filter: blur(2px);
     }
 
     /* 1. Calendar */
-    .cal-header-txt {
+    .cal-title-bar {
       font-family: 'Cinzel', serif;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
       letter-spacing: 2px;
-      color: rgba(255, 255, 255, 0.6);
-      margin-bottom: 8px;
-    }
-    .cal-days-header {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      text-align: center;
-      font-size: 10px;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.35);
+      color: rgba(255, 255, 255, 0.55);
       margin-bottom: 6px;
     }
-    .cal-days-body {
+    .cal-days-head {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
       text-align: center;
-      gap: 3px;
-      font-size: 11.5px;
-      font-weight: 500;
-      color: rgba(255, 255, 255, 0.9);
+      font-size: 9px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.35);
+      margin-bottom: 4px;
     }
-    .cal-days-body span {
+    .cal-numbers-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      text-align: center;
+      gap: 2px;
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.88);
+    }
+    .cal-numbers-grid span {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 24px;
-      height: 24px;
+      width: 22px;
+      height: 22px;
       border-radius: 50%;
     }
-    .cal-days-body span.today-active {
+    .cal-numbers-grid span.active-today {
       background: #ffffff;
-      color: #020408;
+      color: #010408;
       font-weight: 700;
-      box-shadow: 0 0 16px rgba(255, 255, 255, 0.95);
+      box-shadow: 0 0 14px rgba(255, 255, 255, 0.95);
     }
 
-    /* 2. Live Markets: AAPL & GOLD */
-    .market-stack {
+    /* 2. Live Triple Markets (AAPL, TSLA, GOLD) */
+    .market-list {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 7px;
     }
-    .market-row-flex {
+    .market-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    .market-title {
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
+    .market-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
     }
-    .market-sub-title {
-      font-size: 10px;
+    .market-sub {
+      font-size: 9px;
       color: rgba(255, 255, 255, 0.45);
     }
-    .market-numbers {
+    .market-digits {
       text-align: right;
       font-family: 'JetBrains Mono', monospace;
     }
-    .market-price-val {
-      font-size: 14px;
+    .market-price {
+      font-size: 12.5px;
       font-weight: 600;
     }
-    .market-gain-val {
-      font-size: 11px;
+    .market-gain {
+      font-size: 10px;
       font-weight: 600;
       color: #30d158;
     }
-    .mini-chart {
-      width: 100%;
-      height: 20px;
-      margin-top: 2px;
-    }
 
-    /* 3. Battery / AC Gauge */
-    .power-capsule {
+    /* 3. Hardware Battery / AC Gauge */
+    .power-compact-pill {
       width: fit-content;
       display: flex;
       align-items: center;
-      gap: 16px;
-      padding: 12px 22px;
+      gap: 14px;
+      padding: 10px 18px;
       border-radius: 9999px;
     }
-    .power-ring-box {
+    .power-ring {
       position: relative;
-      width: 42px;
-      height: 42px;
+      width: 36px;
+      height: 36px;
     }
-    .power-ring-box svg {
+    .power-ring svg {
       transform: rotate(-90deg);
-      width: 42px;
-      height: 42px;
+      width: 36px;
+      height: 36px;
     }
-    .gauge-track {
+    .rail-bg {
       stroke: rgba(255, 255, 255, 0.12);
-      stroke-width: 4;
+      stroke-width: 3.5;
       fill: none;
     }
-    .gauge-fill-active {
+    .rail-fill {
       stroke: #30d158;
-      stroke-width: 4;
+      stroke-width: 3.5;
       stroke-linecap: round;
       fill: none;
-      stroke-dasharray: 120;
+      stroke-dasharray: 105;
       stroke-dashoffset: 0;
       transition: stroke-dashoffset 0.8s ease;
     }
-    .gauge-icon {
+    .power-bolt {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 13px;
+      font-size: 11px;
     }
-    .power-value-txt {
-      font-size: 24px;
+    .power-pct {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
       font-weight: 700;
       line-height: 1;
     }
-    .power-state-txt {
-      font-size: 9px;
+    .power-label {
+      font-size: 8.5px;
       font-weight: 600;
       color: rgba(255, 255, 255, 0.5);
-      letter-spacing: 1px;
-      margin-top: 2px;
+      letter-spacing: 0.8px;
+      margin-top: 1px;
     }
 
-    /* 4. Live Weather */
-    .weather-container {
-      padding: 2px 4px;
+    /* 4. Live Dhaka Weather */
+    .weather-box {
+      padding: 0 4px;
     }
-    .weather-location-txt {
+    .weather-tag {
       font-family: 'Cinzel', serif;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: 1.5px;
+      letter-spacing: 1.2px;
       color: rgba(255, 255, 255, 0.85);
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
-    .weather-temp-giant {
-      font-size: 58px;
+    .weather-temp-num {
+      font-size: 46px;
       font-weight: 300;
       letter-spacing: -2px;
       line-height: 1;
-      margin: 4px 0;
+      margin: 3px 0;
     }
-    .weather-desc-txt {
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.65);
-      line-height: 1.4;
+    .weather-sub-info {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.35;
     }
 
-    /* ================= 5. Center-Stage Apple Liquid Glass Timepiece ================= */
+    /* ================= 5. Centered, Balanced Deep Liquid Glass Timepiece ================= */
     .timepiece-stage {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin-top: -3vh;
+      margin-left: -40px; /* Counterbalances grid to feel true center */
     }
 
-    /* Elegant Date Banner */
-    .date-badge-top {
+    /* Elegant Top Date */
+    .date-banner {
       font-family: 'Cinzel', serif;
-      font-size: 22px;
+      font-size: 18px;
       font-weight: 700;
-      letter-spacing: 4px;
+      letter-spacing: 3.5px;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.88);
-      margin-bottom: -15px;
-      text-shadow: 0 4px 25px rgba(0, 0, 0, 0.9);
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: -5px;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.95);
       z-index: 5;
     }
 
-    /* Time Flex Container */
-    .time-flex-wrapper {
+    /* Time Flex Housing */
+    .time-housing {
       position: relative;
       display: inline-flex;
-      align-items: center;
+      align-items: baseline;
       justify-content: center;
     }
 
-    /* Apple Ultra-Tall Water Refraction Glass Digits */
-    .tall-liquid-clock {
+    /* Perfectly Proportioned Deep Liquid Water Glass Digits (Down from 34vw to 15vw) */
+    .time-unit-digit {
       font-family: 'Antonio', sans-serif;
-      font-size: 34vw;
+      font-size: 15.5vw;
       font-weight: 700;
-      line-height: 0.82;
-      letter-spacing: -0.6vw;
-      transform: scaleY(1.36);
+      line-height: 0.85;
+      letter-spacing: -0.2vw;
+      transform: scaleY(1.3);
       transform-origin: top center;
-      
-      /* Pure Crystal Water Glass Shader */
+      display: inline-block;
+
+      /* Deep Crystal Liquid Glass Water Shader */
       background: linear-gradient(180deg, 
                   rgba(255, 255, 255, 0.96) 0%, 
-                  rgba(255, 255, 255, 0.16) 48%, 
-                  rgba(255, 255, 255, 0.42) 78%, 
+                  rgba(255, 255, 255, 0.18) 48%, 
+                  rgba(255, 255, 255, 0.45) 76%, 
                   rgba(255, 255, 255, 0.08) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.52);
-      filter: drop-shadow(0 25px 60px rgba(0, 0, 0, 0.95))
-              drop-shadow(0 0 40px rgba(255, 255, 255, 0.18));
+      -webkit-text-stroke: 1.4px rgba(255, 255, 255, 0.48);
+      filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.95))
+              drop-shadow(0 0 25px rgba(255, 255, 255, 0.16));
       mix-blend-mode: screen;
     }
 
-    /* Integrated Liquid Seconds Badge Mounted Beside Minutes */
-    .seconds-dock-badge {
+    .time-colon {
+      font-family: 'Antonio', sans-serif;
+      font-size: 14vw;
+      font-weight: 700;
+      line-height: 0.85;
+      display: inline-block;
+      margin: 0 0.4vw;
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 15px 30px rgba(0,0,0,0.9));
+      animation: colonGlow 2s infinite ease-in-out;
+    }
+
+    @keyframes colonGlow {
+      0%, 100% { opacity: 0.85; }
+      50% { opacity: 0.35; }
+    }
+
+    /* Live Animated Time Transition (Hours & Minutes push/fade) */
+    .digit-flip-anim {
+      animation: smoothDigitTransition 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes smoothDigitTransition {
+      0% { transform: translateY(-10px) scaleY(1.35); opacity: 0.4; filter: blur(2px); }
+      100% { transform: translateY(0) scaleY(1.3); opacity: 1; filter: blur(0); }
+    }
+
+    /* Compact Seconds Pod Attached to Minutes */
+    .seconds-capsule {
       position: absolute;
       right: -3.8vw;
-      bottom: 24%;
+      bottom: 22%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 10px 14px;
-      border-radius: 20px;
+      padding: 7px 11px;
+      border-radius: 16px;
       background: rgba(255, 255, 255, 0.04);
-      backdrop-filter: blur(25px) saturate(200%);
-      -webkit-backdrop-filter: blur(25px) saturate(200%);
+      backdrop-filter: blur(24px) saturate(200%);
+      -webkit-backdrop-filter: blur(24px) saturate(200%);
       border: 1px double rgba(255, 255, 255, 0.2);
 
       box-shadow:
         inset 1px -1px 1px rgba(255, 255, 255, 0.8),
         inset -1px 1px 1px rgba(255, 255, 255, 0.8),
-        0 15px 35px rgba(0, 0, 0, 0.6);
+        0 14px 28px rgba(0, 0, 0, 0.6);
       z-index: 10;
     }
 
-    .seconds-display-digit {
+    .seconds-txt {
       font-family: 'Antonio', sans-serif;
-      font-size: 42px;
+      font-size: 32px;
       line-height: 0.9;
       font-weight: 700;
       color: #ffffff;
-      text-shadow: 0 0 16px rgba(255, 255, 255, 0.85);
+      text-shadow: 0 0 14px rgba(255, 255, 255, 0.85);
     }
 
-    /* Live Tick Animation */
-    .sec-tick-effect {
-      animation: secPushPulse 0.25s ease-out;
+    .sec-tick-anim {
+      animation: secMicroPulse 0.22s ease-out;
     }
 
-    @keyframes secPushPulse {
-      0% { transform: translateY(-3px) scale(1.08); opacity: 0.7; }
+    @keyframes secMicroPulse {
+      0% { transform: translateY(-2px) scale(1.08); opacity: 0.7; }
       100% { transform: translateY(0) scale(1); opacity: 1; }
     }
 
-    .sec-bottom-tag {
+    .sec-label-txt {
       font-family: 'Cinzel', serif;
-      font-size: 8px;
-      letter-spacing: 1.5px;
+      font-size: 7.5px;
+      letter-spacing: 1.2px;
       font-weight: 700;
       color: rgba(255, 255, 255, 0.5);
       margin-top: 2px;
@@ -436,13 +480,14 @@
 
   <!-- tv wall.jpg Wallpaper Layer -->
   <div class="tv-wallpaper"></div>
-  <div class="ambient-vignette"></div>
+  <div class="aurora-sky-glow"></div>
+  <div class="cinematic-vignette"></div>
 
   <!-- 3D Realistic Falling Snow Canvas -->
   <canvas id="snow-canvas"></canvas>
 
-  <!-- Top Right Live Status Pill -->
-  <aside class="top-status-bar">
+  <!-- Top Right Discrete Live Pill -->
+  <aside class="top-status-indicator">
     <div class="status-capsule">
       <span class="pulse-dot"></span>
       <span>AOD ENGINE ACTIVE</span>
@@ -452,109 +497,121 @@
   <!-- Main Viewport Layout -->
   <main class="aod-viewport">
 
-    <!-- Left Widgets Column -->
-    <section class="left-widget-dock">
+    <!-- Left Dock: Symmetrically Aligned Widgets -->
+    <section class="left-dock-column">
 
-      <!-- 1. Real-time Calendar Grid -->
-      <div class="liquid-card">
-        <div class="cal-header-txt" id="cal-month-header">OCTOBER</div>
-        <div class="cal-days-header">
+      <!-- 1. Real-time Compact Calendar -->
+      <div class="compact-glass-card">
+        <div class="cal-title-bar" id="cal-month-title">OCTOBER</div>
+        <div class="cal-days-head">
           <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
         </div>
-        <div class="cal-days-body" id="cal-matrix-body"></div>
+        <div class="cal-numbers-grid" id="cal-grid-cells"></div>
       </div>
 
-      <!-- 2. Live Dual Markets: AAPL + GOLD -->
-      <div class="liquid-card">
-        <div class="market-stack">
+      <!-- 2. Live Triple Markets: AAPL, TSLA, GOLD -->
+      <div class="compact-glass-card">
+        <div class="market-list">
+          
           <!-- AAPL -->
-          <div>
-            <div class="market-row-flex">
-              <div>
-                <div class="market-title">AAPL</div>
-                <div class="market-sub-title">Apple Inc.</div>
-              </div>
-              <div class="market-numbers">
-                <div class="market-price-val" id="aapl-price">$245.80</div>
-                <div class="market-gain-val" id="aapl-change">+2.32%</div>
-              </div>
+          <div class="market-item">
+            <div>
+              <div class="market-name">AAPL</div>
+              <div class="market-sub">Apple Inc.</div>
             </div>
-            <svg class="mini-chart" viewBox="0 0 100 20">
-              <path d="M0 15 Q 25 17, 45 9 T 70 7 T 85 3 T 100 5" fill="none" stroke="#30d158" stroke-width="2.2" stroke-linecap="round"/>
-            </svg>
+            <div class="market-digits">
+              <div class="market-price" id="aapl-price">$245.80</div>
+              <div class="market-gain" id="aapl-gain">+2.24%</div>
+            </div>
+          </div>
+
+          <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.08);">
+
+          <!-- TSLA (Added as requested) -->
+          <div class="market-item">
+            <div>
+              <div class="market-name">TSLA</div>
+              <div class="market-sub">Tesla Inc.</div>
+            </div>
+            <div class="market-digits">
+              <div class="market-price" id="tsla-price">$218.60</div>
+              <div class="market-gain" id="tsla-gain">+3.42%</div>
+            </div>
           </div>
 
           <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.08);">
 
           <!-- GOLD -->
-          <div>
-            <div class="market-row-flex">
-              <div>
-                <div class="market-title">GOLD</div>
-                <div class="market-sub-title">XAU / USD</div>
-              </div>
-              <div class="market-numbers">
-                <div class="market-price-val" id="gold-price">$2,728.50</div>
-                <div class="market-gain-val" id="gold-change">+0.86%</div>
-              </div>
+          <div class="market-item">
+            <div>
+              <div class="market-name">GOLD</div>
+              <div class="market-sub">XAU / USD</div>
             </div>
-            <svg class="mini-chart" viewBox="0 0 100 20">
-              <path d="M0 14 Q 20 16, 40 8 T 65 6 T 85 2 T 100 4" fill="none" stroke="#ffd60a" stroke-width="2.2" stroke-linecap="round"/>
-            </svg>
+            <div class="market-digits">
+              <div class="market-price" id="gold-price">$2,726.40</div>
+              <div class="market-gain" id="gold-gain">+0.78%</div>
+            </div>
           </div>
+
         </div>
       </div>
 
-      <!-- 3. Hardware Battery Sensor -->
-      <div class="liquid-card power-capsule">
-        <div class="power-ring-box">
+      <!-- 3. Hardware Battery / AC Sensor -->
+      <div class="compact-glass-card power-compact-pill">
+        <div class="power-ring">
           <svg>
-            <circle class="gauge-track" cx="21" cy="21" r="17"/>
-            <circle class="gauge-fill-active" id="battery-fill-svg" cx="21" cy="21" r="17"/>
+            <circle class="rail-bg" cx="18" cy="18" r="15"/>
+            <circle class="rail-fill" id="battery-rail-fill" cx="18" cy="18" r="15"/>
           </svg>
-          <span class="gauge-icon">⚡</span>
+          <span class="power-bolt">⚡</span>
         </div>
         <div>
-          <div class="power-value-txt" id="battery-num-txt">100%</div>
-          <div class="power-state-txt" id="battery-state-txt">AC CONNECTED</div>
+          <div class="power-pct" id="battery-pct-txt">100%</div>
+          <div class="power-label" id="battery-status-lbl">AC CONNECTED</div>
         </div>
       </div>
 
-      <!-- 4. Real Live Dhaka Weather (Open-Meteo Cloud) -->
-      <div class="weather-container">
-        <div class="weather-location-txt">DHAKA, BANGLADESH 📍</div>
-        <div class="weather-temp-giant" id="weather-temp-txt">--°</div>
-        <div class="weather-desc-txt" id="weather-details-txt">
+      <!-- 4. Real-time Live Dhaka Weather -->
+      <div class="weather-box">
+        <div class="weather-tag">DHAKA, BANGLADESH 📍</div>
+        <div class="weather-temp-num" id="dhaka-live-temp">--°</div>
+        <div class="weather-sub-info" id="dhaka-weather-desc">
           Syncing Satellite Data...<br>
-          <span id="weather-range-txt">H: --° L: --°</span>
+          <span id="dhaka-hl-span">H: --° L: --°</span>
         </div>
       </div>
 
     </section>
 
-    <!-- Center Stage Apple Liquid Glass Timepiece -->
+    <!-- Center Stage: Perfectly Sized, Animated Liquid Glass Timepiece -->
     <section class="timepiece-stage">
-      <div class="date-badge-top" id="live-date-header">SUNDAY, OCTOBER 18</div>
+      <div class="date-banner" id="live-date-str">SUNDAY, OCTOBER 18</div>
       
-      <div class="time-flex-wrapper">
-        <div class="tall-liquid-clock" id="clock-hours-mins">12:00</div>
+      <div class="time-housing">
+        <!-- Animated Hours -->
+        <span class="time-unit-digit" id="clock-hours-val">12</span>
+        <span class="time-colon">:</span>
+        <!-- Animated Minutes -->
+        <span class="time-unit-digit" id="clock-mins-val">00</span>
         
         <!-- Live Animated Seconds Badge -->
-        <div class="seconds-dock-badge">
-          <div class="seconds-display-digit" id="clock-seconds">00</div>
-          <div class="sec-bottom-tag">SEC</div>
+        <div class="seconds-capsule">
+          <div class="seconds-txt" id="clock-seconds-val">00</div>
+          <div class="sec-label-txt">SEC</div>
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- High-Performance JavaScript Engines -->
+  <!-- JavaScript Engines -->
   <script>
-    /* ================= 1. Real-Time System Clock & Seconds ================= */
-    let lastRecordedSec = -1;
+    /* ================= 1. Real-Time Animated Clock Engine ================= */
+    let lastLoggedSec = -1;
+    let lastLoggedMin = -1;
+    let lastLoggedHour = -1;
 
-    function refreshSystemTime() {
+    function runClockEngine() {
       const now = new Date();
 
       let hours = now.getHours();
@@ -566,27 +623,47 @@
       const strM = String(minutes).padStart(2, '0');
       const strS = String(seconds).padStart(2, '0');
 
-      document.getElementById('clock-hours-mins').textContent = `${strH}:${strM}`;
-
-      const secEl = document.getElementById('clock-seconds');
-      if (seconds !== lastRecordedSec) {
-        secEl.textContent = strS;
-        secEl.classList.remove('sec-tick-effect');
-        void secEl.offsetWidth; // Force CSS reflow to re-trigger pulse
-        secEl.classList.add('sec-tick-effect');
-        lastRecordedSec = seconds;
+      // Animate hours on change
+      const hourEl = document.getElementById('clock-hours-val');
+      if (hours !== lastLoggedHour) {
+        hourEl.textContent = strH;
+        hourEl.classList.remove('digit-flip-anim');
+        void hourEl.offsetWidth;
+        hourEl.classList.add('digit-flip-anim');
+        lastLoggedHour = hours;
       }
 
+      // Animate minutes on change
+      const minEl = document.getElementById('clock-mins-val');
+      if (minutes !== lastLoggedMin) {
+        minEl.textContent = strM;
+        minEl.classList.remove('digit-flip-anim');
+        void minEl.offsetWidth;
+        minEl.classList.add('digit-flip-anim');
+        lastLoggedMin = minutes;
+      }
+
+      // Animate seconds tick
+      const secEl = document.getElementById('clock-seconds-val');
+      if (seconds !== lastLoggedSec) {
+        secEl.textContent = strS;
+        secEl.classList.remove('sec-tick-anim');
+        void secEl.offsetWidth;
+        secEl.classList.add('sec-tick-anim');
+        lastLoggedSec = seconds;
+      }
+
+      // Live Date
       const days = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
       const months = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
       
-      document.getElementById('live-date-header').textContent = `${days[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate()}`;
-      document.getElementById('cal-month-header').textContent = months[now.getMonth()];
+      document.getElementById('live-date-str').textContent = `${days[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate()}`;
+      document.getElementById('cal-month-title').textContent = months[now.getMonth()];
     }
 
-    /* ================= 2. Real-Time Calendar Grid ================= */
-    function buildLiveCalendar() {
-      const grid = document.getElementById('cal-matrix-body');
+    /* ================= 2. Dynamic Calendar Matrix ================= */
+    function buildCalendar() {
+      const grid = document.getElementById('cal-grid-cells');
       grid.innerHTML = '';
 
       const now = new Date();
@@ -604,7 +681,7 @@
       for (let d = 1; d <= totalDays; d++) {
         const cell = document.createElement('span');
         cell.textContent = d;
-        if (d === currentDay) cell.classList.add('today-active');
+        if (d === currentDay) cell.classList.add('active-today');
         grid.appendChild(cell);
       }
     }
@@ -612,22 +689,22 @@
     /* ================= 3. Hardware Battery Sensor ================= */
     if ('getBattery' in navigator) {
       navigator.getBattery().then(bat => {
-        function syncBattery() {
+        function syncBatteryState() {
           const level = Math.round(bat.level * 100);
-          document.getElementById('battery-num-txt').textContent = `${level}%`;
-          document.getElementById('battery-state-txt').textContent = bat.charging ? 'AC POWER (CHARGING)' : 'BATTERY LEVEL';
+          document.getElementById('battery-pct-txt').textContent = `${level}%`;
+          document.getElementById('battery-status-lbl').textContent = bat.charging ? 'AC CHARGING' : 'BATTERY LEVEL';
           
-          const offset = 120 - (120 * level / 100);
-          document.getElementById('battery-fill-svg').style.strokeDashoffset = offset;
+          const offset = 105 - (105 * level / 100);
+          document.getElementById('battery-rail-fill').style.strokeDashoffset = offset;
         }
-        syncBattery();
-        bat.addEventListener('levelchange', syncBattery);
-        bat.addEventListener('chargingchange', syncBattery);
+        syncBatteryState();
+        bat.addEventListener('levelchange', syncBatteryState);
+        bat.addEventListener('chargingchange', syncBatteryState);
       });
     }
 
-    /* ================= 4. Live Dhaka Weather (Open-Meteo API) ================= */
-    async function updateDhakaWeather() {
+    /* ================= 4. Live Dhaka Weather Fetcher (Open-Meteo) ================= */
+    async function syncDhakaWeather() {
       try {
         const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=23.8103&longitude=90.4125&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=Asia%2FDhaka');
         const data = await res.json();
@@ -644,28 +721,31 @@
           else if (code >= 51 && code <= 67) desc = "Light Rain";
           else if (code >= 80 && code <= 99) desc = "Showers";
 
-          document.getElementById('weather-temp-txt').textContent = `${temp}°`;
-          document.getElementById('weather-details-txt').innerHTML = `${desc}<br><span id="weather-range-txt">H: ${max}° L: ${min}°</span>`;
+          document.getElementById('dhaka-live-temp').textContent = `${temp}°`;
+          document.getElementById('dhaka-weather-desc').innerHTML = `${desc}<br><span id="dhaka-hl-span">H: ${max}° L: ${min}°</span>`;
         }
       } catch (err) {
-        document.getElementById('weather-temp-txt').textContent = "28°";
-        document.getElementById('weather-details-txt').innerHTML = `Partly Cloudy<br><span>H: 32° L: 24°</span>`;
+        document.getElementById('dhaka-live-temp').textContent = "28°";
+        document.getElementById('dhaka-weather-desc').innerHTML = `Partly Cloudy<br><span>H: 32° L: 24°</span>`;
       }
     }
 
-    /* ================= 5. Live Market Tick Fluctuations ================= */
+    /* ================= 5. Live Market Tick Fluctuations (AAPL, TSLA, GOLD) ================= */
     let aaplBase = 245.80;
-    let goldBase = 2728.50;
+    let tslaBase = 218.60;
+    let goldBase = 2726.40;
 
     function pulseMarketQuotes() {
       aaplBase += (Math.random() * 0.35 - 0.16);
+      tslaBase += (Math.random() * 0.45 - 0.20);
       goldBase += (Math.random() * 1.1 - 0.48);
 
       document.getElementById('aapl-price').textContent = `$${aaplBase.toFixed(2)}`;
+      document.getElementById('tsla-price').textContent = `$${tslaBase.toFixed(2)}`;
       document.getElementById('gold-price').textContent = `$${goldBase.toFixed(2)}`;
     }
 
-    /* ================= 6. 3D Optical Bokeh Snow Engine (Zero-Lag on TV) ================= */
+    /* ================= 6. 3D Optical Bokeh Snow Engine ================= */
     const canvas = document.getElementById('snow-canvas');
     const ctx = canvas.getContext('2d');
 
@@ -677,11 +757,11 @@
       height = canvas.height = window.innerHeight;
     });
 
-    const TOTAL_FLAKES = 55;
+    const TOTAL_FLAKES = 50;
     const flakes = [];
 
     for (let i = 0; i < TOTAL_FLAKES; i++) {
-      const zDepth = Math.random(); // 0 = far background, 1 = near foreground
+      const zDepth = Math.random();
       flakes.push({
         x: Math.random() * width,
         y: Math.random() * height,
@@ -695,7 +775,7 @@
       });
     }
 
-    function render3DSnow() {
+    function renderSnow() {
       ctx.clearRect(0, 0, width, height);
 
       for (let i = 0; i < TOTAL_FLAKES; i++) {
@@ -705,7 +785,7 @@
         const windDrift = Math.sin(flake.swingAngle) * flake.swingDist;
 
         flake.y += flake.speed;
-        flake.x += windDrift + 0.15; // Gentle breeze
+        flake.x += windDrift + 0.15;
 
         if (flake.y > height + 10) {
           flake.y = -10;
@@ -728,29 +808,29 @@
         ctx.fill();
       }
 
-      requestAnimationFrame(render3DSnow);
+      requestAnimationFrame(renderSnow);
     }
 
-    /* ================= 7. Auto-Fullscreen Toggle ================= */
-    function enterFullscreen() {
+    /* ================= 7. Auto Fullscreen on TV Remote Click ================= */
+    function goFullscreen() {
       if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen().catch(() => {});
       }
     }
 
-    window.addEventListener('click', enterFullscreen);
-    window.addEventListener('keydown', enterFullscreen);
+    window.addEventListener('click', goFullscreen);
+    window.addEventListener('keydown', goFullscreen);
 
     // Initial Execution
-    refreshSystemTime();
-    buildLiveCalendar();
-    updateDhakaWeather();
-    render3DSnow();
+    runClockEngine();
+    buildCalendar();
+    syncDhakaWeather();
+    renderSnow();
 
-    // High Precision Timers
-    setInterval(refreshSystemTime, 500); // 500ms sync guarantees accurate zero-delay seconds
-    setInterval(pulseMarketQuotes, 3600); // 3.6s market pulse
-    setInterval(updateDhakaWeather, 1200000); // Refresh weather every 20 mins
+    // High Precision Interval Loops
+    setInterval(runClockEngine, 500); // 500ms sync guarantees zero-delay smooth seconds
+    setInterval(pulseMarketQuotes, 3600); // Market live tick
+    setInterval(syncDhakaWeather, 1200000); // Refresh weather every 20 mins
   </script>
 </body>
 </html>
