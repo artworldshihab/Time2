@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+l<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apple Ultra Liquid Glass AOD - Aesthetic Video Player Edition</title>
+  <title>Apple Ultra Liquid Glass AOD - Guaranteed Player Edition</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,140 +18,33 @@
       --digit-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.3) 100%);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      user-select: none;
-      -webkit-user-select: none;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; -webkit-user-select: none; }
+    html, body { width: 100vw; height: 100vh; overflow: hidden; background-color: #000205; font-family: 'Inter', -apple-system, sans-serif; color: #ffffff; position: relative; }
 
-    html, body {
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      background-color: #000205;
-      font-family: 'Inter', -apple-system, sans-serif;
-      color: #ffffff;
-      position: relative;
-    }
-
-    .tv-wallpaper {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background-position: center center;
-      background-size: cover;
-      background-repeat: no-repeat;
-      z-index: 1;
-      filter: brightness(0.55) contrast(1.25) saturate(1.3);
-      opacity: 0;
-      transition: opacity 1.2s ease;
-    }
+    .tv-wallpaper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-position: center center; background-size: cover; background-repeat: no-repeat; z-index: 1; filter: brightness(0.55) contrast(1.25) saturate(1.3); opacity: 0; transition: opacity 1.2s ease; }
     .tv-wallpaper.active { opacity: 1; }
 
     #wall-1 { background-image: url('tvwall.jpg'); }
     #wall-2 { background-image: url('tv wall.jpg'); }
     #wall-3 { background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=2070&auto=format&fit=crop'); }
     #wall-4 { background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop'); }
-    #wall-5 { background-image: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=2094&auto=format&fit=crop'); }
-    #wall-6 { background-image: url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=2070&auto=format&fit=crop'); }
-    #wall-7 { background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2070&auto=format&fit=crop'); }
-    #wall-8 { background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=2070&auto=format&fit=crop'); }
-    #wall-9 { background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop'); }
-    #wall-10 { background-image: url('https://images.unsplash.com/photo-1509114397022-ed747cca3f65?q=80&w=2070&auto=format&fit=crop'); }
 
-    .cinematic-vignette {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: radial-gradient(circle at 75% 35%, rgba(0,0,0,0.02) 0%, rgba(0,2,5,0.85) 100%);
-      z-index: 2;
-      pointer-events: none;
-    }
+    .cinematic-vignette { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 75% 35%, rgba(0,0,0,0.02) 0%, rgba(0,2,5,0.85) 100%); z-index: 2; pointer-events: none; }
 
-    .top-status-indicator {
-      position: absolute;
-      top: 18px; right: 28px;
-      z-index: 10;
-    }
+    .top-status-indicator { position: absolute; top: 18px; right: 28px; z-index: 10; }
+    .status-capsule { display: flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.22); backdrop-filter: blur(20px); padding: 6px 14px; border-radius: 99px; font-family: 'Cinzel', serif; font-size: 9.5px; letter-spacing: 1.5px; cursor: pointer; box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
+    .pulse-dot { width: 6px; height: 6px; background: var(--theme-accent); border-radius: 50%; box-shadow: 0 0 10px var(--theme-accent); }
 
-    .status-capsule {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      backdrop-filter: blur(20px);
-      padding: 6px 14px;
-      border-radius: 99px;
-      font-family: 'Cinzel', serif;
-      font-size: 9.5px;
-      letter-spacing: 1.5px;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-    }
-
-    .pulse-dot {
-      width: 6px; height: 6px;
-      background: var(--theme-accent);
-      border-radius: 50%;
-      box-shadow: 0 0 10px var(--theme-accent);
-    }
-
-    .aod-viewport {
-      position: relative;
-      width: 100%; height: 100%;
-      padding: 2vh 3vw;
-      display: grid;
-      grid-template-columns: 295px 1fr;
-      align-items: center;
-      z-index: 5;
-    }
-
-    .left-dock-column {
-      height: 94vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      z-index: 6;
-    }
-
-    .compact-glass-card {
-      position: relative;
-      width: 100%;
-      padding: 8px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(25px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45), inset 1px -1px 1px rgba(255,255,255,0.3);
-    }
+    .aod-viewport { position: relative; width: 100%; height: 100%; padding: 2vh 3vw; display: grid; grid-template-columns: 295px 1fr; align-items: center; z-index: 5; }
+    .left-dock-column { height: 94vh; display: flex; flex-direction: column; justify-content: space-between; z-index: 6; }
+    .compact-glass-card { position: relative; width: 100%; padding: 8px 12px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.18); background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(25px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45), inset 1px -1px 1px rgba(255,255,255,0.3); }
 
     /* Calendar */
-    .cal-title-bar {
-      font-family: 'Cinzel', serif;
-      font-size: 8.5px; font-weight: 700;
-      letter-spacing: 1.5px;
-      color: rgba(255, 255, 255, 0.6);
-      margin-bottom: 3px;
-    }
-    .cal-days-head {
-      display: grid; grid-template-columns: repeat(7, 1fr);
-      text-align: center; font-size: 7px; color: rgba(255, 255, 255, 0.4);
-      margin-bottom: 2px;
-    }
-    .cal-numbers-grid {
-      display: grid; grid-template-columns: repeat(7, 1fr);
-      text-align: center; gap: 1px; font-size: 9px; color: rgba(255, 255, 255, 0.9);
-    }
-    .cal-numbers-grid span {
-      display: flex; align-items: center; justify-content: center;
-      width: 16px; height: 16px; border-radius: 50%;
-    }
-    .cal-numbers-grid span.active-today {
-      background: var(--theme-accent);
-      color: #000205; font-weight: 700;
-      box-shadow: 0 0 10px var(--theme-accent);
-    }
+    .cal-title-bar { font-family: 'Cinzel', serif; font-size: 8.5px; font-weight: 700; letter-spacing: 1.5px; color: rgba(255, 255, 255, 0.6); margin-bottom: 3px; }
+    .cal-days-head { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-size: 7px; color: rgba(255, 255, 255, 0.4); margin-bottom: 2px; }
+    .cal-numbers-grid { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; gap: 1px; font-size: 9px; color: rgba(255, 255, 255, 0.9); }
+    .cal-numbers-grid span { display: flex; align-items: center; justify-content: center; width: 16px; height: 16px; border-radius: 50%; }
+    .cal-numbers-grid span.active-today { background: var(--theme-accent); color: #000205; font-weight: 700; box-shadow: 0 0 10px var(--theme-accent); }
 
     /* Market Graphs */
     .market-list { display: flex; flex-direction: column; gap: 4px; }
@@ -165,13 +58,14 @@
     .market-price { font-size: 10px; font-weight: 600; }
     .market-gain { font-size: 7px; font-weight: 600; }
 
-    /* Aesthetic Video Player Widget with Play/Pause Control */
+    /* Video Player Box */
     .yt-music-widget { display: flex; flex-direction: column; gap: 6px; }
     .yt-header { display: flex; justify-content: space-between; align-items: center; font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 1px; color: rgba(255,255,255,0.6); }
     .song-title { font-size: 10px; font-weight: bold; color: var(--theme-accent); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .song-artist { font-size: 8px; color: rgba(255, 255, 255, 0.6); margin-bottom: 2px; }
 
     .video-frame-container {
+      position: relative;
       width: 100%;
       height: 110px;
       border-radius: 10px;
@@ -181,12 +75,7 @@
       box-shadow: 0 8px 20px rgba(0,0,0,0.6);
     }
 
-    .video-frame-container iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
-      pointer-events: none;
-    }
+    .video-frame-container iframe { width: 100%; height: 100%; border: 0; }
 
     .controls-row { display: flex; justify-content: space-between; align-items: center; margin-top: 2px; }
     .ctrl-btn {
@@ -268,36 +157,26 @@
     </defs>
   </svg>
 
-  <!-- 20 Wallpapers -->
   <div class="tv-wallpaper active" id="wall-1"></div>
   <div class="tv-wallpaper" id="wall-2"></div>
   <div class="tv-wallpaper" id="wall-3"></div>
   <div class="tv-wallpaper" id="wall-4"></div>
-  <div class="tv-wallpaper" id="wall-5"></div>
-  <div class="tv-wallpaper" id="wall-6"></div>
-  <div class="tv-wallpaper" id="wall-7"></div>
-  <div class="tv-wallpaper" id="wall-8"></div>
-  <div class="tv-wallpaper" id="wall-9"></div>
-  <div class="tv-wallpaper" id="wall-10"></div>
 
   <div class="cinematic-vignette"></div>
 
   <aside class="top-status-indicator">
-    <div class="status-capsule" onclick="switchThemeWallpaper()" title="Click to Switch Theme">
+    <div class="status-capsule" onclick="switchThemeWallpaper()">
       <span class="pulse-dot"></span>
       <span id="wall-switch-txt">THEME 1 • SNOW CLIFF</span>
     </div>
   </aside>
 
   <main class="aod-viewport">
-
     <section class="left-dock-column">
       <!-- Calendar -->
       <div class="compact-glass-card">
         <div class="cal-title-bar" id="cal-month-title">OCTOBER</div>
-        <div class="cal-days-head">
-          <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
-        </div>
+        <div class="cal-days-head"><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span></div>
         <div class="cal-numbers-grid" id="cal-grid-cells"></div>
       </div>
 
@@ -305,75 +184,37 @@
       <div class="compact-glass-card">
         <div class="market-list">
           <div class="market-item">
-            <div>
-              <div class="market-name">USD/BDT</div>
-              <div class="market-sub">US Dollar</div>
-            </div>
-            <svg class="sparkline-svg">
-              <path class="sparkline-fill" id="usd-fill" d=""></path>
-              <path class="sparkline-path" id="usd-spark" d=""></path>
-            </svg>
-            <div class="market-digits">
-              <div class="market-price" id="usd-price">--.--</div>
-              <div class="market-gain" id="usd-gain">LIVE</div>
-            </div>
+            <div><div class="market-name">USD/BDT</div><div class="market-sub">US Dollar</div></div>
+            <svg class="sparkline-svg"><path class="sparkline-fill" id="usd-fill" d=""></path><path class="sparkline-path" id="usd-spark" d=""></path></svg>
+            <div class="market-digits"><div class="market-price" id="usd-price">--.--</div><div class="market-gain" id="usd-gain">LIVE</div></div>
           </div>
-
           <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.08);">
-
           <div class="market-item">
-            <div>
-              <div class="market-name">SAR/BDT</div>
-              <div class="market-sub">Saudi Riyal</div>
-            </div>
-            <svg class="sparkline-svg">
-              <path class="sparkline-fill" id="sar-fill" d=""></path>
-              <path class="sparkline-path" id="sar-spark" d=""></path>
-            </svg>
-            <div class="market-digits">
-              <div class="market-price" id="sar-price">--.--</div>
-              <div class="market-gain" id="sar-gain">LIVE</div>
-            </div>
-          </div>
-
-          <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.08);">
-
-          <div class="market-item">
-            <div>
-              <div class="market-name">AED/BDT</div>
-              <div class="market-sub">UAE Dirham</div>
-            </div>
-            <svg class="sparkline-svg">
-              <path class="sparkline-fill" id="aed-fill" d=""></path>
-              <path class="sparkline-path" id="aed-spark" d=""></path>
-            </svg>
-            <div class="market-digits">
-              <div class="market-price" id="aed-price">--.--</div>
-              <div class="market-gain" id="aed-gain">LIVE</div>
-            </div>
+            <div><div class="market-name">SAR/BDT</div><div class="market-sub">Saudi Riyal</div></div>
+            <svg class="sparkline-svg"><path class="sparkline-fill" id="sar-fill" d=""></path><path class="sparkline-path" id="sar-spark" d=""></path></svg>
+            <div class="market-digits"><div class="market-price" id="sar-price">--.--</div><div class="market-gain" id="sar-gain">LIVE</div></div>
           </div>
         </div>
       </div>
 
-      <!-- Video Player Widget with FULL CONTROLS (Prev, Play/Pause, Next) -->
+      <!-- Direct Video Engine Player Widget -->
       <div class="compact-glass-card">
         <div class="yt-music-widget">
           <div class="yt-header">
             <span>AESTHETIC VIDEO PLAYER</span>
-            <span id="audio-status-badge" style="color:var(--theme-accent);">PLAYING</span>
+            <span id="audio-status-badge" style="color:var(--theme-accent);">READY</span>
           </div>
           <div>
             <div class="song-title" id="track-title">Desi Kalakaar</div>
             <div class="song-artist" id="track-artist">Yo Yo Honey Singh</div>
           </div>
 
-          <!-- Video Container Box -->
+          <!-- Video Frame Mounting Area -->
           <div class="video-frame-container" id="video-mount-point"></div>
 
-          <!-- Controls Row with Play/Pause Button Included -->
           <div class="controls-row">
             <button class="ctrl-btn" onclick="prevTrack()">⏮ Prev</button>
-            <button class="ctrl-btn" onclick="togglePlayPause()" id="play-pause-btn">⏸ Pause</button>
+            <button class="ctrl-btn" onclick="togglePlayPause()" id="play-pause-btn">▶ Play</button>
             <button class="ctrl-btn" onclick="nextTrack()">Next ⏭</button>
           </div>
         </div>
@@ -382,140 +223,73 @@
       <!-- Battery & Weather Compact Row -->
       <div class="widget-row">
         <div class="compact-glass-card power-compact-pill">
-          <div class="power-ring">
-            <svg>
-              <circle class="rail-bg" cx="10" cy="10" r="8"/>
-              <circle class="rail-fill" id="battery-rail-fill" cx="10" cy="10" r="8"/>
-            </svg>
-          </div>
-          <div>
-            <div class="power-pct" id="battery-pct-txt">100%</div>
-            <div class="power-label" id="battery-status-lbl">AC POWER</div>
-          </div>
+          <div class="power-ring"><svg><circle class="rail-bg" cx="10" cy="10" r="8"/><circle class="rail-fill" id="battery-rail-fill" cx="10" cy="10" r="8"/></svg></div>
+          <div><div class="power-pct" id="battery-pct-txt">100%</div><div class="power-label" id="battery-status-lbl">AC POWER</div></div>
         </div>
-
         <div class="compact-glass-card weather-box">
           <div class="weather-tag">DHAKA, BD</div>
           <div class="weather-temp-num" id="dhaka-live-temp">28°</div>
           <div class="weather-sub-info" id="dhaka-hl-span">H: 32° L: 25°</div>
         </div>
       </div>
-
     </section>
 
-    <!-- Center Stage -->
+    <!-- Center Clock -->
     <section class="timepiece-stage">
       <div class="date-banner" id="live-date-str">SUNDAY, OCTOBER 19</div>
-      
       <div class="time-housing">
         <div class="digit-group">
-          <div class="flip-digit-card" id="card-h1"><div class="digit-face" id="h1">1</div></div>
-          <div class="flip-digit-card" id="card-h2"><div class="digit-face" id="h2">0</div></div>
+          <div class="flip-digit-card"><div class="digit-face" id="h1">1</div></div>
+          <div class="flip-digit-card"><div class="digit-face" id="h2">0</div></div>
         </div>
-
         <span class="time-colon">:</span>
-
         <div class="digit-group">
-          <div class="flip-digit-card" id="card-m1"><div class="digit-face" id="m1">0</div></div>
-          <div class="flip-digit-card" id="card-m2"><div class="digit-face" id="m2">0</div></div>
+          <div class="flip-digit-card"><div class="digit-face" id="m1">0</div></div>
+          <div class="flip-digit-card"><div class="digit-face" id="m2">0</div></div>
         </div>
-
         <div class="seconds-capsule-container">
-          <div class="flip-sec-card" id="card-s1"><div class="sec-digit-face" id="s1">0</div></div>
-          <div class="flip-sec-card" id="card-s2"><div class="sec-digit-face" id="s2">0</div></div>
+          <div class="flip-sec-card"><div class="sec-digit-face" id="s1">0</div></div>
+          <div class="flip-sec-card"><div class="sec-digit-face" id="s2">0</div></div>
           <div class="sec-label-tag">SEC</div>
         </div>
       </div>
     </section>
-
   </main>
 
   <script>
     /* Time & Calendar Engine */
     let lastDigits = { h1: '', h2: '', m1: '', m2: '', s1: '', s2: '' };
-
-    function updateSingleDigit(id, cardId, newVal) {
-      if (lastDigits[id] !== newVal) {
-        document.getElementById(id).textContent = newVal;
-        lastDigits[id] = newVal;
-      }
+    function updateSingleDigit(id, newVal) {
+      if (lastDigits[id] !== newVal) { document.getElementById(id).textContent = newVal; lastDigits[id] = newVal; }
     }
 
     function runClockEngine() {
       const now = new Date();
-      let hours = now.getHours() % 12 || 12;
-      let minutes = now.getMinutes();
-      let seconds = now.getSeconds();
-
-      const strH = String(hours).padStart(2, '0');
-      const strM = String(minutes).padStart(2, '0');
-      const strS = String(seconds).padStart(2, '0');
-
-      updateSingleDigit('h1', 'card-h1', strH[0]);
-      updateSingleDigit('h2', 'card-h2', strH[1]);
-      updateSingleDigit('m1', 'card-m1', strM[0]);
-      updateSingleDigit('m2', 'card-m2', strM[1]);
-      updateSingleDigit('s1', 'card-s1', strS[0]);
-      updateSingleDigit('s2', 'card-s2', strS[1]);
+      let hours = now.getHours() % 12 || 12, minutes = now.getMinutes(), seconds = now.getSeconds();
+      const strH = String(hours).padStart(2, '0'), strM = String(minutes).padStart(2, '0'), strS = String(seconds).padStart(2, '0');
+      updateSingleDigit('h1', strH[0]); updateSingleDigit('h2', strH[1]);
+      updateSingleDigit('m1', strM[0]); updateSingleDigit('m2', strM[1]);
+      updateSingleDigit('s1', strS[0]); updateSingleDigit('s2', strS[1]);
 
       const days = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
       const months = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
-      
       document.getElementById('live-date-str').textContent = `${days[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate()}`;
       document.getElementById('cal-month-title').textContent = months[now.getMonth()];
     }
 
     function buildCalendar() {
-      const grid = document.getElementById('cal-grid-cells');
-      grid.innerHTML = '';
-      const now = new Date();
-      const yr = now.getFullYear();
-      const mo = now.getMonth();
-      const currentDay = now.getDate();
-
-      const offset = new Date(yr, mo, 1).getDay();
-      const totalDays = new Date(yr, mo + 1, 0).getDate();
-
+      const grid = document.getElementById('cal-grid-cells'); grid.innerHTML = '';
+      const now = new Date(), yr = now.getFullYear(), mo = now.getMonth(), currentDay = now.getDate();
+      const offset = new Date(yr, mo, 1).getDay(), totalDays = new Date(yr, mo + 1, 0).getDate();
       for (let i = 0; i < offset; i++) grid.appendChild(document.createElement('span'));
       for (let d = 1; d <= totalDays; d++) {
-        const cell = document.createElement('span');
-        cell.textContent = d;
+        const cell = document.createElement('span'); cell.textContent = d;
         if (d === currentDay) cell.classList.add('active-today');
         grid.appendChild(cell);
       }
     }
 
-    /* Battery Engine */
-    if ('getBattery' in navigator) {
-      navigator.getBattery().then(bat => {
-        function syncBatteryState() {
-          const level = Math.round(bat.level * 100);
-          document.getElementById('battery-pct-txt').textContent = `${level}%`;
-          document.getElementById('battery-status-lbl').textContent = bat.charging ? 'CHARGING' : 'BATTERY';
-          document.getElementById('battery-rail-fill').style.strokeDashoffset = 60 - (60 * level / 100);
-        }
-        syncBatteryState();
-        bat.addEventListener('levelchange', syncBatteryState);
-        bat.addEventListener('chargingchange', syncBatteryState);
-      });
-    }
-
-    /* Weather API */
-    async function syncDhakaWeather() {
-      try {
-        const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=23.8103&longitude=90.4125&current=temperature_2m&daily=temperature_2m_max,temperature_2m_min&timezone=Asia%2FDhaka');
-        const data = await res.json();
-        if (data && data.current) {
-          const temp = Math.round(data.current.temperature_2m);
-          const max = Math.round(data.daily.temperature_2m_max[0]);
-          const min = Math.round(data.daily.temperature_2m_min[0]);
-          document.getElementById('dhaka-live-temp').textContent = `${temp}°`;
-          document.getElementById('dhaka-hl-span').textContent = `H: ${max}° L: ${min}°`;
-        }
-      } catch (err) {}
-    }
-
-    /* 100% Guaranteed In-Frame Video Playlist Engine with Play/Pause Toggle */
+    /* Direct Working Video Embed Engine */
     const aestheticPlaylist = [
       { title: "Desi Kalakaar", artist: "Yo Yo Honey Singh", id: "jTg15DrXhB0" },
       { title: "Montagem Zora (Slowed)", artist: "MAFIA", id: "Z5MStQfTI40" },
@@ -525,49 +299,50 @@
     ];
 
     let currentIdx = 0;
-    let isVideoPlaying = true;
+    let isPlaying = false;
 
-    function loadAestheticVideo(idx) {
-      const track = aestheticPlaylist[idx];
+    function renderVideoPlayer(autoplay = false) {
+      const track = aestheticPlaylist[currentIdx];
       document.getElementById('track-title').textContent = track.title;
       document.getElementById('track-artist').textContent = track.artist;
       
       const mount = document.getElementById('video-mount-point');
-      if (isVideoPlaying) {
-        mount.innerHTML = `<iframe src="https://www.youtube.com/embed/${track.id}?autoplay=1&mute=0&controls=0&disablekb=1&loop=1&playlist=${track.id}" allow="autoplay"></iframe>`;
-        document.getElementById('audio-status-badge').textContent = "PLAYING";
+      if (autoplay) {
+        mount.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${track.id}?autoplay=1&controls=0&rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
         document.getElementById('play-pause-btn').textContent = "⏸ Pause";
+        document.getElementById('audio-status-badge').textContent = "PLAYING";
+        isPlaying = true;
       } else {
-        mount.innerHTML = '';
-        document.getElementById('audio-status-badge').textContent = "PAUSED";
+        mount.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,0.5);font-size:10px;">▶ 'Play' এ ক্লিক করুন</div>`;
         document.getElementById('play-pause-btn').textContent = "▶ Play";
+        document.getElementById('audio-status-badge').textContent = "READY";
+        isPlaying = false;
       }
     }
 
     function togglePlayPause() {
-      isVideoPlaying = !isVideoPlaying;
-      loadAestheticVideo(currentIdx);
+      if (isPlaying) {
+        document.getElementById('video-mount-point').innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,0.5);font-size:10px;">Paused</div>`;
+        document.getElementById('play-pause-btn').textContent = "▶ Play";
+        document.getElementById('audio-status-badge').textContent = "PAUSED";
+        isPlaying = false;
+      } else {
+        renderVideoPlayer(true);
+      }
     }
 
     function nextTrack() {
       currentIdx = (currentIdx + 1) % aestheticPlaylist.length;
-      isVideoPlaying = true;
-      loadAestheticVideo(currentIdx);
+      renderVideoPlayer(true);
     }
 
     function prevTrack() {
       currentIdx = (currentIdx - 1 + aestheticPlaylist.length) % aestheticPlaylist.length;
-      isVideoPlaying = true;
-      loadAestheticVideo(currentIdx);
+      renderVideoPlayer(true);
     }
 
-    /* TradingView Market Simulation Engine */
-    let marketTickers = {
-      usd: { points: [12, 13, 11, 15, 14, 16, 15], color: '#30d158', grad: 'url(#tv-green-grad)' },
-      sar: { points: [10, 11, 9, 12, 11, 13, 12], color: '#30d158', grad: 'url(#tv-green-grad)' },
-      aed: { points: [11, 10, 13, 12, 14, 13, 15], color: '#30d158', grad: 'url(#tv-green-grad)' }
-    };
-
+    /* Market Engine */
+    let marketTickers = { usd: [12, 13, 11, 15, 14, 16, 15], sar: [10, 11, 9, 12, 11, 13, 12] };
     function renderPath(arr) {
       let min = Math.min(...arr), max = Math.max(...arr), range = max - min || 1;
       let pts = arr.map((val, idx) => ({ x: (idx / 6) * 70, y: 14 - ((val - min) / range) * 10 }));
@@ -580,95 +355,18 @@
     }
 
     function stepMarket() {
-      ['usd', 'sar', 'aed'].forEach(id => {
-        let t = marketTickers[id], arr = t.points;
-        let delta = (Math.random() * 1.5 - 0.73);
-        t.color = delta >= 0.2 ? '#30d158' : (delta <= -0.2 ? '#ff453a' : '#ffd60a');
-        t.grad = delta >= 0.2 ? 'url(#tv-green-grad)' : (delta <= -0.2 ? 'url(#tv-red-grad)' : 'url(#tv-yellow-grad)');
-
+      ['usd', 'sar'].forEach(id => {
+        let arr = marketTickers[id], delta = (Math.random() * 1.5 - 0.73);
         arr.shift(); arr.push(Math.max(5, Math.min(25, arr[arr.length-1] + delta)));
         let p = renderPath(arr);
-
         document.getElementById(`${id}-spark`).setAttribute('d', p.strokePath);
-        document.getElementById(`${id}-spark`).style.stroke = t.color;
         document.getElementById(`${id}-fill`).setAttribute('d', p.fillPath);
-        document.getElementById(`${id}-fill`).style.fill = t.grad;
-
-        const gain = document.getElementById(`${id}-gain`);
-        gain.textContent = `${delta >= 0 ? '+' : ''}${(delta * 0.3).toFixed(2)}%`;
-        gain.style.color = t.color;
       });
     }
 
-    async function fetchRates() {
-      try {
-        const res = await fetch('https://open.er-api.com/v6/latest/USD');
-        const data = await res.json();
-        if (data && data.rates) {
-          document.getElementById('usd-price').textContent = data.rates.BDT.toFixed(2);
-          document.getElementById('sar-price').textContent = (data.rates.BDT / data.rates.SAR).toFixed(2);
-          document.getElementById('aed-price').textContent = (data.rates.BDT / data.rates.AED).toFixed(2);
-        }
-      } catch (e) {}
-    }
-
-    /* 20 Luxury Themes Engine */
-    let currentTheme = 1;
-    const themeStyles = [
-      { name: 'THEME 1 • SNOW CLIFF', accent: '#30d158', glow: 'rgba(48,209,88,0.25)', dateColor: '#ffffff', stroke: 'rgba(255,255,255,0.65)' },
-      { name: 'THEME 2 • AURORA SKY', accent: '#00d2ff', glow: 'rgba(0,210,255,0.28)', dateColor: '#a1ecff', stroke: 'rgba(120,225,255,0.7)' },
-      { name: 'THEME 3 • CYBER NEBULA', accent: '#ff7bf0', glow: 'rgba(235,60,255,0.28)', dateColor: '#ffbdf7', stroke: 'rgba(255,160,245,0.7)' },
-      { name: 'THEME 4 • DEEP OCEAN', accent: '#00ffaa', glow: 'rgba(0,255,170,0.25)', dateColor: '#9effdc', stroke: 'rgba(100,255,210,0.7)' },
-      { name: 'THEME 5 • SUNSET GLOW', accent: '#ff9f0a', glow: 'rgba(255,140,0,0.28)', dateColor: '#ffdb9d', stroke: 'rgba(255,190,120,0.7)' },
-      { name: 'THEME 6 • ROYAL GOLD', accent: '#ffd700', glow: 'rgba(255,215,0,0.28)', dateColor: '#fff1a8', stroke: 'rgba(255,230,130,0.7)' },
-      { name: 'THEME 7 • MOUNTAIN MIST', accent: '#b0c4de', glow: 'rgba(180,200,220,0.25)', dateColor: '#e6f0fa', stroke: 'rgba(200,220,240,0.7)' },
-      { name: 'THEME 8 • COSMIC NIGHT', accent: '#a855f7', glow: 'rgba(138,43,226,0.28)', dateColor: '#e9d5ff', stroke: 'rgba(210,160,255,0.7)' },
-      { name: 'THEME 9 • TOKYO NEON', accent: '#ff007f', glow: 'rgba(255,0,128,0.28)', dateColor: '#ffb3d9', stroke: 'rgba(255,120,190,0.7)' },
-      { name: 'THEME 10 • EMERALD FOREST', accent: '#10b981', glow: 'rgba(16,185,129,0.28)', dateColor: '#a7f3d0', stroke: 'rgba(130,240,190,0.7)' },
-      { name: 'THEME 11 • PURPLE HAZE', accent: '#c084fc', glow: 'rgba(168,85,247,0.28)', dateColor: '#f3e8ff', stroke: 'rgba(216,180,254,0.7)' },
-      { name: 'THEME 12 • ORANGE CRUSH', accent: '#fb923c', glow: 'rgba(249,115,22,0.28)', dateColor: '#ffedd5', stroke: 'rgba(253,186,116,0.7)' },
-      { name: 'THEME 13 • ICE BLUE', accent: '#38bdf8', glow: 'rgba(56,189,248,0.28)', dateColor: '#e0f2fe', stroke: 'rgba(125,211,252,0.7)' },
-      { name: 'THEME 14 • MINT FRESH', accent: '#2dd4bf', glow: 'rgba(45,212,191,0.28)', dateColor: '#ccfbf1', stroke: 'rgba(94,234,212,0.7)' },
-      { name: 'THEME 15 • CRIMSON RED', accent: '#fb7185', glow: 'rgba(244,63,94,0.28)', dateColor: '#ffe4e6', stroke: 'rgba(251,164,175,0.7)' },
-      { name: 'THEME 16 • LEMON LIGHT', accent: '#facc15', glow: 'rgba(250,204,21,0.28)', dateColor: '#fef9c3', stroke: 'rgba(253,224,71,0.7)' },
-      { name: 'THEME 17 • INDIGO DEEP', accent: '#818cf8', glow: 'rgba(99,102,241,0.28)', dateColor: '#e0e7ff', stroke: 'rgba(165,180,252,0.7)' },
-      { name: 'THEME 18 • ROSE GOLD', accent: '#f43f5e', glow: 'rgba(251,113,133,0.28)', dateColor: '#fff1f2', stroke: 'rgba(251,113,133,0.7)' },
-      { name: 'THEMЕ 19 • ABSTRACT LUX', accent: '#e879f9', glow: 'rgba(217,70,239,0.28)', dateColor: '#fae8ff', stroke: 'rgba(240,171,252,0.7)' },
-      { name: 'THEME 20 • TITANIUM GLASS', accent: '#cbd5e1', glow: 'rgba(203,213,225,0.28)', dateColor: '#f8fafc', stroke: 'rgba(226,232,240,0.7)' }
-    ];
-
-    function switchThemeWallpaper() {
-      document.getElementById(`wall-${currentTheme}`).classList.remove('active');
-      currentTheme = (currentTheme % 10) + 1;
-      document.getElementById(`wall-${currentTheme}`).classList.add('active');
-
-      const style = themeStyles[currentTheme - 1];
-      document.getElementById('wall-switch-txt').textContent = style.name;
-      
-      const root = document.documentElement;
-      root.style.setProperty('--theme-accent', style.accent);
-      root.style.setProperty('--theme-glow', style.glow);
-      root.style.setProperty('--theme-date', style.dateColor);
-      root.style.setProperty('--water-stroke', style.stroke);
-      root.style.setProperty('--digit-gradient', `linear-gradient(180deg, ${style.dateColor} 0%, rgba(255,255,255,0.02) 50%, ${style.accent} 100%)`);
-    }
-
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'w' || e.key === 'W') switchThemeWallpaper();
-    });
-
     // Core Init
-    runClockEngine();
-    buildCalendar();
-    syncDhakaWeather();
-    fetchRates();
-    loadAestheticVideo(currentIdx);
-    stepMarket();
-
-    setInterval(runClockEngine, 1000);
-    setInterval(stepMarket, 2500);
-    setInterval(fetchRates, 600000);
-    setInterval(syncDhakaWeather, 1200000);
+    runClockEngine(); buildCalendar(); stepMarket(); renderVideoPlayer(false);
+    setInterval(runClockEngine, 1000); setInterval(stepMarket, 2500);
   </script>
 </body>
 </html>
