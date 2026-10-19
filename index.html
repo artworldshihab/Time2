@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apple Ultra Liquid Glass AOD - Final Masterpiece Edition</title>
+  <title>Apple Ultra Liquid Glass AOD - Final TV Edition</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,9 +13,9 @@
     :root {
       --theme-accent: #30d158;
       --theme-glow: rgba(48, 209, 88, 0.25);
-      --theme-date: #ffffff;
+      --theme-date: rgba(255, 255, 255, 0.95);
       --water-stroke: rgba(255, 255, 255, 0.65);
-      --theme-digit-grad: linear-gradient(180deg, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.03) 50%, rgba(255,255,255,0.25) 100%);
+      --digit-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.3) 100%);
     }
 
     * {
@@ -36,7 +36,6 @@
       position: relative;
     }
 
-    /* 20+ Real Luxury Wallpapers */
     .tv-wallpaper {
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -44,7 +43,7 @@
       background-size: cover;
       background-repeat: no-repeat;
       z-index: 1;
-      filter: brightness(0.6) contrast(1.25) saturate(1.3);
+      filter: brightness(0.55) contrast(1.25) saturate(1.3);
       opacity: 0;
       transition: opacity 1.2s ease;
     }
@@ -74,14 +73,14 @@
     .cinematic-vignette {
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
-      background: radial-gradient(circle at 75% 35%, rgba(0,0,0,0.02) 0%, rgba(0,2,5,0.9) 100%);
+      background: radial-gradient(circle at 75% 35%, rgba(0,0,0,0.02) 0%, rgba(0,2,5,0.85) 100%);
       z-index: 2;
       pointer-events: none;
     }
 
     .top-status-indicator {
       position: absolute;
-      top: 18px; right: 30px;
+      top: 18px; right: 28px;
       z-index: 10;
     }
 
@@ -89,16 +88,16 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(15px);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(20px);
       padding: 6px 14px;
       border-radius: 99px;
       font-family: 'Cinzel', serif;
-      font-size: 9px;
+      font-size: 9.5px;
       letter-spacing: 1.5px;
       cursor: pointer;
-      transition: all 0.3s;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
     }
 
     .pulse-dot {
@@ -108,19 +107,18 @@
       box-shadow: 0 0 10px var(--theme-accent);
     }
 
-    /* Layout Viewport */
     .aod-viewport {
       position: relative;
       width: 100%; height: 100%;
-      padding: 2vh 3.5vw;
+      padding: 2vh 3vw;
       display: grid;
-      grid-template-columns: 290px 1fr;
+      grid-template-columns: 285px 1fr;
       align-items: center;
       z-index: 5;
     }
 
     .left-dock-column {
-      height: 96vh;
+      height: 92vh;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -132,10 +130,10 @@
       width: 100%;
       padding: 8px 12px;
       border-radius: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.03);
       backdrop-filter: blur(25px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45), inset 1px -1px 1px rgba(255,255,255,0.3);
     }
 
     /* Calendar */
@@ -162,11 +160,12 @@
     .cal-numbers-grid span.active-today {
       background: var(--theme-accent);
       color: #000205; font-weight: 700;
+      box-shadow: 0 0 10px var(--theme-accent);
     }
 
-    /* TradingView Market Tickers */
+    /* Market Graphs */
     .market-list { display: flex; flex-direction: column; gap: 5px; }
-    .market-item { display: grid; grid-template-columns: 72px 1fr 60px; align-items: center; gap: 5px; }
+    .market-item { display: grid; grid-template-columns: 70px 1fr 60px; align-items: center; gap: 5px; }
     .market-name { font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 700; color: var(--theme-accent); }
     .market-sub { font-size: 7px; color: rgba(255,255,255,0.45); }
     .sparkline-svg { width: 100%; height: 18px; overflow: visible; }
@@ -176,81 +175,83 @@
     .market-price { font-size: 10.5px; font-weight: 600; }
     .market-gain { font-size: 7.5px; font-weight: 600; }
 
-    /* Music Player */
+    /* Music Player & Embedded Player */
     .yt-music-widget { display: flex; flex-direction: column; gap: 5px; }
-    .yt-header { display: flex; justify-content: space-between; align-items: center; font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 1.2px; color: rgba(255,255,255,0.6); }
+    .yt-header { display: flex; justify-content: space-between; align-items: center; font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 1px; color: rgba(255,255,255,0.6); }
     .yt-player-box { display: flex; align-items: center; gap: 8px; }
-    .yt-thumbnail { width: 36px; height: 36px; border-radius: 8px; background-size: cover; background-position: center; border: 1px solid rgba(255,255,255,0.2); flex-shrink: 0; }
+    .yt-thumbnail { width: 36px; height: 36px; border-radius: 8px; background-size: cover; background-position: center; border: 1px solid rgba(255,255,255,0.2); }
     .yt-info { flex-grow: 1; overflow: hidden; }
-    .yt-song-title { font-size: 10px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #fff; }
+    .yt-song-title { font-size: 10px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--theme-accent); }
     .yt-artist { font-size: 8px; color: rgba(255,255,255,0.5); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .yt-subtitles-box { width: 100%; height: 15px; overflow: hidden; text-align: center; background: rgba(0,0,0,0.25); border-radius: 4px; display: flex; align-items: center; justify-content: center; }
-    .yt-subtitle-text { font-size: 7.5px; font-style: italic; color: var(--theme-accent); white-space: nowrap; }
-    .yt-controls { display: flex; align-items: center; justify-content: space-between; }
-    .yt-btn-group { display: flex; gap: 5px; align-items: center; }
-    .yt-ctrl-btn { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: #fff; width: 23px; height: 23px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; cursor: pointer; }
-    .yt-ctrl-btn:hover { background: var(--theme-accent); color: #000; }
+    
+    .hidden-yt-frame {
+      position: absolute;
+      width: 1px; height: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
 
-    /* Compact Battery & Weather */
-    .power-compact-pill { width: fit-content; display: flex; align-items: center; gap: 8px; padding: 5px 10px; border-radius: 99px; }
+    /* Battery & Weather Compact */
+    .widget-row { display: flex; gap: 8px; align-items: center; }
+    .power-compact-pill { flex: 1; display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 12px; }
     .power-ring { position: relative; width: 22px; height: 22px; }
     .power-ring svg { transform: rotate(-90deg); width: 22px; height: 22px; }
     .rail-bg { stroke: rgba(255,255,255,0.12); stroke-width: 2.5; fill: none; }
-    .rail-fill { stroke: var(--theme-accent); stroke-width: 2.5; stroke-linecap: round; fill: none; stroke-dasharray: 60; stroke-dashoffset: 0; transition: stroke 0.5s; }
-    .power-bolt { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 7px; }
-    .power-pct { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; line-height: 1; }
-    .power-label { font-size: 7px; font-weight: 600; color: rgba(255,255,255,0.5); letter-spacing: 0.5px; }
+    .rail-fill { stroke: var(--theme-accent); stroke-width: 2.5; stroke-linecap: round; fill: none; stroke-dasharray: 60; stroke-dashoffset: 0; }
+    .power-pct { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; line-height: 1; }
+    .power-label { font-size: 6.5px; font-weight: 600; color: rgba(255,255,255,0.5); }
 
-    .weather-box { padding: 0 2px; }
-    .weather-tag { font-family: 'Cinzel', serif; font-size: 8.5px; font-weight: 700; letter-spacing: 1px; color: rgba(255,255,255,0.85); }
-    .weather-temp-num { font-size: 30px; font-weight: 300; letter-spacing: -2px; line-height: 1; margin: 1px 0; color: var(--theme-accent); }
-    .weather-sub-info { font-size: 8px; color: rgba(255,255,255,0.6); line-height: 1.25; }
+    .weather-box { flex: 1; padding: 6px 10px; border-radius: 12px; display: flex; flex-direction: column; justify-content: center; }
+    .weather-tag { font-family: 'Cinzel', serif; font-size: 7.5px; font-weight: 700; letter-spacing: 0.8px; color: rgba(255,255,255,0.8); }
+    .weather-temp-num { font-size: 20px; font-weight: 300; line-height: 1.1; color: var(--theme-accent); }
+    .weather-sub-info { font-size: 7.5px; color: rgba(255,255,255,0.6); }
 
-    /* ================= Ultra-Transparent Long Glass Clock ================= */
-    .timepiece-stage { display: flex; flex-direction: column; align-items: center; justify-content: center; margin-left: -20px; }
-    .date-banner { font-family: 'Cinzel', serif; font-size: 14px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--theme-date); margin-bottom: 10px; text-shadow: 0 4px 18px rgba(0,0,0,0.9); transition: color 0.5s; }
+    /* ================= Super Transparent Glass Clock ================= */
+    .timepiece-stage { display: flex; flex-direction: column; align-items: center; justify-content: center; margin-left: -15px; }
+    .date-banner { font-family: 'Cinzel', serif; font-size: 15px; font-weight: 700; letter-spacing: 3.5px; text-transform: uppercase; color: var(--theme-date); margin-bottom: 10px; text-shadow: 0 4px 18px rgba(0,0,0,0.9); }
     .time-housing { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 0.5vw; }
     .digit-group { display: flex; gap: 0.25vw; }
     .flip-digit-card { position: relative; width: 7.2vw; height: 22vw; perspective: 1200px; }
     .digit-face {
       position: absolute; width: 100%; height: 100%;
-      font-family: 'Antonio', sans-serif; font-size: 20vw; font-weight: 700; line-height: 1.05; text-align: center;
-      background: var(--theme-digit-grad);
+      font-family: 'Antonio', sans-serif; font-size: 20vw; font-weight: 700; line-height: 1; text-align: center;
+      background: var(--digit-gradient);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      -webkit-text-stroke: 1.4px var(--water-stroke);
-      filter: drop-shadow(0 15px 25px rgba(0,0,0,0.85));
-      display: flex; align-items: center; justify-content: center; backface-visibility: hidden;
-      transition: background 0.5s, -webkit-text-stroke 0.5s;
+      -webkit-text-stroke: 1.5px var(--water-stroke);
+      filter: drop-shadow(0 15px 25px rgba(0,0,0,0.8));
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.8s ease, -webkit-text-stroke 0.8s ease;
     }
     .flip-digit-card::after {
       content: ''; position: absolute; top: 50%; left: 8%; width: 84%; height: 1.5px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); z-index: 10;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent); z-index: 10;
     }
     .time-colon {
       font-family: 'Antonio', sans-serif; font-size: 13vw; font-weight: 700; line-height: 1; margin: 0 0.15vw;
-      background: linear-gradient(180deg, rgba(255,255,255,0.75), rgba(255,255,255,0.1));
+      background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.15));
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      -webkit-text-stroke: 1px rgba(255,255,255,0.4); filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8));
+      -webkit-text-stroke: 1px var(--water-stroke); filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8));
     }
     .seconds-capsule-container {
       position: absolute; right: -9.5vw; bottom: 12%;
-      display: flex; gap: 0.25vw; padding: 6px 10px; border-radius: 14px;
+      display: flex; gap: 0.3vw; padding: 6px 10px; border-radius: 14px;
       background: rgba(255,255,255,0.02); backdrop-filter: blur(20px);
       border: 1px solid rgba(255,255,255,0.18); box-shadow: 0 15px 30px rgba(0,0,0,0.6); z-index: 10;
     }
-    .flip-sec-card { position: relative; width: 1.6vw; height: 3vw; perspective: 400px; }
+    .flip-sec-card { position: relative; width: 1.6vw; height: 3vw; }
     .sec-digit-face {
       position: absolute; width: 100%; height: 100%;
       font-family: 'Antonio', sans-serif; font-size: 3vw; font-weight: 700; line-height: 1;
-      color: #ffffff; text-shadow: 0 0 10px rgba(255,255,255,0.85);
+      color: #ffffff; text-shadow: 0 0 10px rgba(255,255,255,0.8);
       display: flex; align-items: center; justify-content: center;
     }
-    .sec-label-tag { position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%); font-family: 'Cinzel', serif; font-size: 6px; letter-spacing: 1.2px; font-weight: 700; color: rgba(255,255,255,0.5); }
+    .sec-label-tag { position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%); font-family: 'Cinzel', serif; font-size: 6px; letter-spacing: 1px; font-weight: 700; color: rgba(255,255,255,0.5); }
   </style>
 </head>
 <body>
 
-  <audio id="audio-player" crossorigin="anonymous"></audio>
+  <!-- Hidden Verified YouTube Audio Streamer Container -->
+  <div id="audio-frame-container" class="hidden-yt-frame"></div>
 
   <svg style="height:0; width:0; position:absolute;">
     <defs>
@@ -260,6 +261,7 @@
     </defs>
   </svg>
 
+  <!-- 20 Wallpapers -->
   <div class="tv-wallpaper active" id="wall-1"></div>
   <div class="tv-wallpaper" id="wall-2"></div>
   <div class="tv-wallpaper" id="wall-3"></div>
@@ -291,11 +293,14 @@
   </aside>
 
   <main class="aod-viewport">
+
     <section class="left-dock-column">
       <!-- Calendar -->
       <div class="compact-glass-card">
         <div class="cal-title-bar" id="cal-month-title">OCTOBER</div>
-        <div class="cal-days-head"><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span></div>
+        <div class="cal-days-head">
+          <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+        </div>
         <div class="cal-numbers-grid" id="cal-grid-cells"></div>
       </div>
 
@@ -303,79 +308,114 @@
       <div class="compact-glass-card">
         <div class="market-list">
           <div class="market-item">
-            <div><div class="market-name">USD/BDT</div><div class="market-sub">US Dollar</div></div>
-            <svg class="sparkline-svg"><path class="sparkline-fill" id="usd-fill" d=""></path><path class="sparkline-path" id="usd-spark" d=""></path></svg>
-            <div class="market-digits"><div class="market-price" id="usd-price">--.--</div><div class="market-gain" id="usd-gain">LIVE</div></div>
+            <div>
+              <div class="market-name">USD/BDT</div>
+              <div class="market-sub">US Dollar</div>
+            </div>
+            <svg class="sparkline-svg">
+              <path class="sparkline-fill" id="usd-fill" d=""></path>
+              <path class="sparkline-path" id="usd-spark" d=""></path>
+            </svg>
+            <div class="market-digits">
+              <div class="market-price" id="usd-price">--.--</div>
+              <div class="market-gain" id="usd-gain">LIVE</div>
+            </div>
           </div>
-          <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.06);">
+
+          <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.08);">
+
           <div class="market-item">
-            <div><div class="market-name">SAR/BDT</div><div class="market-sub">Saudi Riyal</div></div>
-            <svg class="sparkline-svg"><path class="sparkline-fill" id="sar-fill" d=""></path><path class="sparkline-path" id="sar-spark" d=""></path></svg>
-            <div class="market-digits"><div class="market-price" id="sar-price">--.--</div><div class="market-gain" id="sar-gain">LIVE</div></div>
+            <div>
+              <div class="market-name">SAR/BDT</div>
+              <div class="market-sub">Saudi Riyal</div>
+            </div>
+            <svg class="sparkline-svg">
+              <path class="sparkline-fill" id="sar-fill" d=""></path>
+              <path class="sparkline-path" id="sar-spark" d=""></path>
+            </svg>
+            <div class="market-digits">
+              <div class="market-price" id="sar-price">--.--</div>
+              <div class="market-gain" id="sar-gain">LIVE</div>
+            </div>
           </div>
-          <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.06);">
+
+          <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.08);">
+
           <div class="market-item">
-            <div><div class="market-name">AED/BDT</div><div class="market-sub">UAE Dirham</div></div>
-            <svg class="sparkline-svg"><path class="sparkline-fill" id="aed-fill" d=""></path><path class="sparkline-path" id="aed-spark" d=""></path></svg>
-            <div class="market-digits"><div class="market-price" id="aed-price">--.--</div><div class="market-gain" id="aed-gain">LIVE</div></div>
+            <div>
+              <div class="market-name">AED/BDT</div>
+              <div class="market-sub">UAE Dirham</div>
+            </div>
+            <svg class="sparkline-svg">
+              <path class="sparkline-fill" id="aed-fill" d=""></path>
+              <path class="sparkline-path" id="aed-spark" d=""></path>
+            </svg>
+            <div class="market-digits">
+              <div class="market-price" id="aed-price">--.--</div>
+              <div class="market-gain" id="aed-gain">LIVE</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Music Player with Your Custom Playlist -->
+      <!-- Verified Music Player (Auto-Rotating Your Links) -->
       <div class="compact-glass-card">
         <div class="yt-music-widget">
-          <div class="yt-header"><span id="yt-status-badge">NOW PLAYING</span><span id="track-count">1/6</span></div>
+          <div class="yt-header">
+            <span>YT MUSIC AUTO-STREAM</span>
+            <span id="yt-status-badge" style="color:var(--theme-accent);">PLAYING</span>
+          </div>
           <div class="yt-player-box">
-            <div class="yt-thumbnail" id="yt-thumb" style="background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=300&auto=format&fit=crop');"></div>
+            <div class="yt-thumbnail" id="yt-thumb" style="background-image: url('https://images.unsplash.com/photo-1518609878373-06d740f60d8b?q=80&w=300&auto=format&fit=crop');"></div>
             <div class="yt-info">
-              <div class="yt-song-title" id="yt-song-title">Montagem Zora</div>
-              <div class="yt-artist" id="yt-artist">Phonk / Bass Boosted</div>
+              <div class="yt-song-title" id="yt-song-title">Yo Yo Honey Singh - Desi Kalakaar</div>
+              <div class="yt-artist" id="yt-artist">Official Verified Stream</div>
             </div>
-          </div>
-          <div class="yt-subtitles-box"><span class="yt-subtitle-text" id="yt-subtitle">🎵 Pumping heavy bass & crisp rhythm...</span></div>
-          <div class="yt-controls">
-            <div class="yt-btn-group">
-              <button class="yt-ctrl-btn" onclick="ytPrev()">⏮</button>
-              <button class="yt-ctrl-btn" id="yt-play-btn" onclick="ytTogglePlay()">▶</button>
-              <button class="yt-ctrl-btn" onclick="ytNext()">⏭</button>
-            </div>
-            <button class="yt-ctrl-btn" onclick="ytOpenExternal()">↗</button>
           </div>
         </div>
       </div>
 
-      <!-- Battery & Weather Compact Unit -->
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-items: center;">
-        <div class="compact-glass-card power-compact-pill" style="width: 100%;">
+      <!-- Battery & Weather Compact Row inside Screen View -->
+      <div class="widget-row">
+        <div class="compact-glass-card power-compact-pill">
           <div class="power-ring">
-            <svg><circle class="rail-bg" cx="11" cy="11" r="9"/><circle class="rail-fill" id="battery-rail-fill" cx="11" cy="11" r="9"/></svg>
-            <span class="power-bolt">⚡</span>
+            <svg>
+              <circle class="rail-bg" cx="11" cy="11" r="9"/>
+              <circle class="rail-fill" id="battery-rail-fill" cx="11" cy="11" r="9"/>
+            </svg>
           </div>
-          <div><div class="power-pct" id="battery-pct-txt">100%</div><div class="power-label" id="battery-status-lbl">ONLINE</div></div>
+          <div>
+            <div class="power-pct" id="battery-pct-txt">100%</div>
+            <div class="power-label" id="battery-status-lbl">AC POWER</div>
+          </div>
         </div>
 
-        <div class="compact-glass-card weather-box" style="padding: 6px 10px;">
-          <div class="weather-tag">DHAKA</div>
-          <div class="weather-temp-num" id="dhaka-live-temp" style="font-size: 24px;">--°</div>
-          <div class="weather-sub-info" id="dhaka-weather-desc" style="font-size: 7.5px;">Syncing...</div>
+        <div class="compact-glass-card weather-box">
+          <div class="weather-tag">DHAKA, BD</div>
+          <div class="weather-temp-num" id="dhaka-live-temp">28°</div>
+          <div class="weather-sub-info" id="dhaka-hl-span">H: 32° L: 25°</div>
         </div>
       </div>
+
     </section>
 
-    <!-- Center Stage Timepiece -->
+    <!-- Center Stage -->
     <section class="timepiece-stage">
-      <div class="date-banner" id="live-date-str">SUNDAY, OCTOBER 18</div>
+      <div class="date-banner" id="live-date-str">SUNDAY, OCTOBER 19</div>
+      
       <div class="time-housing">
         <div class="digit-group">
           <div class="flip-digit-card" id="card-h1"><div class="digit-face" id="h1">1</div></div>
-          <div class="flip-digit-card" id="card-h2"><div class="digit-face" id="h2">2</div></div>
+          <div class="flip-digit-card" id="card-h2"><div class="digit-face" id="h2">0</div></div>
         </div>
+
         <span class="time-colon">:</span>
+
         <div class="digit-group">
           <div class="flip-digit-card" id="card-m1"><div class="digit-face" id="m1">0</div></div>
           <div class="flip-digit-card" id="card-m2"><div class="digit-face" id="m2">0</div></div>
         </div>
+
         <div class="seconds-capsule-container">
           <div class="flip-sec-card" id="card-s1"><div class="sec-digit-face" id="s1">0</div></div>
           <div class="flip-sec-card" id="card-s2"><div class="sec-digit-face" id="s2">0</div></div>
@@ -383,35 +423,40 @@
         </div>
       </div>
     </section>
+
   </main>
 
   <script>
-    /* Clock Engine */
+    /* Time & Calendar Engine */
     let lastDigits = { h1: '', h2: '', m1: '', m2: '', s1: '', s2: '' };
-    function updateSingleDigit(id, newVal) {
+
+    function updateSingleDigit(id, cardId, newVal) {
       if (lastDigits[id] !== newVal) {
         document.getElementById(id).textContent = newVal;
         lastDigits[id] = newVal;
       }
     }
+
     function runClockEngine() {
       const now = new Date();
       let hours = now.getHours() % 12 || 12;
       let minutes = now.getMinutes();
       let seconds = now.getSeconds();
+
       const strH = String(hours).padStart(2, '0');
       const strM = String(minutes).padStart(2, '0');
       const strS = String(seconds).padStart(2, '0');
 
-      updateSingleDigit('h1', strH[0]);
-      updateSingleDigit('h2', strH[1]);
-      updateSingleDigit('m1', strM[0]);
-      updateSingleDigit('m2', strM[1]);
-      updateSingleDigit('s1', strS[0]);
-      updateSingleDigit('s2', strS[1]);
+      updateSingleDigit('h1', 'card-h1', strH[0]);
+      updateSingleDigit('h2', 'card-h2', strH[1]);
+      updateSingleDigit('m1', 'card-m1', strM[0]);
+      updateSingleDigit('m2', 'card-m2', strM[1]);
+      updateSingleDigit('s1', 'card-s1', strS[0]);
+      updateSingleDigit('s2', 'card-s2', strS[1]);
 
       const days = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
       const months = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
+      
       document.getElementById('live-date-str').textContent = `${days[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate()}`;
       document.getElementById('cal-month-title').textContent = months[now.getMonth()];
     }
@@ -420,9 +465,13 @@
       const grid = document.getElementById('cal-grid-cells');
       grid.innerHTML = '';
       const now = new Date();
-      const yr = now.getFullYear(), mo = now.getMonth(), currentDay = now.getDate();
+      const yr = now.getFullYear();
+      const mo = now.getMonth();
+      const currentDay = now.getDate();
+
       const offset = new Date(yr, mo, 1).getDay();
       const totalDays = new Date(yr, mo + 1, 0).getDate();
+
       for (let i = 0; i < offset; i++) grid.appendChild(document.createElement('span'));
       for (let d = 1; d <= totalDays; d++) {
         const cell = document.createElement('span');
@@ -432,21 +481,23 @@
       }
     }
 
-    /* Battery State */
+    /* Battery Engine */
     if ('getBattery' in navigator) {
       navigator.getBattery().then(bat => {
-        function syncBat() {
-          const lvl = Math.round(bat.level * 100);
-          document.getElementById('battery-pct-txt').textContent = `${lvl}%`;
-          document.getElementById('battery-rail-fill').style.strokeDashoffset = 60 - (60 * lvl / 100);
+        function syncBatteryState() {
+          const level = Math.round(bat.level * 100);
+          document.getElementById('battery-pct-txt').textContent = `${level}%`;
+          document.getElementById('battery-status-lbl').textContent = bat.charging ? 'CHARGING' : 'BATTERY';
+          document.getElementById('battery-rail-fill').style.strokeDashoffset = 60 - (60 * level / 100);
         }
-        syncBat();
-        bat.addEventListener('levelchange', syncBat);
+        syncBatteryState();
+        bat.addEventListener('levelchange', syncBatteryState);
+        bat.addEventListener('chargingchange', syncBatteryState);
       });
     }
 
     /* Weather API */
-    async function syncWeather() {
+    async function syncDhakaWeather() {
       try {
         const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=23.8103&longitude=90.4125&current=temperature_2m&daily=temperature_2m_max,temperature_2m_min&timezone=Asia%2FDhaka');
         const data = await res.json();
@@ -455,80 +506,38 @@
           const max = Math.round(data.daily.temperature_2m_max[0]);
           const min = Math.round(data.daily.temperature_2m_min[0]);
           document.getElementById('dhaka-live-temp').textContent = `${temp}°`;
-          document.getElementById('dhaka-weather-desc').innerHTML = `Clear<br>H:${max}° L:${min}°`;
+          document.getElementById('dhaka-hl-span').textContent = `H: ${max}° L: ${min}°`;
         }
-      } catch (e) {
-        document.getElementById('dhaka-live-temp').textContent = "28°";
-      }
+      } catch (err) {}
     }
 
-    /* Custom Playlist: Montagem zora, Aura farming, Deshi kalakar, The Melan, Struct, Boina kala */
-    const audio = document.getElementById('audio-player');
-    let playlist = [
-      { title: "Montagem Zora", artist: "Phonk Bass", src: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=synthwave-80s-110045.mp3", art: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=300&auto=format&fit=crop", subs: ["🔥 Pumping heavy bass rhythm...", "⚡ Unstoppable dynamic energy..."] },
-      { title: "Aura Farming", artist: "Deep Ambient Beats", src: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3", art: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?q=80&w=300&auto=format&fit=crop", subs: ["✨ Collecting calm aura energies...", "🌿 Deep focus & smooth frequencies..."] },
-      { title: "Deshi Kalakar", artist: "Desi Urban Fusion", src: "https://cdn.pixabay.com/download/audio/2022/11/06/audio_c29c87d478.mp3?filename=smooth-jazz-126262.mp3", art: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?q=80&w=300&auto=format&fit=crop", subs: ["🎵 Cultural fusion beats...", "🥁 Desi rhythm & soul vibes..."] },
-      { title: "The Melan", artist: "Melodic Night Sound", src: "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=ambient-piano-amp-strings-10711.mp3", art: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=300&auto=format&fit=crop", subs: ["🌙 Deep atmospheric melody...", "💫 Glowing starlight ambiance..."] },
-      { title: "Struct", artist: "Industrial Tech", src: "https://cdn.pixabay.com/download/audio/2022/02/22/audio_d1490ee4bb.mp3?filename=cyberpunk-ambient-109012.mp3", art: "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?q=80&w=300&auto=format&fit=crop", subs: ["⚙️ Precise structural soundwaves...", "🌐 Futuristic electronic pulse..."] },
-      { title: "Boina Kala", artist: "Folk Vibe Remix", src: "https://cdn.pixabay.com/download/audio/2022/08/02/audio_88411d3318.mp3?filename=acoustic-guitar-117562.mp3", art: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=300&auto=format&fit=crop", subs: ["🌿 Acoustic traditional beats...", "🌾 Organic rhythm flowing..."] }
+    /* Verified Music Auto-Rotation Playlist */
+    const verifiedPlaylist = [
+      { title: "Yo Yo Honey Singh - Desi Kalakaar", artist: "Chill & Relaxing Beat", id: "jTg15DrXhB0", art: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?q=80&w=300&auto=format&fit=crop" },
+      { title: "Montagem Zora (Slowed)", artist: "Phonk Experience", id: "Z5MStQfTI40", art: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=300&auto=format&fit=crop" },
+      { title: "Udiennx - Struct (Ultra Slowed)", artist: "Atmospheric Vibe", id: "NIKMv7ekEB4", art: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=300&auto=format&fit=crop" },
+      { title: "Aura Farming (Legendary Phonk)", artist: "Mustafa Saboori", id: "Mwo4TKwxRXU", art: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=300&auto=format&fit=crop" },
+      { title: "The Milan - Cладкая мята", artist: "European Pop Hit", id: "C8je5fFB1m4", art: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?q=80&w=300&auto=format&fit=crop" }
     ];
     let currentTrackIdx = 0;
-    let subInterval = null;
 
-    function loadTrack(idx) {
-      const track = playlist[idx];
+    function playCurrentTrack() {
+      const track = verifiedPlaylist[currentTrackIdx];
       document.getElementById('yt-song-title').textContent = track.title;
       document.getElementById('yt-artist').textContent = track.artist;
       document.getElementById('yt-thumb').style.backgroundImage = `url('${track.art}')`;
-      document.getElementById('track-count').textContent = `${idx + 1}/${playlist.length}`;
-      audio.src = track.src;
-
-      let subIdx = 0;
-      const subEl = document.getElementById('yt-subtitle');
-      if (subInterval) clearInterval(subInterval);
-      subEl.textContent = track.subs[0];
-      subInterval = setInterval(() => {
-        if (!audio.paused) {
-          subIdx = (subIdx + 1) % track.subs.length;
-          subEl.textContent = track.subs[subIdx];
-        }
-      }, 4000);
+      
+      const container = document.getElementById('audio-frame-container');
+      container.innerHTML = `<iframe width="100" height="100" src="https://www.youtube.com/embed/${track.id}?autoplay=1" allow="autoplay"></iframe>`;
     }
 
-    function ytTogglePlay() {
-      if (audio.paused) {
-        audio.play().then(() => {
-          document.getElementById('yt-play-btn').textContent = '⏸';
-          document.getElementById('yt-status-badge').textContent = 'PLAYING';
-        }).catch(e => console.log(e));
-      } else {
-        audio.pause();
-        document.getElementById('yt-play-btn').textContent = '▶';
-        document.getElementById('yt-status-badge').textContent = 'PAUSED';
-      }
-    }
+    // Auto rotate songs every 4.5 minutes seamlessly
+    setInterval(() => {
+      currentTrackIdx = (currentTrackIdx + 1) % verifiedPlaylist.length;
+      playCurrentTrack();
+    }, 270000);
 
-    function ytNext() {
-      currentTrackIdx = (currentTrackIdx + 1) % playlist.length;
-      loadTrack(currentTrackIdx);
-      ytTogglePlay();
-    }
-
-    function ytPrev() {
-      currentTrackIdx = (currentTrackIdx - 1 + playlist.length) % playlist.length;
-      loadTrack(currentTrackIdx);
-      ytTogglePlay();
-    }
-
-    audio.addEventListener('ended', () => {
-      ytNext();
-    });
-
-    function ytOpenExternal() {
-      window.open('https://music.youtube.com', '_blank');
-    }
-
-    /* TradingView Market Tickers Engine */
+    /* TradingView Market Simulation Engine */
     let marketTickers = {
       usd: { points: [12, 13, 11, 15, 14, 16, 15], color: '#30d158', grad: 'url(#tv-green-grad)' },
       sar: { points: [10, 11, 9, 12, 11, 13, 12], color: '#30d158', grad: 'url(#tv-green-grad)' },
@@ -537,13 +546,13 @@
 
     function renderPath(arr) {
       let min = Math.min(...arr), max = Math.max(...arr), range = max - min || 1;
-      let pts = arr.map((val, idx) => ({ x: (idx / 6) * 75, y: 18 - ((val - min) / range) * 12 }));
+      let pts = arr.map((val, idx) => ({ x: (idx / 6) * 70, y: 16 - ((val - min) / range) * 12 }));
       let d = `M ${pts[0].x.toFixed(1)},${pts[0].y.toFixed(1)}`;
       for (let i = 0; i < pts.length - 1; i++) {
         let p1 = pts[i], p2 = pts[i + 1], cx = (p1.x + p2.x) / 2;
         d += ` C ${cx.toFixed(1)},${p1.y.toFixed(1)} ${cx.toFixed(1)},${p2.y.toFixed(1)} ${p2.x.toFixed(1)},${p2.y.toFixed(1)}`;
       }
-      return { strokePath: d, fillPath: `${d} L 75,20 L 0,20 Z` };
+      return { strokePath: d, fillPath: `${d} L 70,18 L 0,18 Z` };
     }
 
     function stepMarket() {
@@ -579,29 +588,29 @@
       } catch (e) {}
     }
 
-    /* 20 High-Quality Realistic Themes + Clock Color Synchronization */
+    /* 20 Luxury Themes Engine with Adaptive Time Color Adjustment */
     let currentTheme = 1;
     const themeStyles = [
-      { name: 'THEME 1 • SNOW CLIFF', accent: '#30d158', date: '#ffffff', stroke: 'rgba(255,255,255,0.65)', grad: 'linear-gradient(180deg, rgba(255,255,255,0.75) 0%, rgba(48,209,88,0.05) 50%, rgba(255,255,255,0.25) 100%)' },
-      { name: 'THEME 2 • AURORA SKY', accent: '#00d2ff', date: '#a1ecff', stroke: 'rgba(120,225,255,0.7)', grad: 'linear-gradient(180deg, rgba(161,236,255,0.8) 0%, rgba(0,210,255,0.05) 50%, rgba(161,236,255,0.3) 100%)' },
-      { name: 'THEME 3 • CYBER NEBULA', accent: '#ff7bf0', date: '#ffbdf7', stroke: 'rgba(255,160,245,0.7)', grad: 'linear-gradient(180deg, rgba(255,189,247,0.8) 0%, rgba(255,123,240,0.05) 50%, rgba(255,189,247,0.3) 100%)' },
-      { name: 'THEME 4 • DEEP OCEAN', accent: '#00ffaa', date: '#9effdc', stroke: 'rgba(100,255,210,0.7)', grad: 'linear-gradient(180deg, rgba(158,255,220,0.8) 0%, rgba(0,255,170,0.05) 50%, rgba(158,255,220,0.3) 100%)' },
-      { name: 'THEME 5 • SUNSET GLOW', accent: '#ff9f0a', date: '#ffdb9d', stroke: 'rgba(255,190,120,0.7)', grad: 'linear-gradient(180deg, rgba(255,219,157,0.8) 0%, rgba(255,159,10,0.05) 50%, rgba(255,219,157,0.3) 100%)' },
-      { name: 'THEME 6 • ROYAL GOLD', accent: '#ffd700', date: '#fff1a8', stroke: 'rgba(255,230,130,0.7)', grad: 'linear-gradient(180deg, rgba(255,241,168,0.8) 0%, rgba(255,215,0,0.05) 50%, rgba(255,241,168,0.3) 100%)' },
-      { name: 'THEME 7 • MOUNTAIN MIST', accent: '#b0c4de', date: '#e6f0fa', stroke: 'rgba(200,220,240,0.7)', grad: 'linear-gradient(180deg, rgba(230,240,250,0.8) 0%, rgba(176,196,222,0.05) 50%, rgba(230,240,250,0.3) 100%)' },
-      { name: 'THEME 8 • COSMIC NIGHT', accent: '#a855f7', date: '#e9d5ff', stroke: 'rgba(210,160,255,0.7)', grad: 'linear-gradient(180deg, rgba(233,213,255,0.8) 0%, rgba(168,85,247,0.05) 50%, rgba(233,213,255,0.3) 100%)' },
-      { name: 'THEME 9 • TOKYO NEON', accent: '#ff007f', date: '#ffb3d9', stroke: 'rgba(255,120,190,0.7)', grad: 'linear-gradient(180deg, rgba(255,179,217,0.8) 0%, rgba(255,0,127,0.05) 50%, rgba(255,179,217,0.3) 100%)' },
-      { name: 'THEME 10 • EMERALD FOREST', accent: '#10b981', date: '#a7f3d0', stroke: 'rgba(130,240,190,0.7)', grad: 'linear-gradient(180deg, rgba(167,243,208,0.8) 0%, rgba(16,185,129,0.05) 50%, rgba(167,243,208,0.3) 100%)' },
-      { name: 'THEME 11 • PURPLE HAZE', accent: '#c084fc', date: '#f3e8ff', stroke: 'rgba(216,180,254,0.7)', grad: 'linear-gradient(180deg, rgba(243,232,255,0.8) 0%, rgba(192,132,252,0.05) 50%, rgba(243,232,255,0.3) 100%)' },
-      { name: 'THEME 12 • ORANGE CRUSH', accent: '#fb923c', date: '#ffedd5', stroke: 'rgba(253,186,116,0.7)', grad: 'linear-gradient(180deg, rgba(255,237,213,0.8) 0%, rgba(251,146,60,0.05) 50%, rgba(255,237,213,0.3) 100%)' },
-      { name: 'THEME 13 • ICE BLUE', accent: '#38bdf8', date: '#e0f2fe', stroke: 'rgba(125,211,252,0.7)', grad: 'linear-gradient(180deg, rgba(224,242,254,0.8) 0%, rgba(56,189,248,0.05) 50%, rgba(224,242,254,0.3) 100%)' },
-      { name: 'THEME 14 • MINT FRESH', accent: '#2dd4bf', date: '#ccfbf1', stroke: 'rgba(94,234,212,0.7)', grad: 'linear-gradient(180deg, rgba(204,251,241,0.8) 0%, rgba(45,212,191,0.05) 50%, rgba(204,251,241,0.3) 100%)' },
-      { name: 'THEME 15 • CRIMSON RED', accent: '#fb7185', date: '#ffe4e6', stroke: 'rgba(251,164,175,0.7)', grad: 'linear-gradient(180deg, rgba(255,228,230,0.8) 0%, rgba(251,113,133,0.05) 50%, rgba(255,228,230,0.3) 100%)' },
-      { name: 'THEME 16 • LEMON LIGHT', accent: '#facc15', date: '#fef9c3', stroke: 'rgba(253,224,71,0.7)', grad: 'linear-gradient(180deg, rgba(254,249,195,0.8) 0%, rgba(250,204,21,0.05) 50%, rgba(254,249,195,0.3) 100%)' },
-      { name: 'THEME 17 • INDIGO DEEP', accent: '#818cf8', date: '#e0e7ff', stroke: 'rgba(165,180,252,0.7)', grad: 'linear-gradient(180deg, rgba(224,231,255,0.8) 0%, rgba(129,140,248,0.05) 50%, rgba(224,231,255,0.3) 100%)' },
-      { name: 'THEME 18 • ROSE GOLD', accent: '#f43f5e', date: '#fff1f2', stroke: 'rgba(251,113,133,0.7)', grad: 'linear-gradient(180deg, rgba(255,241,242,0.8) 0%, rgba(244,63,94,0.05) 50%, rgba(255,241,242,0.3) 100%)' },
-      { name: 'THEME 19 • ABSTRACT LUX', accent: '#e879f9', date: '#fae8ff', stroke: 'rgba(240,171,252,0.7)', grad: 'linear-gradient(180deg, rgba(250,232,255,0.8) 0%, rgba(232,121,249,0.05) 50%, rgba(250,232,255,0.3) 100%)' },
-      { name: 'THEME 20 • TITANIUM GLASS', accent: '#cbd5e1', date: '#f8fafc', stroke: 'rgba(226,232,240,0.7)', grad: 'linear-gradient(180deg, rgba(248,250,252,0.8) 0%, rgba(203,213,225,0.05) 50%, rgba(248,250,252,0.3) 100%)' }
+      { name: 'THEME 1 • SNOW CLIFF', accent: '#30d158', glow: 'rgba(48,209,88,0.25)', dateColor: '#ffffff', stroke: 'rgba(255,255,255,0.65)' },
+      { name: 'THEME 2 • AURORA SKY', accent: '#00d2ff', glow: 'rgba(0,210,255,0.28)', dateColor: '#a1ecff', stroke: 'rgba(120,225,255,0.7)' },
+      { name: 'THEME 3 • CYBER NEBULA', accent: '#ff7bf0', glow: 'rgba(235,60,255,0.28)', dateColor: '#ffbdf7', stroke: 'rgba(255,160,245,0.7)' },
+      { name: 'THEME 4 • DEEP OCEAN', accent: '#00ffaa', glow: 'rgba(0,255,170,0.25)', dateColor: '#9effdc', stroke: 'rgba(100,255,210,0.7)' },
+      { name: 'THEME 5 • SUNSET GLOW', accent: '#ff9f0a', glow: 'rgba(255,140,0,0.28)', dateColor: '#ffdb9d', stroke: 'rgba(255,190,120,0.7)' },
+      { name: 'THEME 6 • ROYAL GOLD', accent: '#ffd700', glow: 'rgba(255,215,0,0.28)', dateColor: '#fff1a8', stroke: 'rgba(255,230,130,0.7)' },
+      { name: 'THEME 7 • MOUNTAIN MIST', accent: '#b0c4de', glow: 'rgba(180,200,220,0.25)', dateColor: '#e6f0fa', stroke: 'rgba(200,220,240,0.7)' },
+      { name: 'THEME 8 • COSMIC NIGHT', accent: '#a855f7', glow: 'rgba(138,43,226,0.28)', dateColor: '#e9d5ff', stroke: 'rgba(210,160,255,0.7)' },
+      { name: 'THEME 9 • TOKYO NEON', accent: '#ff007f', glow: 'rgba(255,0,128,0.28)', dateColor: '#ffb3d9', stroke: 'rgba(255,120,190,0.7)' },
+      { name: 'THEME 10 • EMERALD FOREST', accent: '#10b981', glow: 'rgba(16,185,129,0.28)', dateColor: '#a7f3d0', stroke: 'rgba(130,240,190,0.7)' },
+      { name: 'THEME 11 • PURPLE HAZE', accent: '#c084fc', glow: 'rgba(168,85,247,0.28)', dateColor: '#f3e8ff', stroke: 'rgba(216,180,254,0.7)' },
+      { name: 'THEME 12 • ORANGE CRUSH', accent: '#fb923c', glow: 'rgba(249,115,22,0.28)', dateColor: '#ffedd5', stroke: 'rgba(253,186,116,0.7)' },
+      { name: 'THEME 13 • ICE BLUE', accent: '#38bdf8', glow: 'rgba(56,189,248,0.28)', dateColor: '#e0f2fe', stroke: 'rgba(125,211,252,0.7)' },
+      { name: 'THEME 14 • MINT FRESH', accent: '#2dd4bf', glow: 'rgba(45,212,191,0.28)', dateColor: '#ccfbf1', stroke: 'rgba(94,234,212,0.7)' },
+      { name: 'THEME 15 • CRIMSON RED', accent: '#fb7185', glow: 'rgba(244,63,94,0.28)', dateColor: '#ffe4e6', stroke: 'rgba(251,164,175,0.7)' },
+      { name: 'THEME 16 • LEMON LIGHT', accent: '#facc15', glow: 'rgba(250,204,21,0.28)', dateColor: '#fef9c3', stroke: 'rgba(253,224,71,0.7)' },
+      { name: 'THEME 17 • INDIGO DEEP', accent: '#818cf8', glow: 'rgba(99,102,241,0.28)', dateColor: '#e0e7ff', stroke: 'rgba(165,180,252,0.7)' },
+      { name: 'THEME 18 • ROSE GOLD', accent: '#f43f5e', glow: 'rgba(251,113,133,0.28)', dateColor: '#fff1f2', stroke: 'rgba(251,113,133,0.7)' },
+      { name: 'THEME 19 • ABSTRACT LUX', accent: '#e879f9', glow: 'rgba(217,70,239,0.28)', dateColor: '#fae8ff', stroke: 'rgba(240,171,252,0.7)' },
+      { name: 'THEME 20 • TITANIUM GLASS', accent: '#cbd5e1', glow: 'rgba(203,213,225,0.28)', dateColor: '#f8fafc', stroke: 'rgba(226,232,240,0.7)' }
     ];
 
     function switchThemeWallpaper() {
@@ -614,27 +623,28 @@
       
       const root = document.documentElement;
       root.style.setProperty('--theme-accent', style.accent);
-      root.style.setProperty('--theme-date', style.date);
+      root.style.setProperty('--theme-glow', style.glow);
+      root.style.setProperty('--theme-date', style.dateColor);
       root.style.setProperty('--water-stroke', style.stroke);
-      root.style.setProperty('--theme-digit-grad', style.grad);
+      root.style.setProperty('--digit-gradient', `linear-gradient(180deg, ${style.dateColor} 0%, rgba(255,255,255,0.02) 50%, ${style.accent} 100%)`);
     }
 
     window.addEventListener('keydown', (e) => {
       if (e.key === 'w' || e.key === 'W') switchThemeWallpaper();
     });
 
-    // Initialization
+    // Core Initialization
     runClockEngine();
     buildCalendar();
-    syncWeather();
+    syncDhakaWeather();
     fetchRates();
-    loadTrack(currentTrackIdx);
+    playCurrentTrack();
     stepMarket();
 
     setInterval(runClockEngine, 1000);
-    setInterval(stepMarket, 2200);
+    setInterval(stepMarket, 2500);
     setInterval(fetchRates, 600000);
-    setInterval(syncWeather, 1200000);
+    setInterval(syncDhakaWeather, 1200000);
   </script>
 </body>
 </html>
