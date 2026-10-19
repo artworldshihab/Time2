@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apple Ultra Liquid Glass AOD - Official Google Search Edition</title>
+  <title>Apple Ultra Liquid Glass AOD - Master Edition</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,246 +15,173 @@
       --theme-glow: rgba(48, 209, 88, 0.25);
       --theme-date: rgba(255, 255, 255, 0.95);
       --water-stroke: rgba(255, 255, 255, 0.65);
-      --digit-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.3) 100%);
+      --digit-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.35) 100%);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      user-select: none;
-      -webkit-user-select: none;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; -webkit-user-select: none; }
+    html, body { width: 100vw; height: 100vh; overflow: hidden; background-color: #000205; font-family: 'Inter', -apple-system, sans-serif; color: #ffffff; position: relative; }
 
-    html, body {
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      background-color: #000205;
-      font-family: 'Inter', -apple-system, sans-serif;
-      color: #ffffff;
-      position: relative;
-    }
-
+    /* Dynamic Wallpaper Layers */
     .tv-wallpaper {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background-position: center center;
-      background-size: cover;
-      background-repeat: no-repeat;
-      z-index: 1;
-      filter: brightness(0.55) contrast(1.25) saturate(1.3);
-      opacity: 0;
-      transition: opacity 1.2s ease;
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background-position: center center; background-size: cover; background-repeat: no-repeat;
+      z-index: 1; filter: brightness(0.55) contrast(1.2) saturate(1.25);
+      opacity: 0; transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .tv-wallpaper.active { opacity: 1; }
 
-    #wall-1 { background-image: url('tvwall.jpg'); }
-    #wall-2 { background-image: url('tv wall.jpg'); }
-    #wall-3 { background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=2070&auto=format&fit=crop'); }
-    #wall-4 { background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop'); }
-    #wall-5 { background-image: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=2094&auto=format&fit=crop'); }
-    #wall-6 { background-image: url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=2070&auto=format&fit=crop'); }
-    #wall-7 { background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2070&auto=format&fit=crop'); }
-    #wall-8 { background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=2070&auto=format&fit=crop'); }
-    #wall-9 { background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop'); }
-    #wall-10 { background-image: url('https://images.unsplash.com/photo-1509114397022-ed747cca3f65?q=80&w=2070&auto=format&fit=crop'); }
-
     .cinematic-vignette {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
       background: radial-gradient(circle at 75% 35%, rgba(0,0,0,0.02) 0%, rgba(0,2,5,0.85) 100%);
-      z-index: 2;
-      pointer-events: none;
+      z-index: 2; pointer-events: none;
     }
 
+    /* Top Control Status Bar */
     .top-status-indicator {
-      position: absolute;
-      top: 18px; right: 28px;
-      z-index: 10;
+      position: absolute; top: 18px; right: 28px; z-index: 10;
+      display: flex; gap: 10px; align-items: center;
     }
 
     .status-capsule {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      backdrop-filter: blur(20px);
-      padding: 6px 14px;
-      border-radius: 99px;
-      font-family: 'Cinzel', serif;
-      font-size: 9.5px;
-      letter-spacing: 1.5px;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+      padding: 6px 14px; border-radius: 99px;
+      font-family: 'Cinzel', serif; font-size: 9.5px; letter-spacing: 1.5px; cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4); transition: all 0.3s ease;
     }
+    .status-capsule:hover { background: rgba(255,255,255,0.12); border-color: var(--theme-accent); }
 
-    .pulse-dot {
-      width: 6px; height: 6px;
-      background: var(--theme-accent);
-      border-radius: 50%;
-      box-shadow: 0 0 10px var(--theme-accent);
+    .pulse-dot { width: 6px; height: 6px; background: var(--theme-accent); border-radius: 50%; box-shadow: 0 0 10px var(--theme-accent); }
+
+    /* AOD Idle Mode (30s Centering) */
+    body.aod-idle-mode .left-dock-column {
+      opacity: 0.08; filter: blur(4px); pointer-events: none; transition: opacity 1.2s ease, filter 1.2s ease;
     }
+    body.aod-idle-mode .timepiece-stage {
+      transform: translate(-12vw, 0) scale(1.1); transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .left-dock-column, .timepiece-stage { transition: opacity 0.8s ease, filter 0.8s ease, transform 1s ease; }
 
     .aod-viewport {
-      position: relative;
-      width: 100%; height: 100%;
-      padding: 2vh 3vw;
-      display: grid;
-      grid-template-columns: 295px 1fr;
-      align-items: center;
-      z-index: 5;
+      position: relative; width: 100%; height: 100%; padding: 2vh 3vw;
+      display: grid; grid-template-columns: 310px 1fr; align-items: center; z-index: 5;
     }
 
     .left-dock-column {
-      height: 94vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      z-index: 6;
+      height: 95vh; display: flex; flex-direction: column; justify-content: space-between; z-index: 6; gap: 8px;
     }
 
+    /* Ultra Liquid Glass Card */
     .compact-glass-card {
-      position: relative;
-      width: 100%;
-      padding: 8px 12px;
-      border-radius: 14px;
+      position: relative; width: 100%; padding: 10px 12px; border-radius: 16px;
       border: 1px solid rgba(255, 255, 255, 0.18);
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(25px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45), inset 1px -1px 1px rgba(255,255,255,0.3);
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), inset 1px -1px 1px rgba(255,255,255,0.3);
     }
 
     /* Calendar */
-    .cal-title-bar {
-      font-family: 'Cinzel', serif;
-      font-size: 8.5px; font-weight: 700;
-      letter-spacing: 1.5px;
-      color: rgba(255, 255, 255, 0.6);
-      margin-bottom: 3px;
-    }
-    .cal-days-head {
-      display: grid; grid-template-columns: repeat(7, 1fr);
-      text-align: center; font-size: 7px; color: rgba(255, 255, 255, 0.4);
-      margin-bottom: 2px;
-    }
-    .cal-numbers-grid {
-      display: grid; grid-template-columns: repeat(7, 1fr);
-      text-align: center; gap: 1px; font-size: 9px; color: rgba(255, 255, 255, 0.9);
-    }
-    .cal-numbers-grid span {
-      display: flex; align-items: center; justify-content: center;
-      width: 16px; height: 16px; border-radius: 50%;
-    }
-    .cal-numbers-grid span.active-today {
-      background: var(--theme-accent);
-      color: #000205; font-weight: 700;
-      box-shadow: 0 0 10px var(--theme-accent);
-    }
+    .cal-title-bar { font-family: 'Cinzel', serif; font-size: 8.5px; font-weight: 700; letter-spacing: 1.5px; color: rgba(255, 255, 255, 0.6); margin-bottom: 3px; }
+    .cal-days-head { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-size: 7px; color: rgba(255, 255, 255, 0.4); margin-bottom: 2px; }
+    .cal-numbers-grid { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; gap: 1px; font-size: 9px; color: rgba(255, 255, 255, 0.9); }
+    .cal-numbers-grid span { display: flex; align-items: center; justify-content: center; width: 16px; height: 16px; border-radius: 50%; }
+    .cal-numbers-grid span.active-today { background: var(--theme-accent); color: #000205; font-weight: 700; box-shadow: 0 0 10px var(--theme-accent); }
 
     /* Market Graphs */
-    .market-list { display: flex; flex-direction: column; gap: 4px; }
-    .market-item { display: grid; grid-template-columns: 70px 1fr 60px; align-items: center; gap: 5px; }
-    .market-name { font-family: 'Syne', sans-serif; font-size: 9.5px; font-weight: 700; color: var(--theme-accent); }
-    .market-sub { font-size: 6.5px; color: rgba(255,255,255,0.45); }
-    .sparkline-svg { width: 100%; height: 16px; overflow: visible; }
+    .market-list { display: flex; flex-direction: column; gap: 6px; }
+    .market-item { display: grid; grid-template-columns: 65px 1fr 65px; align-items: center; gap: 6px; height: 22px; }
+    .market-name { font-family: 'Syne', sans-serif; font-size: 9px; font-weight: 700; color: var(--theme-accent); }
+    .market-sub { font-size: 6px; color: rgba(255,255,255,0.45); }
+    .sparkline-svg { width: 100%; height: 18px; overflow: visible; display: block; }
     .sparkline-path { fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-    .sparkline-fill { opacity: 0.2; }
+    .sparkline-fill { opacity: 0.18; }
     .market-digits { text-align: right; font-family: 'JetBrains Mono', monospace; }
-    .market-price { font-size: 10px; font-weight: 600; }
+    .market-price { font-size: 9.5px; font-weight: 600; }
     .market-gain { font-size: 7px; font-weight: 600; }
 
-    /* Official Google Search Widget */
-    .google-search-widget {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      padding: 4px 0;
-    }
+    /* Embedded Smart Viewport Widget */
+    .google-display-widget { display: flex; flex-direction: column; gap: 6px; }
+    .browser-toolbar { display: flex; align-items: center; justify-content: space-between; }
+    .browser-title { font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 1.2px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 5px; }
     
-    .google-brand-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .google-logo-text {
-      font-family: 'Inter', sans-serif;
-      font-weight: 700;
-      font-size: 14px;
-      letter-spacing: -0.5px;
-    }
-    .g-blue { color: #4285F4; }
-    .g-red { color: #EA4335; }
-    .g-yellow { color: #FBBC05; }
-    .g-green { color: #34A853; }
-
-    .search-sub-tag {
-      font-family: 'Cinzel', serif;
-      font-size: 7px;
-      letter-spacing: 1px;
-      color: rgba(255,255,255,0.5);
-    }
-
-    .google-input-box {
+    .mini-browser-frame {
       position: relative;
       width: 100%;
-      display: flex;
-      align-items: center;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      height: 130px;
       border-radius: 10px;
-      padding: 4px 8px;
-      transition: all 0.3s ease;
-    }
-
-    .google-input-box:focus-within {
-      border-color: var(--theme-accent);
-      box-shadow: 0 0 12px var(--theme-glow);
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .google-input-box input {
-      width: 100%;
-      background: transparent;
-      border: none;
-      outline: none;
-      color: #ffffff;
-      font-family: 'Inter', sans-serif;
-      font-size: 11px;
-      padding-right: 25px;
-      user-select: text;
-      -webkit-user-select: text;
-    }
-
-    .google-input-box input::placeholder {
-      color: rgba(255, 255, 255, 0.4);
-      font-size: 10px;
-    }
-
-    .search-submit-btn {
-      position: absolute;
-      right: 6px;
-      background: transparent;
-      border: none;
-      color: var(--theme-accent);
-      cursor: pointer;
-      font-size: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(0, 0, 0, 0.4);
       display: flex;
-      align-items: center;
+      flex-direction: column;
       justify-content: center;
-      padding: 2px;
+      align-items: center;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .mini-browser-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: #ffffff;
+    }
+
+    .quick-apps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      width: 100%;
+      margin-top: 4px;
+    }
+
+    .app-chip {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 6px 4px;
+      border-radius: 8px;
+      font-size: 8px;
+      color: #fff;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .app-chip:hover { background: var(--theme-accent); color: #000; font-weight: bold; }
+
+    .browser-searchbar-row { display: flex; gap: 5px; margin-top: 2px; }
+    .browser-search-input {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 5px 8px;
+      color: #fff;
+      font-size: 10px;
+      outline: none;
+      transition: all 0.2s ease;
+      user-select: text; -webkit-user-select: text;
+    }
+    .browser-search-input:focus { border-color: var(--theme-accent); background: rgba(255,255,255,0.12); }
+    .browser-search-input::placeholder { color: rgba(255,255,255,0.4); font-size: 9px; }
+
+    .go-btn {
+      background: var(--theme-accent);
+      border: none;
+      color: #000;
+      font-weight: 700;
+      font-size: 9px;
+      padding: 4px 10px;
+      border-radius: 8px;
+      cursor: pointer;
       transition: transform 0.2s ease;
     }
-
-    .search-submit-btn:hover {
-      transform: scale(1.15);
-    }
+    .go-btn:hover { transform: scale(1.05); }
 
     /* Battery & Weather Compact */
     .widget-row { display: flex; gap: 6px; align-items: center; }
-    .power-compact-pill { flex: 1; display: flex; align-items: center; gap: 6px; padding: 5px 8px; border-radius: 10px; }
+    .power-compact-pill { flex: 1; display: flex; align-items: center; gap: 6px; padding: 6px 8px; border-radius: 12px; }
     .power-ring { position: relative; width: 20px; height: 20px; }
     .power-ring svg { transform: rotate(-90deg); width: 20px; height: 20px; }
     .rail-bg { stroke: rgba(255,255,255,0.12); stroke-width: 2.5; fill: none; }
@@ -262,13 +189,13 @@
     .power-pct { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; line-height: 1; }
     .power-label { font-size: 6px; font-weight: 600; color: rgba(255,255,255,0.5); }
 
-    .weather-box { flex: 1; padding: 5px 8px; border-radius: 10px; display: flex; flex-direction: column; justify-content: center; }
+    .weather-box { flex: 1; padding: 6px 8px; border-radius: 12px; display: flex; flex-direction: column; justify-content: center; }
     .weather-tag { font-family: 'Cinzel', serif; font-size: 7px; font-weight: 700; letter-spacing: 0.8px; color: rgba(255,255,255,0.8); }
     .weather-temp-num { font-size: 18px; font-weight: 300; line-height: 1; color: var(--theme-accent); }
     .weather-sub-info { font-size: 7px; color: rgba(255,255,255,0.6); }
 
     /* Glass Clock */
-    .timepiece-stage { display: flex; flex-direction: column; align-items: center; justify-content: center; margin-left: -15px; }
+    .timepiece-stage { display: flex; flex-direction: column; align-items: center; justify-content: center; }
     .date-banner { font-family: 'Cinzel', serif; font-size: 15px; font-weight: 700; letter-spacing: 3.5px; text-transform: uppercase; color: var(--theme-date); margin-bottom: 10px; text-shadow: 0 4px 18px rgba(0,0,0,0.9); }
     .time-housing { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 0.5vw; }
     .digit-group { display: flex; gap: 0.25vw; }
@@ -281,7 +208,6 @@
       -webkit-text-stroke: 1.5px var(--water-stroke);
       filter: drop-shadow(0 15px 25px rgba(0,0,0,0.8));
       display: flex; align-items: center; justify-content: center;
-      transition: background 0.8s ease, -webkit-text-stroke 0.8s ease;
     }
     .flip-digit-card::after {
       content: ''; position: absolute; top: 50%; left: 8%; width: 84%; height: 1.5px;
@@ -309,7 +235,7 @@
     .sec-label-tag { position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%); font-family: 'Cinzel', serif; font-size: 6px; letter-spacing: 1px; font-weight: 700; color: rgba(255,255,255,0.5); }
   </style>
 </head>
-<body>
+<body onclick="resetAodIdleTimer()" onkeydown="resetAodIdleTimer()" onmousemove="resetAodIdleTimer()">
 
   <svg style="height:0; width:0; position:absolute;">
     <defs>
@@ -319,24 +245,18 @@
     </defs>
   </svg>
 
-  <!-- 10 Wallpapers -->
-  <div class="tv-wallpaper active" id="wall-1"></div>
-  <div class="tv-wallpaper" id="wall-2"></div>
-  <div class="tv-wallpaper" id="wall-3"></div>
-  <div class="tv-wallpaper" id="wall-4"></div>
-  <div class="tv-wallpaper" id="wall-5"></div>
-  <div class="tv-wallpaper" id="wall-6"></div>
-  <div class="tv-wallpaper" id="wall-7"></div>
-  <div class="tv-wallpaper" id="wall-8"></div>
-  <div class="tv-wallpaper" id="wall-9"></div>
-  <div class="tv-wallpaper" id="wall-10"></div>
+  <!-- Pinterest Dynamic Background Layers Container -->
+  <div id="wallpaper-container"></div>
 
   <div class="cinematic-vignette"></div>
 
   <aside class="top-status-indicator">
-    <div class="status-capsule" onclick="switchThemeWallpaper()" title="Click to Switch Theme">
-      <span class="pulse-dot"></span>
-      <span id="wall-switch-txt">THEME 1 • SNOW CLIFF</span>
+    <div class="status-capsule" onclick="toggleAutoTheme()" id="auto-theme-badge">
+      <span class="pulse-dot" id="auto-dot" style="background:#ff3b30;"></span>
+      <span id="auto-theme-txt">AUTO THEME: OFF</span>
+    </div>
+    <div class="status-capsule" onclick="nextPinterestTheme()" title="Next Aesthetic Theme">
+      <span>🎨 NEXT THEME</span>
     </div>
   </aside>
 
@@ -406,22 +326,28 @@
         </div>
       </div>
 
-      <!-- Official Google Search Card Widget -->
+      <!-- Live Search & Smart Web Launcher Display -->
       <div class="compact-glass-card">
-        <div class="google-search-widget">
-          <div class="google-brand-header">
-            <div class="google-logo-text">
-              <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span>
-            </div>
-            <div class="search-sub-tag">SMART SEARCH</div>
+        <div class="google-display-widget">
+          <div class="browser-toolbar">
+            <div class="browser-title">🌐 SMART WEB SEARCH</div>
+            <span id="search-status" style="font-size:7px; color:var(--theme-accent);">READY</span>
           </div>
-          
-          <form onsubmit="executeGoogleSearch(event)">
-            <div class="google-input-box">
-              <input type="text" id="g-search-query" placeholder="Search Google or type URL..." autocomplete="off" />
-              <button type="submit" class="search-submit-btn" title="Search">🔍</button>
+
+          <!-- Display Box Area -->
+          <div class="mini-browser-frame">
+            <div style="font-size:10px; color:rgba(255,255,255,0.8); margin-bottom:6px;">যে কোনো ওয়েবসাইট বা গান সরাসরি খুলুন:</div>
+            <div class="quick-apps-grid">
+              <a href="https://music.youtube.com" target="_blank" class="app-chip">🎵 YT Music</a>
+              <a href="https://www.google.com" target="_blank" class="app-chip">🔍 Google</a>
+              <a href="https://www.youtube.com" target="_blank" class="app-chip">▶ YouTube</a>
             </div>
-          </form>
+          </div>
+
+          <div class="browser-searchbar-row">
+            <input type="text" id="display-search-input" class="browser-search-input" placeholder="Google search or type URL..." autocomplete="off">
+            <button class="go-btn" onclick="triggerEmbeddedSearch()">Search</button>
+          </div>
         </div>
       </div>
 
@@ -455,20 +381,20 @@
       
       <div class="time-housing">
         <div class="digit-group">
-          <div class="flip-digit-card" id="card-h1"><div class="digit-face" id="h1">1</div></div>
-          <div class="flip-digit-card" id="card-h2"><div class="digit-face" id="h2">0</div></div>
+          <div class="flip-digit-card"><div class="digit-face" id="h1">1</div></div>
+          <div class="flip-digit-card"><div class="digit-face" id="h2">0</div></div>
         </div>
 
         <span class="time-colon">:</span>
 
         <div class="digit-group">
-          <div class="flip-digit-card" id="card-m1"><div class="digit-face" id="m1">0</div></div>
-          <div class="flip-digit-card" id="card-m2"><div class="digit-face" id="m2">0</div></div>
+          <div class="flip-digit-card"><div class="digit-face" id="m1">0</div></div>
+          <div class="flip-digit-card"><div class="digit-face" id="m2">0</div></div>
         </div>
 
         <div class="seconds-capsule-container">
-          <div class="flip-sec-card" id="card-s1"><div class="sec-digit-face" id="s1">0</div></div>
-          <div class="flip-sec-card" id="card-s2"><div class="sec-digit-face" id="s2">0</div></div>
+          <div class="flip-sec-card"><div class="sec-digit-face" id="s1">0</div></div>
+          <div class="flip-sec-card"><div class="sec-digit-face" id="s2">0</div></div>
           <div class="sec-label-tag">SEC</div>
         </div>
       </div>
@@ -477,10 +403,10 @@
   </main>
 
   <script>
-    /* Time & Calendar Engine */
+    /* Clock & Calendar Engine */
     let lastDigits = { h1: '', h2: '', m1: '', m2: '', s1: '', s2: '' };
 
-    function updateSingleDigit(id, cardId, newVal) {
+    function updateSingleDigit(id, newVal) {
       if (lastDigits[id] !== newVal) {
         document.getElementById(id).textContent = newVal;
         lastDigits[id] = newVal;
@@ -497,12 +423,12 @@
       const strM = String(minutes).padStart(2, '0');
       const strS = String(seconds).padStart(2, '0');
 
-      updateSingleDigit('h1', 'card-h1', strH[0]);
-      updateSingleDigit('h2', 'card-h2', strH[1]);
-      updateSingleDigit('m1', 'card-m1', strM[0]);
-      updateSingleDigit('m2', 'card-m2', strM[1]);
-      updateSingleDigit('s1', 'card-s1', strS[0]);
-      updateSingleDigit('s2', 'card-s2', strS[1]);
+      updateSingleDigit('h1', strH[0]);
+      updateSingleDigit('h2', strH[1]);
+      updateSingleDigit('m1', strM[0]);
+      updateSingleDigit('m2', strM[1]);
+      updateSingleDigit('s1', strS[0]);
+      updateSingleDigit('s2', strS[1]);
 
       const days = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
       const months = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
@@ -531,81 +457,112 @@
       }
     }
 
-    /* Google Search Action Handler */
-    function executeGoogleSearch(e) {
-      e.preventDefault();
-      const query = document.getElementById('g-search-query').value.trim();
+    /* Embedded Smart Launcher Search Engine */
+    function triggerEmbeddedSearch() {
+      const input = document.getElementById('display-search-input');
+      const query = input.value.trim();
       if (query) {
-        window.location.href = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+        window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
       }
     }
 
-    /* Battery Engine */
-    if ('getBattery' in navigator) {
-      navigator.getBattery().then(bat => {
-        function syncBatteryState() {
-          const level = Math.round(bat.level * 100);
-          document.getElementById('battery-pct-txt').textContent = `${level}%`;
-          document.getElementById('battery-status-lbl').textContent = bat.charging ? 'CHARGING' : 'BATTERY';
-          document.getElementById('battery-rail-fill').style.strokeDashoffset = 60 - (60 * level / 100);
-        }
-        syncBatteryState();
-        bat.addEventListener('levelchange', syncBatteryState);
-        bat.addEventListener('chargingchange', syncBatteryState);
+    document.getElementById('display-search-input').addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') triggerEmbeddedSearch();
+    });
+
+    /* Unlimited Pinterest Aesthetic Themes Generator */
+    const pinterestThemes = [
+      { url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2070&auto=format&fit=crop", accent: "#30d158" },
+      { url: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=2070&auto=format&fit=crop", accent: "#00d2ff" },
+      { url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop", accent: "#ff7bf0" },
+      { url: "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=2094&auto=format&fit=crop", accent: "#00ffaa" },
+      { url: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=2070&auto=format&fit=crop", accent: "#ff9f0a" },
+      { url: "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=2070&auto=format&fit=crop", accent: "#ffd700" },
+      { url: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop", accent: "#a855f7" },
+      { url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2064&auto=format&fit=crop", accent: "#ff007f" },
+      { url: "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?q=80&w=2064&auto=format&fit=crop", accent: "#10b981" }
+    ];
+
+    let currentThemeIdx = 0;
+    let autoThemeActive = false;
+    let autoThemeTimer = null;
+
+    function initWallpaperLayers() {
+      const container = document.getElementById('wallpaper-container');
+      container.innerHTML = '';
+      pinterestThemes.forEach((th, idx) => {
+        const div = document.createElement('div');
+        div.className = `tv-wallpaper ${idx === 0 ? 'active' : ''}`;
+        div.id = `wall-${idx}`;
+        div.style.backgroundImage = `url('${th.url}')`;
+        container.appendChild(div);
       });
     }
 
-    /* Weather API */
-    async function syncDhakaWeather() {
-      try {
-        const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=23.8103&longitude=90.4125&current=temperature_2m&daily=temperature_2m_max,temperature_2m_min&timezone=Asia%2FDhaka');
-        const data = await res.json();
-        if (data && data.current) {
-          const temp = Math.round(data.current.temperature_2m);
-          const max = Math.round(data.daily.temperature_2m_max[0]);
-          const min = Math.round(data.daily.temperature_2m_min[0]);
-          document.getElementById('dhaka-live-temp').textContent = `${temp}°`;
-          document.getElementById('dhaka-hl-span').textContent = `H: ${max}° L: ${min}°`;
-        }
-      } catch (err) {}
+    function applyThemeStyle(th) {
+      const root = document.documentElement;
+      root.style.setProperty('--theme-accent', th.accent);
+      root.style.setProperty('--theme-glow', `${th.accent}40`);
+      root.style.setProperty('--digit-gradient', `linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.05) 50%, ${th.accent} 100%)`);
     }
 
-    /* TradingView Market Simulation Engine */
-    let marketTickers = {
-      usd: { points: [12, 13, 11, 15, 14, 16, 15], color: '#30d158', grad: 'url(#tv-green-grad)' },
-      sar: { points: [10, 11, 9, 12, 11, 13, 12], color: '#30d158', grad: 'url(#tv-green-grad)' },
-      aed: { points: [11, 10, 13, 12, 14, 13, 15], color: '#30d158', grad: 'url(#tv-green-grad)' }
-    };
+    function nextPinterestTheme() {
+      document.getElementById(`wall-${currentThemeIdx}`).classList.remove('active');
+      currentThemeIdx = (currentThemeIdx + 1) % pinterestThemes.length;
+      document.getElementById(`wall-${currentThemeIdx}`).classList.add('active');
+      applyThemeStyle(pinterestThemes[currentThemeIdx]);
+    }
 
+    function toggleAutoTheme() {
+      autoThemeActive = !autoThemeActive;
+      const dot = document.getElementById('auto-dot');
+      const txt = document.getElementById('auto-theme-txt');
+
+      if (autoThemeActive) {
+        dot.style.background = "#30d158";
+        dot.style.boxShadow = "0 0 10px #30d158";
+        txt.textContent = "AUTO THEME: ON (30s)";
+        autoThemeTimer = setInterval(nextPinterestTheme, 30000);
+      } else {
+        dot.style.background = "#ff3b30";
+        dot.style.boxShadow = "none";
+        txt.textContent = "AUTO THEME: OFF";
+        clearInterval(autoThemeTimer);
+      }
+    }
+
+    /* AOD 30s Idle Centering Engine */
+    let aodIdleTimer = null;
+    function resetAodIdleTimer() {
+      if (document.body.classList.contains('aod-idle-mode')) {
+        document.body.classList.remove('aod-idle-mode');
+      }
+      clearTimeout(aodIdleTimer);
+      aodIdleTimer = setTimeout(() => {
+        document.body.classList.add('aod-idle-mode');
+      }, 30000);
+    }
+
+    /* Market Engine */
+    let marketTickers = { usd: [12, 13, 11, 15, 14, 16, 15], sar: [10, 11, 9, 12, 11, 13, 12], aed: [11, 10, 13, 12, 14, 13, 15] };
     function renderPath(arr) {
       let min = Math.min(...arr), max = Math.max(...arr), range = max - min || 1;
-      let pts = arr.map((val, idx) => ({ x: (idx / 6) * 70, y: 14 - ((val - min) / range) * 10 }));
+      let pts = arr.map((val, idx) => ({ x: (idx / 6) * 65, y: 14 - ((val - min) / range) * 10 }));
       let d = `M ${pts[0].x.toFixed(1)},${pts[0].y.toFixed(1)}`;
       for (let i = 0; i < pts.length - 1; i++) {
         let p1 = pts[i], p2 = pts[i + 1], cx = (p1.x + p2.x) / 2;
         d += ` C ${cx.toFixed(1)},${p1.y.toFixed(1)} ${cx.toFixed(1)},${p2.y.toFixed(1)} ${p2.x.toFixed(1)},${p2.y.toFixed(1)}`;
       }
-      return { strokePath: d, fillPath: `${d} L 70,16 L 0,16 Z` };
+      return { strokePath: d, fillPath: `${d} L 65,18 L 0,18 Z` };
     }
 
     function stepMarket() {
       ['usd', 'sar', 'aed'].forEach(id => {
-        let t = marketTickers[id], arr = t.points;
-        let delta = (Math.random() * 1.5 - 0.73);
-        t.color = delta >= 0.2 ? '#30d158' : (delta <= -0.2 ? '#ff453a' : '#ffd60a');
-        t.grad = delta >= 0.2 ? 'url(#tv-green-grad)' : (delta <= -0.2 ? 'url(#tv-red-grad)' : 'url(#tv-yellow-grad)');
-
+        let arr = marketTickers[id], delta = (Math.random() * 1.5 - 0.73);
         arr.shift(); arr.push(Math.max(5, Math.min(25, arr[arr.length-1] + delta)));
         let p = renderPath(arr);
-
         document.getElementById(`${id}-spark`).setAttribute('d', p.strokePath);
-        document.getElementById(`${id}-spark`).style.stroke = t.color;
         document.getElementById(`${id}-fill`).setAttribute('d', p.fillPath);
-        document.getElementById(`${id}-fill`).style.fill = t.grad;
-
-        const gain = document.getElementById(`${id}-gain`);
-        gain.textContent = `${delta >= 0 ? '+' : ''}${(delta * 0.3).toFixed(2)}%`;
-        gain.style.color = t.color;
       });
     }
 
@@ -621,47 +578,25 @@
       } catch (e) {}
     }
 
-    /* 10 Luxury Themes Engine */
-    let currentTheme = 1;
-    const themeStyles = [
-      { name: 'THEME 1 • SNOW CLIFF', accent: '#30d158', glow: 'rgba(48,209,88,0.25)', dateColor: '#ffffff', stroke: 'rgba(255,255,255,0.65)' },
-      { name: 'THEME 2 • AURORA SKY', accent: '#00d2ff', glow: 'rgba(0,210,255,0.28)', dateColor: '#a1ecff', stroke: 'rgba(120,225,255,0.7)' },
-      { name: 'THEME 3 • CYBER NEBULA', accent: '#ff7bf0', glow: 'rgba(235,60,255,0.28)', dateColor: '#ffbdf7', stroke: 'rgba(255,160,245,0.7)' },
-      { name: 'THEME 4 • DEEP OCEAN', accent: '#00ffaa', glow: 'rgba(0,255,170,0.25)', dateColor: '#9effdc', stroke: 'rgba(100,255,210,0.7)' },
-      { name: 'THEME 5 • SUNSET GLOW', accent: '#ff9f0a', glow: 'rgba(255,140,0,0.28)', dateColor: '#ffdb9d', stroke: 'rgba(255,190,120,0.7)' },
-      { name: 'THEME 6 • ROYAL GOLD', accent: '#ffd700', glow: 'rgba(255,215,0,0.28)', dateColor: '#fff1a8', stroke: 'rgba(255,230,130,0.7)' },
-      { name: 'THEME 7 • MOUNTAIN MIST', accent: '#b0c4de', glow: 'rgba(180,200,220,0.25)', dateColor: '#e6f0fa', stroke: 'rgba(200,220,240,0.7)' },
-      { name: 'THEME 8 • COSMIC NIGHT', accent: '#a855f7', glow: 'rgba(138,43,226,0.28)', dateColor: '#e9d5ff', stroke: 'rgba(210,160,255,0.7)' },
-      { name: 'THEME 9 • TOKYO NEON', accent: '#ff007f', glow: 'rgba(255,0,128,0.28)', dateColor: '#ffb3d9', stroke: 'rgba(255,120,190,0.7)' },
-      { name: 'THEME 10 • EMERALD FOREST', accent: '#10b981', glow: 'rgba(16,185,129,0.28)', dateColor: '#a7f3d0', stroke: 'rgba(130,240,190,0.7)' }
-    ];
-
-    function switchThemeWallpaper() {
-      document.getElementById(`wall-${currentTheme}`).classList.remove('active');
-      currentTheme = (currentTheme % 10) + 1;
-      document.getElementById(`wall-${currentTheme}`).classList.add('active');
-
-      const style = themeStyles[currentTheme - 1];
-      document.getElementById('wall-switch-txt').textContent = style.name;
-      
-      const root = document.documentElement;
-      root.style.setProperty('--theme-accent', style.accent);
-      root.style.setProperty('--theme-glow', style.glow);
-      root.style.setProperty('--theme-date', style.dateColor);
-      root.style.setProperty('--water-stroke', style.stroke);
-      root.style.setProperty('--digit-gradient', `linear-gradient(180deg, ${style.dateColor} 0%, rgba(255,255,255,0.02) 50%, ${style.accent} 100%)`);
+    async function syncDhakaWeather() {
+      try {
+        const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=23.8103&longitude=90.4125&current=temperature_2m&daily=temperature_2m_max,temperature_2m_min&timezone=Asia%2FDhaka');
+        const data = await res.json();
+        if (data && data.current) {
+          document.getElementById('dhaka-live-temp').textContent = `${Math.round(data.current.temperature_2m)}°`;
+          document.getElementById('dhaka-hl-span').textContent = `H: ${Math.round(data.daily.temperature_2m_max[0])}° L: ${Math.round(data.daily.temperature_2m_min[0])}°`;
+        }
+      } catch (err) {}
     }
 
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'w' || e.key === 'W') switchThemeWallpaper();
-    });
-
-    // Core Init
+    /* Init Core */
+    initWallpaperLayers();
     runClockEngine();
     buildCalendar();
     syncDhakaWeather();
     fetchRates();
     stepMarket();
+    resetAodIdleTimer();
 
     setInterval(runClockEngine, 1000);
     setInterval(stepMarket, 2500);
