@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apple Ultra Liquid Glass AOD - Direct TV Player</title>
+  <title>Apple Ultra Liquid Glass AOD - Official Google Search Edition</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,10 +18,35 @@
       --digit-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.3) 100%);
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; -webkit-user-select: none; }
-    html, body { width: 100vw; height: 100vh; overflow: hidden; background-color: #000205; font-family: 'Inter', -apple-system, sans-serif; color: #ffffff; position: relative; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-user-select: none;
+    }
 
-    .tv-wallpaper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-position: center center; background-size: cover; background-repeat: no-repeat; z-index: 1; filter: brightness(0.55) contrast(1.25) saturate(1.3); opacity: 0; transition: opacity 1.2s ease; }
+    html, body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background-color: #000205;
+      font-family: 'Inter', -apple-system, sans-serif;
+      color: #ffffff;
+      position: relative;
+    }
+
+    .tv-wallpaper {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-position: center center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      z-index: 1;
+      filter: brightness(0.55) contrast(1.25) saturate(1.3);
+      opacity: 0;
+      transition: opacity 1.2s ease;
+    }
     .tv-wallpaper.active { opacity: 1; }
 
     #wall-1 { background-image: url('tvwall.jpg'); }
@@ -35,22 +60,98 @@
     #wall-9 { background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop'); }
     #wall-10 { background-image: url('https://images.unsplash.com/photo-1509114397022-ed747cca3f65?q=80&w=2070&auto=format&fit=crop'); }
 
-    .cinematic-vignette { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 75% 35%, rgba(0,0,0,0.02) 0%, rgba(0,2,5,0.85) 100%); z-index: 2; pointer-events: none; }
+    .cinematic-vignette {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(circle at 75% 35%, rgba(0,0,0,0.02) 0%, rgba(0,2,5,0.85) 100%);
+      z-index: 2;
+      pointer-events: none;
+    }
 
-    .top-status-indicator { position: absolute; top: 18px; right: 28px; z-index: 10; }
-    .status-capsule { display: flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.22); backdrop-filter: blur(20px); padding: 6px 14px; border-radius: 99px; font-family: 'Cinzel', serif; font-size: 9.5px; letter-spacing: 1.5px; cursor: pointer; box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
-    .pulse-dot { width: 6px; height: 6px; background: var(--theme-accent); border-radius: 50%; box-shadow: 0 0 10px var(--theme-accent); }
+    .top-status-indicator {
+      position: absolute;
+      top: 18px; right: 28px;
+      z-index: 10;
+    }
 
-    .aod-viewport { position: relative; width: 100%; height: 100%; padding: 2vh 3vw; display: grid; grid-template-columns: 295px 1fr; align-items: center; z-index: 5; }
-    .left-dock-column { height: 94vh; display: flex; flex-direction: column; justify-content: space-between; z-index: 6; }
-    .compact-glass-card { position: relative; width: 100%; padding: 8px 12px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.18); background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(25px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45), inset 1px -1px 1px rgba(255,255,255,0.3); }
+    .status-capsule {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(20px);
+      padding: 6px 14px;
+      border-radius: 99px;
+      font-family: 'Cinzel', serif;
+      font-size: 9.5px;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+
+    .pulse-dot {
+      width: 6px; height: 6px;
+      background: var(--theme-accent);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--theme-accent);
+    }
+
+    .aod-viewport {
+      position: relative;
+      width: 100%; height: 100%;
+      padding: 2vh 3vw;
+      display: grid;
+      grid-template-columns: 295px 1fr;
+      align-items: center;
+      z-index: 5;
+    }
+
+    .left-dock-column {
+      height: 94vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      z-index: 6;
+    }
+
+    .compact-glass-card {
+      position: relative;
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(25px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45), inset 1px -1px 1px rgba(255,255,255,0.3);
+    }
 
     /* Calendar */
-    .cal-title-bar { font-family: 'Cinzel', serif; font-size: 8.5px; font-weight: 700; letter-spacing: 1.5px; color: rgba(255, 255, 255, 0.6); margin-bottom: 3px; }
-    .cal-days-head { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-size: 7px; color: rgba(255, 255, 255, 0.4); margin-bottom: 2px; }
-    .cal-numbers-grid { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; gap: 1px; font-size: 9px; color: rgba(255, 255, 255, 0.9); }
-    .cal-numbers-grid span { display: flex; align-items: center; justify-content: center; width: 16px; height: 16px; border-radius: 50%; }
-    .cal-numbers-grid span.active-today { background: var(--theme-accent); color: #000205; font-weight: 700; box-shadow: 0 0 10px var(--theme-accent); }
+    .cal-title-bar {
+      font-family: 'Cinzel', serif;
+      font-size: 8.5px; font-weight: 700;
+      letter-spacing: 1.5px;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 3px;
+    }
+    .cal-days-head {
+      display: grid; grid-template-columns: repeat(7, 1fr);
+      text-align: center; font-size: 7px; color: rgba(255, 255, 255, 0.4);
+      margin-bottom: 2px;
+    }
+    .cal-numbers-grid {
+      display: grid; grid-template-columns: repeat(7, 1fr);
+      text-align: center; gap: 1px; font-size: 9px; color: rgba(255, 255, 255, 0.9);
+    }
+    .cal-numbers-grid span {
+      display: flex; align-items: center; justify-content: center;
+      width: 16px; height: 16px; border-radius: 50%;
+    }
+    .cal-numbers-grid span.active-today {
+      background: var(--theme-accent);
+      color: #000205; font-weight: 700;
+      box-shadow: 0 0 10px var(--theme-accent);
+    }
 
     /* Market Graphs */
     .market-list { display: flex; flex-direction: column; gap: 4px; }
@@ -64,36 +165,92 @@
     .market-price { font-size: 10px; font-weight: 600; }
     .market-gain { font-size: 7px; font-weight: 600; }
 
-    /* Direct Video Widget */
-    .yt-music-widget { display: flex; flex-direction: column; gap: 6px; }
-    .yt-header { display: flex; justify-content: space-between; align-items: center; font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 1px; color: rgba(255,255,255,0.6); }
-    .song-title { font-size: 10px; font-weight: bold; color: var(--theme-accent); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .song-artist { font-size: 8px; color: rgba(255, 255, 255, 0.6); margin-bottom: 2px; }
+    /* Official Google Search Widget */
+    .google-search-widget {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 4px 0;
+    }
+    
+    .google-brand-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-    .video-frame-container {
+    .google-logo-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: -0.5px;
+    }
+    .g-blue { color: #4285F4; }
+    .g-red { color: #EA4335; }
+    .g-yellow { color: #FBBC05; }
+    .g-green { color: #34A853; }
+
+    .search-sub-tag {
+      font-family: 'Cinzel', serif;
+      font-size: 7px;
+      letter-spacing: 1px;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .google-input-box {
       position: relative;
       width: 100%;
-      height: 110px;
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      background: #000;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-    }
-    .video-frame-container iframe { width: 100%; height: 100%; border: 0; }
-
-    .controls-row { display: flex; justify-content: space-between; align-items: center; margin-top: 2px; }
-    .ctrl-btn {
-      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.06);
       border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #fff;
-      padding: 5px 10px;
-      border-radius: 8px;
-      font-size: 9px;
-      cursor: pointer;
-      transition: all 0.2s ease;
+      border-radius: 10px;
+      padding: 4px 8px;
+      transition: all 0.3s ease;
     }
-    .ctrl-btn:hover { background: var(--theme-accent); color: #000; border-color: transparent; }
+
+    .google-input-box:focus-within {
+      border-color: var(--theme-accent);
+      box-shadow: 0 0 12px var(--theme-glow);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .google-input-box input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      padding-right: 25px;
+      user-select: text;
+      -webkit-user-select: text;
+    }
+
+    .google-input-box input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 10px;
+    }
+
+    .search-submit-btn {
+      position: absolute;
+      right: 6px;
+      background: transparent;
+      border: none;
+      color: var(--theme-accent);
+      cursor: pointer;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2px;
+      transition: transform 0.2s ease;
+    }
+
+    .search-submit-btn:hover {
+      transform: scale(1.15);
+    }
 
     /* Battery & Weather Compact */
     .widget-row { display: flex; gap: 6px; align-items: center; }
@@ -249,30 +406,22 @@
         </div>
       </div>
 
-      <!-- Direct Video Player Widget -->
+      <!-- Official Google Search Card Widget -->
       <div class="compact-glass-card">
-        <div class="yt-music-widget">
-          <div class="yt-header">
-            <span>AESTHETIC PLAYER</span>
-            <span id="audio-status-badge" style="color:var(--theme-accent);">READY</span>
-          </div>
-          <div>
-            <div class="song-title" id="track-title">Desi Kalakaar</div>
-            <div class="song-artist" id="track-artist">Yo Yo Honey Singh</div>
-          </div>
-
-          <!-- Video Container -->
-          <div class="video-frame-container" id="video-mount-point">
-            <div style="display:flex; align-items:center; justify-content:center; height:100%; color:rgba(255,255,255,0.5); font-size:10px;">
-              ▶ 'Play' এ ক্লিক করুন
+        <div class="google-search-widget">
+          <div class="google-brand-header">
+            <div class="google-logo-text">
+              <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span>
             </div>
+            <div class="search-sub-tag">SMART SEARCH</div>
           </div>
-
-          <div class="controls-row">
-            <button class="ctrl-btn" onclick="prevTrack()">⏮ Prev</button>
-            <button class="ctrl-btn" onclick="togglePlayPause()" id="play-pause-btn">▶ Play</button>
-            <button class="ctrl-btn" onclick="nextTrack()">Next ⏭</button>
-          </div>
+          
+          <form onsubmit="executeGoogleSearch(event)">
+            <div class="google-input-box">
+              <input type="text" id="g-search-query" placeholder="Search Google or type URL..." autocomplete="off" />
+              <button type="submit" class="search-submit-btn" title="Search">🔍</button>
+            </div>
+          </form>
         </div>
       </div>
 
@@ -382,6 +531,15 @@
       }
     }
 
+    /* Google Search Action Handler */
+    function executeGoogleSearch(e) {
+      e.preventDefault();
+      const query = document.getElementById('g-search-query').value.trim();
+      if (query) {
+        window.location.href = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+      }
+    }
+
     /* Battery Engine */
     if ('getBattery' in navigator) {
       navigator.getBattery().then(bat => {
@@ -410,55 +568,6 @@
           document.getElementById('dhaka-hl-span').textContent = `H: ${max}° L: ${min}°`;
         }
       } catch (err) {}
-    }
-
-    /* Reliable Direct Embed Video Playlist Engine */
-    const aestheticPlaylist = [
-      { title: "Desi Kalakaar", artist: "Yo Yo Honey Singh", id: "jTg15DrXhB0" },
-      { title: "Montagem Zora (Slowed)", artist: "MAFIA", id: "Z5MStQfTI40" },
-      { title: "Struct (Ultra Slowed)", artist: "Udiennx", id: "NIKMv7ekEB4" },
-      { title: "Aura Farming (Slowed)", artist: "Mustafa Saboori", id: "Mwo4TKwxRXU" },
-      { title: "Сладкая мята", artist: "The Milan", id: "C8je5fFB1m4" }
-    ];
-
-    let currentIdx = 0;
-    let isPlaying = false;
-
-    function loadVideo(play = true) {
-      const track = aestheticPlaylist[currentIdx];
-      document.getElementById('track-title').textContent = track.title;
-      document.getElementById('track-artist').textContent = track.artist;
-
-      const mount = document.getElementById('video-mount-point');
-      if (play) {
-        mount.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${track.id}?autoplay=1&controls=0&modestbranding=1&rel=0" allow="autoplay; encrypted-media"></iframe>`;
-        document.getElementById('play-pause-btn').textContent = "⏸ Pause";
-        document.getElementById('audio-status-badge').textContent = "PLAYING";
-        isPlaying = true;
-      } else {
-        mount.innerHTML = `<div style="display:flex; align-items:center; justify-content:center; height:100%; color:rgba(255,255,255,0.5); font-size:10px;">Paused</div>`;
-        document.getElementById('play-pause-btn').textContent = "▶ Play";
-        document.getElementById('audio-status-badge').textContent = "PAUSED";
-        isPlaying = false;
-      }
-    }
-
-    function togglePlayPause() {
-      if (isPlaying) {
-        loadVideo(false);
-      } else {
-        loadVideo(true);
-      }
-    }
-
-    function nextTrack() {
-      currentIdx = (currentIdx + 1) % aestheticPlaylist.length;
-      loadVideo(true);
-    }
-
-    function prevTrack() {
-      currentIdx = (currentIdx - 1 + aestheticPlaylist.length) % aestheticPlaylist.length;
-      loadVideo(true);
     }
 
     /* TradingView Market Simulation Engine */
@@ -512,7 +621,7 @@
       } catch (e) {}
     }
 
-    /* 20 Luxury Themes Engine */
+    /* 10 Luxury Themes Engine */
     let currentTheme = 1;
     const themeStyles = [
       { name: 'THEME 1 • SNOW CLIFF', accent: '#30d158', glow: 'rgba(48,209,88,0.25)', dateColor: '#ffffff', stroke: 'rgba(255,255,255,0.65)' },
