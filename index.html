@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apple Ultra Liquid Glass AOD - Final TV Edition</title>
+  <title>Apple Ultra Liquid Glass AOD - Aesthetic Video Player Edition</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -59,16 +59,6 @@
     #wall-8 { background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=2070&auto=format&fit=crop'); }
     #wall-9 { background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop'); }
     #wall-10 { background-image: url('https://images.unsplash.com/photo-1509114397022-ed747cca3f65?q=80&w=2070&auto=format&fit=crop'); }
-    #wall-11 { background-image: url('https://images.unsplash.com/photo-1511447333015-45b65e60f6d5?q=80&w=2070&auto=format&fit=crop'); }
-    #wall-12 { background-image: url('https://images.unsplash.com/photo-1502134249126-9f3755a50d78?q=80&w=2070&auto=format&fit=crop'); }
-    #wall-13 { background-image: url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=2070&auto=format&fit=crop'); }
-    #wall-14 { background-image: url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=2074&auto=format&fit=crop'); }
-    #wall-15 { background-image: url('https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=2072&auto=format&fit=crop'); }
-    #wall-16 { background-image: url('https://images.unsplash.com/photo-1508739773434-c26b3d09e071?q=80&w=2070&auto=format&fit=crop'); }
-    #wall-17 { background-image: url('https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?q=80&w=2070&auto=format&fit=crop'); }
-    #wall-18 { background-image: url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop'); }
-    #wall-19 { background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2064&auto=format&fit=crop'); }
-    #wall-20 { background-image: url('https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?q=80&w=2064&auto=format&fit=crop'); }
 
     .cinematic-vignette {
       position: absolute;
@@ -112,13 +102,13 @@
       width: 100%; height: 100%;
       padding: 2vh 3vw;
       display: grid;
-      grid-template-columns: 285px 1fr;
+      grid-template-columns: 295px 1fr;
       align-items: center;
       z-index: 5;
     }
 
     .left-dock-column {
-      height: 92vh;
+      height: 94vh;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -164,49 +154,69 @@
     }
 
     /* Market Graphs */
-    .market-list { display: flex; flex-direction: column; gap: 5px; }
+    .market-list { display: flex; flex-direction: column; gap: 4px; }
     .market-item { display: grid; grid-template-columns: 70px 1fr 60px; align-items: center; gap: 5px; }
-    .market-name { font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 700; color: var(--theme-accent); }
-    .market-sub { font-size: 7px; color: rgba(255,255,255,0.45); }
-    .sparkline-svg { width: 100%; height: 18px; overflow: visible; }
+    .market-name { font-family: 'Syne', sans-serif; font-size: 9.5px; font-weight: 700; color: var(--theme-accent); }
+    .market-sub { font-size: 6.5px; color: rgba(255,255,255,0.45); }
+    .sparkline-svg { width: 100%; height: 16px; overflow: visible; }
     .sparkline-path { fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
     .sparkline-fill { opacity: 0.2; }
     .market-digits { text-align: right; font-family: 'JetBrains Mono', monospace; }
-    .market-price { font-size: 10.5px; font-weight: 600; }
-    .market-gain { font-size: 7.5px; font-weight: 600; }
+    .market-price { font-size: 10px; font-weight: 600; }
+    .market-gain { font-size: 7px; font-weight: 600; }
 
-    /* Music Player & Embedded Player */
-    .yt-music-widget { display: flex; flex-direction: column; gap: 5px; }
+    /* Aesthetic Video Player Widget with Play/Pause Control */
+    .yt-music-widget { display: flex; flex-direction: column; gap: 6px; }
     .yt-header { display: flex; justify-content: space-between; align-items: center; font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 1px; color: rgba(255,255,255,0.6); }
-    .yt-player-box { display: flex; align-items: center; gap: 8px; }
-    .yt-thumbnail { width: 36px; height: 36px; border-radius: 8px; background-size: cover; background-position: center; border: 1px solid rgba(255,255,255,0.2); }
-    .yt-info { flex-grow: 1; overflow: hidden; }
-    .yt-song-title { font-size: 10px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--theme-accent); }
-    .yt-artist { font-size: 8px; color: rgba(255,255,255,0.5); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    
-    .hidden-yt-frame {
-      position: absolute;
-      width: 1px; height: 1px;
-      opacity: 0;
+    .song-title { font-size: 10px; font-weight: bold; color: var(--theme-accent); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .song-artist { font-size: 8px; color: rgba(255, 255, 255, 0.6); margin-bottom: 2px; }
+
+    .video-frame-container {
+      width: 100%;
+      height: 110px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: #000;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+    }
+
+    .video-frame-container iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
       pointer-events: none;
     }
 
+    .controls-row { display: flex; justify-content: space-between; align-items: center; margin-top: 2px; }
+    .ctrl-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 9px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .ctrl-btn:hover { background: var(--theme-accent); color: #000; border-color: transparent; }
+
     /* Battery & Weather Compact */
-    .widget-row { display: flex; gap: 8px; align-items: center; }
-    .power-compact-pill { flex: 1; display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 12px; }
-    .power-ring { position: relative; width: 22px; height: 22px; }
-    .power-ring svg { transform: rotate(-90deg); width: 22px; height: 22px; }
+    .widget-row { display: flex; gap: 6px; align-items: center; }
+    .power-compact-pill { flex: 1; display: flex; align-items: center; gap: 6px; padding: 5px 8px; border-radius: 10px; }
+    .power-ring { position: relative; width: 20px; height: 20px; }
+    .power-ring svg { transform: rotate(-90deg); width: 20px; height: 20px; }
     .rail-bg { stroke: rgba(255,255,255,0.12); stroke-width: 2.5; fill: none; }
     .rail-fill { stroke: var(--theme-accent); stroke-width: 2.5; stroke-linecap: round; fill: none; stroke-dasharray: 60; stroke-dashoffset: 0; }
-    .power-pct { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; line-height: 1; }
-    .power-label { font-size: 6.5px; font-weight: 600; color: rgba(255,255,255,0.5); }
+    .power-pct { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; line-height: 1; }
+    .power-label { font-size: 6px; font-weight: 600; color: rgba(255,255,255,0.5); }
 
-    .weather-box { flex: 1; padding: 6px 10px; border-radius: 12px; display: flex; flex-direction: column; justify-content: center; }
-    .weather-tag { font-family: 'Cinzel', serif; font-size: 7.5px; font-weight: 700; letter-spacing: 0.8px; color: rgba(255,255,255,0.8); }
-    .weather-temp-num { font-size: 20px; font-weight: 300; line-height: 1.1; color: var(--theme-accent); }
-    .weather-sub-info { font-size: 7.5px; color: rgba(255,255,255,0.6); }
+    .weather-box { flex: 1; padding: 5px 8px; border-radius: 10px; display: flex; flex-direction: column; justify-content: center; }
+    .weather-tag { font-family: 'Cinzel', serif; font-size: 7px; font-weight: 700; letter-spacing: 0.8px; color: rgba(255,255,255,0.8); }
+    .weather-temp-num { font-size: 18px; font-weight: 300; line-height: 1; color: var(--theme-accent); }
+    .weather-sub-info { font-size: 7px; color: rgba(255,255,255,0.6); }
 
-    /* ================= Super Transparent Glass Clock ================= */
+    /* Glass Clock */
     .timepiece-stage { display: flex; flex-direction: column; align-items: center; justify-content: center; margin-left: -15px; }
     .date-banner { font-family: 'Cinzel', serif; font-size: 15px; font-weight: 700; letter-spacing: 3.5px; text-transform: uppercase; color: var(--theme-date); margin-bottom: 10px; text-shadow: 0 4px 18px rgba(0,0,0,0.9); }
     .time-housing { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 0.5vw; }
@@ -250,9 +260,6 @@
 </head>
 <body>
 
-  <!-- Hidden Verified YouTube Audio Streamer Container -->
-  <div id="audio-frame-container" class="hidden-yt-frame"></div>
-
   <svg style="height:0; width:0; position:absolute;">
     <defs>
       <linearGradient id="tv-green-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#30d158" stop-opacity="0.5"/><stop offset="100%" stop-color="#30d158" stop-opacity="0.0"/></linearGradient>
@@ -272,16 +279,6 @@
   <div class="tv-wallpaper" id="wall-8"></div>
   <div class="tv-wallpaper" id="wall-9"></div>
   <div class="tv-wallpaper" id="wall-10"></div>
-  <div class="tv-wallpaper" id="wall-11"></div>
-  <div class="tv-wallpaper" id="wall-12"></div>
-  <div class="tv-wallpaper" id="wall-13"></div>
-  <div class="tv-wallpaper" id="wall-14"></div>
-  <div class="tv-wallpaper" id="wall-15"></div>
-  <div class="tv-wallpaper" id="wall-16"></div>
-  <div class="tv-wallpaper" id="wall-17"></div>
-  <div class="tv-wallpaper" id="wall-18"></div>
-  <div class="tv-wallpaper" id="wall-19"></div>
-  <div class="tv-wallpaper" id="wall-20"></div>
 
   <div class="cinematic-vignette"></div>
 
@@ -358,30 +355,37 @@
         </div>
       </div>
 
-      <!-- Verified Music Player (Auto-Rotating Your Links) -->
+      <!-- Video Player Widget with FULL CONTROLS (Prev, Play/Pause, Next) -->
       <div class="compact-glass-card">
         <div class="yt-music-widget">
           <div class="yt-header">
-            <span>YT MUSIC AUTO-STREAM</span>
-            <span id="yt-status-badge" style="color:var(--theme-accent);">PLAYING</span>
+            <span>AESTHETIC VIDEO PLAYER</span>
+            <span id="audio-status-badge" style="color:var(--theme-accent);">PLAYING</span>
           </div>
-          <div class="yt-player-box">
-            <div class="yt-thumbnail" id="yt-thumb" style="background-image: url('https://images.unsplash.com/photo-1518609878373-06d740f60d8b?q=80&w=300&auto=format&fit=crop');"></div>
-            <div class="yt-info">
-              <div class="yt-song-title" id="yt-song-title">Yo Yo Honey Singh - Desi Kalakaar</div>
-              <div class="yt-artist" id="yt-artist">Official Verified Stream</div>
-            </div>
+          <div>
+            <div class="song-title" id="track-title">Desi Kalakaar</div>
+            <div class="song-artist" id="track-artist">Yo Yo Honey Singh</div>
+          </div>
+
+          <!-- Video Container Box -->
+          <div class="video-frame-container" id="video-mount-point"></div>
+
+          <!-- Controls Row with Play/Pause Button Included -->
+          <div class="controls-row">
+            <button class="ctrl-btn" onclick="prevTrack()">⏮ Prev</button>
+            <button class="ctrl-btn" onclick="togglePlayPause()" id="play-pause-btn">⏸ Pause</button>
+            <button class="ctrl-btn" onclick="nextTrack()">Next ⏭</button>
           </div>
         </div>
       </div>
 
-      <!-- Battery & Weather Compact Row inside Screen View -->
+      <!-- Battery & Weather Compact Row -->
       <div class="widget-row">
         <div class="compact-glass-card power-compact-pill">
           <div class="power-ring">
             <svg>
-              <circle class="rail-bg" cx="11" cy="11" r="9"/>
-              <circle class="rail-fill" id="battery-rail-fill" cx="11" cy="11" r="9"/>
+              <circle class="rail-bg" cx="10" cy="10" r="8"/>
+              <circle class="rail-fill" id="battery-rail-fill" cx="10" cy="10" r="8"/>
             </svg>
           </div>
           <div>
@@ -511,31 +515,51 @@
       } catch (err) {}
     }
 
-    /* Verified Music Auto-Rotation Playlist */
-    const verifiedPlaylist = [
-      { title: "Yo Yo Honey Singh - Desi Kalakaar", artist: "Chill & Relaxing Beat", id: "jTg15DrXhB0", art: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?q=80&w=300&auto=format&fit=crop" },
-      { title: "Montagem Zora (Slowed)", artist: "Phonk Experience", id: "Z5MStQfTI40", art: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=300&auto=format&fit=crop" },
-      { title: "Udiennx - Struct (Ultra Slowed)", artist: "Atmospheric Vibe", id: "NIKMv7ekEB4", art: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=300&auto=format&fit=crop" },
-      { title: "Aura Farming (Legendary Phonk)", artist: "Mustafa Saboori", id: "Mwo4TKwxRXU", art: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=300&auto=format&fit=crop" },
-      { title: "The Milan - Cладкая мята", artist: "European Pop Hit", id: "C8je5fFB1m4", art: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?q=80&w=300&auto=format&fit=crop" }
+    /* 100% Guaranteed In-Frame Video Playlist Engine with Play/Pause Toggle */
+    const aestheticPlaylist = [
+      { title: "Desi Kalakaar", artist: "Yo Yo Honey Singh", id: "jTg15DrXhB0" },
+      { title: "Montagem Zora (Slowed)", artist: "MAFIA", id: "Z5MStQfTI40" },
+      { title: "Struct (Ultra Slowed)", artist: "Udiennx", id: "NIKMv7ekEB4" },
+      { title: "Aura Farming (Slowed)", artist: "Mustafa Saboori", id: "Mwo4TKwxRXU" },
+      { title: "Сладкая мята", artist: "The Milan", id: "C8je5fFB1m4" }
     ];
-    let currentTrackIdx = 0;
 
-    function playCurrentTrack() {
-      const track = verifiedPlaylist[currentTrackIdx];
-      document.getElementById('yt-song-title').textContent = track.title;
-      document.getElementById('yt-artist').textContent = track.artist;
-      document.getElementById('yt-thumb').style.backgroundImage = `url('${track.art}')`;
+    let currentIdx = 0;
+    let isVideoPlaying = true;
+
+    function loadAestheticVideo(idx) {
+      const track = aestheticPlaylist[idx];
+      document.getElementById('track-title').textContent = track.title;
+      document.getElementById('track-artist').textContent = track.artist;
       
-      const container = document.getElementById('audio-frame-container');
-      container.innerHTML = `<iframe width="100" height="100" src="https://www.youtube.com/embed/${track.id}?autoplay=1" allow="autoplay"></iframe>`;
+      const mount = document.getElementById('video-mount-point');
+      if (isVideoPlaying) {
+        mount.innerHTML = `<iframe src="https://www.youtube.com/embed/${track.id}?autoplay=1&mute=0&controls=0&disablekb=1&loop=1&playlist=${track.id}" allow="autoplay"></iframe>`;
+        document.getElementById('audio-status-badge').textContent = "PLAYING";
+        document.getElementById('play-pause-btn').textContent = "⏸ Pause";
+      } else {
+        mount.innerHTML = '';
+        document.getElementById('audio-status-badge').textContent = "PAUSED";
+        document.getElementById('play-pause-btn').textContent = "▶ Play";
+      }
     }
 
-    // Auto rotate songs every 4.5 minutes seamlessly
-    setInterval(() => {
-      currentTrackIdx = (currentTrackIdx + 1) % verifiedPlaylist.length;
-      playCurrentTrack();
-    }, 270000);
+    function togglePlayPause() {
+      isVideoPlaying = !isVideoPlaying;
+      loadAestheticVideo(currentIdx);
+    }
+
+    function nextTrack() {
+      currentIdx = (currentIdx + 1) % aestheticPlaylist.length;
+      isVideoPlaying = true;
+      loadAestheticVideo(currentIdx);
+    }
+
+    function prevTrack() {
+      currentIdx = (currentIdx - 1 + aestheticPlaylist.length) % aestheticPlaylist.length;
+      isVideoPlaying = true;
+      loadAestheticVideo(currentIdx);
+    }
 
     /* TradingView Market Simulation Engine */
     let marketTickers = {
@@ -546,13 +570,13 @@
 
     function renderPath(arr) {
       let min = Math.min(...arr), max = Math.max(...arr), range = max - min || 1;
-      let pts = arr.map((val, idx) => ({ x: (idx / 6) * 70, y: 16 - ((val - min) / range) * 12 }));
+      let pts = arr.map((val, idx) => ({ x: (idx / 6) * 70, y: 14 - ((val - min) / range) * 10 }));
       let d = `M ${pts[0].x.toFixed(1)},${pts[0].y.toFixed(1)}`;
       for (let i = 0; i < pts.length - 1; i++) {
         let p1 = pts[i], p2 = pts[i + 1], cx = (p1.x + p2.x) / 2;
         d += ` C ${cx.toFixed(1)},${p1.y.toFixed(1)} ${cx.toFixed(1)},${p2.y.toFixed(1)} ${p2.x.toFixed(1)},${p2.y.toFixed(1)}`;
       }
-      return { strokePath: d, fillPath: `${d} L 70,18 L 0,18 Z` };
+      return { strokePath: d, fillPath: `${d} L 70,16 L 0,16 Z` };
     }
 
     function stepMarket() {
@@ -588,7 +612,7 @@
       } catch (e) {}
     }
 
-    /* 20 Luxury Themes Engine with Adaptive Time Color Adjustment */
+    /* 20 Luxury Themes Engine */
     let currentTheme = 1;
     const themeStyles = [
       { name: 'THEME 1 • SNOW CLIFF', accent: '#30d158', glow: 'rgba(48,209,88,0.25)', dateColor: '#ffffff', stroke: 'rgba(255,255,255,0.65)' },
@@ -609,13 +633,13 @@
       { name: 'THEME 16 • LEMON LIGHT', accent: '#facc15', glow: 'rgba(250,204,21,0.28)', dateColor: '#fef9c3', stroke: 'rgba(253,224,71,0.7)' },
       { name: 'THEME 17 • INDIGO DEEP', accent: '#818cf8', glow: 'rgba(99,102,241,0.28)', dateColor: '#e0e7ff', stroke: 'rgba(165,180,252,0.7)' },
       { name: 'THEME 18 • ROSE GOLD', accent: '#f43f5e', glow: 'rgba(251,113,133,0.28)', dateColor: '#fff1f2', stroke: 'rgba(251,113,133,0.7)' },
-      { name: 'THEME 19 • ABSTRACT LUX', accent: '#e879f9', glow: 'rgba(217,70,239,0.28)', dateColor: '#fae8ff', stroke: 'rgba(240,171,252,0.7)' },
+      { name: 'THEMЕ 19 • ABSTRACT LUX', accent: '#e879f9', glow: 'rgba(217,70,239,0.28)', dateColor: '#fae8ff', stroke: 'rgba(240,171,252,0.7)' },
       { name: 'THEME 20 • TITANIUM GLASS', accent: '#cbd5e1', glow: 'rgba(203,213,225,0.28)', dateColor: '#f8fafc', stroke: 'rgba(226,232,240,0.7)' }
     ];
 
     function switchThemeWallpaper() {
       document.getElementById(`wall-${currentTheme}`).classList.remove('active');
-      currentTheme = (currentTheme % 20) + 1;
+      currentTheme = (currentTheme % 10) + 1;
       document.getElementById(`wall-${currentTheme}`).classList.add('active');
 
       const style = themeStyles[currentTheme - 1];
@@ -633,12 +657,12 @@
       if (e.key === 'w' || e.key === 'W') switchThemeWallpaper();
     });
 
-    // Core Initialization
+    // Core Init
     runClockEngine();
     buildCalendar();
     syncDhakaWeather();
     fetchRates();
-    playCurrentTrack();
+    loadAestheticVideo(currentIdx);
     stepMarket();
 
     setInterval(runClockEngine, 1000);
