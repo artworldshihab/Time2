@@ -1,9 +1,9 @@
-l<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apple Ultra Liquid Glass AOD - Guaranteed Player Edition</title>
+  <title>Apple Ultra Liquid Glass AOD - Direct TV Player</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,6 +28,12 @@ l<!DOCTYPE html>
     #wall-2 { background-image: url('tv wall.jpg'); }
     #wall-3 { background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=2070&auto=format&fit=crop'); }
     #wall-4 { background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop'); }
+    #wall-5 { background-image: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=2094&auto=format&fit=crop'); }
+    #wall-6 { background-image: url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=2070&auto=format&fit=crop'); }
+    #wall-7 { background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2070&auto=format&fit=crop'); }
+    #wall-8 { background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=2070&auto=format&fit=crop'); }
+    #wall-9 { background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop'); }
+    #wall-10 { background-image: url('https://images.unsplash.com/photo-1509114397022-ed747cca3f65?q=80&w=2070&auto=format&fit=crop'); }
 
     .cinematic-vignette { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 75% 35%, rgba(0,0,0,0.02) 0%, rgba(0,2,5,0.85) 100%); z-index: 2; pointer-events: none; }
 
@@ -58,7 +64,7 @@ l<!DOCTYPE html>
     .market-price { font-size: 10px; font-weight: 600; }
     .market-gain { font-size: 7px; font-weight: 600; }
 
-    /* Video Player Box */
+    /* Direct Video Widget */
     .yt-music-widget { display: flex; flex-direction: column; gap: 6px; }
     .yt-header { display: flex; justify-content: space-between; align-items: center; font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 1px; color: rgba(255,255,255,0.6); }
     .song-title { font-size: 10px; font-weight: bold; color: var(--theme-accent); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -74,7 +80,6 @@ l<!DOCTYPE html>
       background: #000;
       box-shadow: 0 8px 20px rgba(0,0,0,0.6);
     }
-
     .video-frame-container iframe { width: 100%; height: 100%; border: 0; }
 
     .controls-row { display: flex; justify-content: space-between; align-items: center; margin-top: 2px; }
@@ -157,26 +162,36 @@ l<!DOCTYPE html>
     </defs>
   </svg>
 
+  <!-- 10 Wallpapers -->
   <div class="tv-wallpaper active" id="wall-1"></div>
   <div class="tv-wallpaper" id="wall-2"></div>
   <div class="tv-wallpaper" id="wall-3"></div>
   <div class="tv-wallpaper" id="wall-4"></div>
+  <div class="tv-wallpaper" id="wall-5"></div>
+  <div class="tv-wallpaper" id="wall-6"></div>
+  <div class="tv-wallpaper" id="wall-7"></div>
+  <div class="tv-wallpaper" id="wall-8"></div>
+  <div class="tv-wallpaper" id="wall-9"></div>
+  <div class="tv-wallpaper" id="wall-10"></div>
 
   <div class="cinematic-vignette"></div>
 
   <aside class="top-status-indicator">
-    <div class="status-capsule" onclick="switchThemeWallpaper()">
+    <div class="status-capsule" onclick="switchThemeWallpaper()" title="Click to Switch Theme">
       <span class="pulse-dot"></span>
       <span id="wall-switch-txt">THEME 1 • SNOW CLIFF</span>
     </div>
   </aside>
 
   <main class="aod-viewport">
+
     <section class="left-dock-column">
       <!-- Calendar -->
       <div class="compact-glass-card">
         <div class="cal-title-bar" id="cal-month-title">OCTOBER</div>
-        <div class="cal-days-head"><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span></div>
+        <div class="cal-days-head">
+          <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+        </div>
         <div class="cal-numbers-grid" id="cal-grid-cells"></div>
       </div>
 
@@ -184,24 +199,61 @@ l<!DOCTYPE html>
       <div class="compact-glass-card">
         <div class="market-list">
           <div class="market-item">
-            <div><div class="market-name">USD/BDT</div><div class="market-sub">US Dollar</div></div>
-            <svg class="sparkline-svg"><path class="sparkline-fill" id="usd-fill" d=""></path><path class="sparkline-path" id="usd-spark" d=""></path></svg>
-            <div class="market-digits"><div class="market-price" id="usd-price">--.--</div><div class="market-gain" id="usd-gain">LIVE</div></div>
+            <div>
+              <div class="market-name">USD/BDT</div>
+              <div class="market-sub">US Dollar</div>
+            </div>
+            <svg class="sparkline-svg">
+              <path class="sparkline-fill" id="usd-fill" d=""></path>
+              <path class="sparkline-path" id="usd-spark" d=""></path>
+            </svg>
+            <div class="market-digits">
+              <div class="market-price" id="usd-price">--.--</div>
+              <div class="market-gain" id="usd-gain">LIVE</div>
+            </div>
           </div>
+
           <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.08);">
+
           <div class="market-item">
-            <div><div class="market-name">SAR/BDT</div><div class="market-sub">Saudi Riyal</div></div>
-            <svg class="sparkline-svg"><path class="sparkline-fill" id="sar-fill" d=""></path><path class="sparkline-path" id="sar-spark" d=""></path></svg>
-            <div class="market-digits"><div class="market-price" id="sar-price">--.--</div><div class="market-gain" id="sar-gain">LIVE</div></div>
+            <div>
+              <div class="market-name">SAR/BDT</div>
+              <div class="market-sub">Saudi Riyal</div>
+            </div>
+            <svg class="sparkline-svg">
+              <path class="sparkline-fill" id="sar-fill" d=""></path>
+              <path class="sparkline-path" id="sar-spark" d=""></path>
+            </svg>
+            <div class="market-digits">
+              <div class="market-price" id="sar-price">--.--</div>
+              <div class="market-gain" id="sar-gain">LIVE</div>
+            </div>
+          </div>
+
+          <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.08);">
+
+          <div class="market-item">
+            <div>
+              <div class="market-name">AED/BDT</div>
+              <div class="market-sub">UAE Dirham</div>
+            </div>
+            <svg class="sparkline-svg">
+              <path class="sparkline-fill" id="aed-fill" d=""></path>
+              <path class="sparkline-path" id="aed-spark" d=""></path>
+            </svg>
+            <div class="market-digits">
+              <div class="market-price" id="aed-price">--.--</div>
+              <div class="market-gain" id="aed-gain">LIVE</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Direct Video Engine Player Widget -->
+      <!-- Direct Video Player Widget -->
       <div class="compact-glass-card">
         <div class="yt-music-widget">
           <div class="yt-header">
-            <span>AESTHETIC VIDEO PLAYER</span>
+            <span>AESTHETIC PLAYER</span>
             <span id="audio-status-badge" style="color:var(--theme-accent);">READY</span>
           </div>
           <div>
@@ -209,8 +261,12 @@ l<!DOCTYPE html>
             <div class="song-artist" id="track-artist">Yo Yo Honey Singh</div>
           </div>
 
-          <!-- Video Frame Mounting Area -->
-          <div class="video-frame-container" id="video-mount-point"></div>
+          <!-- Video Container -->
+          <div class="video-frame-container" id="video-mount-point">
+            <div style="display:flex; align-items:center; justify-content:center; height:100%; color:rgba(255,255,255,0.5); font-size:10px;">
+              ▶ 'Play' এ ক্লিক করুন
+            </div>
+          </div>
 
           <div class="controls-row">
             <button class="ctrl-btn" onclick="prevTrack()">⏮ Prev</button>
@@ -223,73 +279,140 @@ l<!DOCTYPE html>
       <!-- Battery & Weather Compact Row -->
       <div class="widget-row">
         <div class="compact-glass-card power-compact-pill">
-          <div class="power-ring"><svg><circle class="rail-bg" cx="10" cy="10" r="8"/><circle class="rail-fill" id="battery-rail-fill" cx="10" cy="10" r="8"/></svg></div>
-          <div><div class="power-pct" id="battery-pct-txt">100%</div><div class="power-label" id="battery-status-lbl">AC POWER</div></div>
+          <div class="power-ring">
+            <svg>
+              <circle class="rail-bg" cx="10" cy="10" r="8"/>
+              <circle class="rail-fill" id="battery-rail-fill" cx="10" cy="10" r="8"/>
+            </svg>
+          </div>
+          <div>
+            <div class="power-pct" id="battery-pct-txt">100%</div>
+            <div class="power-label" id="battery-status-lbl">AC POWER</div>
+          </div>
         </div>
+
         <div class="compact-glass-card weather-box">
           <div class="weather-tag">DHAKA, BD</div>
           <div class="weather-temp-num" id="dhaka-live-temp">28°</div>
           <div class="weather-sub-info" id="dhaka-hl-span">H: 32° L: 25°</div>
         </div>
       </div>
+
     </section>
 
-    <!-- Center Clock -->
+    <!-- Center Stage -->
     <section class="timepiece-stage">
       <div class="date-banner" id="live-date-str">SUNDAY, OCTOBER 19</div>
+      
       <div class="time-housing">
         <div class="digit-group">
-          <div class="flip-digit-card"><div class="digit-face" id="h1">1</div></div>
-          <div class="flip-digit-card"><div class="digit-face" id="h2">0</div></div>
+          <div class="flip-digit-card" id="card-h1"><div class="digit-face" id="h1">1</div></div>
+          <div class="flip-digit-card" id="card-h2"><div class="digit-face" id="h2">0</div></div>
         </div>
+
         <span class="time-colon">:</span>
+
         <div class="digit-group">
-          <div class="flip-digit-card"><div class="digit-face" id="m1">0</div></div>
-          <div class="flip-digit-card"><div class="digit-face" id="m2">0</div></div>
+          <div class="flip-digit-card" id="card-m1"><div class="digit-face" id="m1">0</div></div>
+          <div class="flip-digit-card" id="card-m2"><div class="digit-face" id="m2">0</div></div>
         </div>
+
         <div class="seconds-capsule-container">
-          <div class="flip-sec-card"><div class="sec-digit-face" id="s1">0</div></div>
-          <div class="flip-sec-card"><div class="sec-digit-face" id="s2">0</div></div>
+          <div class="flip-sec-card" id="card-s1"><div class="sec-digit-face" id="s1">0</div></div>
+          <div class="flip-sec-card" id="card-s2"><div class="sec-digit-face" id="s2">0</div></div>
           <div class="sec-label-tag">SEC</div>
         </div>
       </div>
     </section>
+
   </main>
 
   <script>
     /* Time & Calendar Engine */
     let lastDigits = { h1: '', h2: '', m1: '', m2: '', s1: '', s2: '' };
-    function updateSingleDigit(id, newVal) {
-      if (lastDigits[id] !== newVal) { document.getElementById(id).textContent = newVal; lastDigits[id] = newVal; }
+
+    function updateSingleDigit(id, cardId, newVal) {
+      if (lastDigits[id] !== newVal) {
+        document.getElementById(id).textContent = newVal;
+        lastDigits[id] = newVal;
+      }
     }
 
     function runClockEngine() {
       const now = new Date();
-      let hours = now.getHours() % 12 || 12, minutes = now.getMinutes(), seconds = now.getSeconds();
-      const strH = String(hours).padStart(2, '0'), strM = String(minutes).padStart(2, '0'), strS = String(seconds).padStart(2, '0');
-      updateSingleDigit('h1', strH[0]); updateSingleDigit('h2', strH[1]);
-      updateSingleDigit('m1', strM[0]); updateSingleDigit('m2', strM[1]);
-      updateSingleDigit('s1', strS[0]); updateSingleDigit('s2', strS[1]);
+      let hours = now.getHours() % 12 || 12;
+      let minutes = now.getMinutes();
+      let seconds = now.getSeconds();
+
+      const strH = String(hours).padStart(2, '0');
+      const strM = String(minutes).padStart(2, '0');
+      const strS = String(seconds).padStart(2, '0');
+
+      updateSingleDigit('h1', 'card-h1', strH[0]);
+      updateSingleDigit('h2', 'card-h2', strH[1]);
+      updateSingleDigit('m1', 'card-m1', strM[0]);
+      updateSingleDigit('m2', 'card-m2', strM[1]);
+      updateSingleDigit('s1', 'card-s1', strS[0]);
+      updateSingleDigit('s2', 'card-s2', strS[1]);
 
       const days = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
       const months = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
+      
       document.getElementById('live-date-str').textContent = `${days[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate()}`;
       document.getElementById('cal-month-title').textContent = months[now.getMonth()];
     }
 
     function buildCalendar() {
-      const grid = document.getElementById('cal-grid-cells'); grid.innerHTML = '';
-      const now = new Date(), yr = now.getFullYear(), mo = now.getMonth(), currentDay = now.getDate();
-      const offset = new Date(yr, mo, 1).getDay(), totalDays = new Date(yr, mo + 1, 0).getDate();
+      const grid = document.getElementById('cal-grid-cells');
+      grid.innerHTML = '';
+      const now = new Date();
+      const yr = now.getFullYear();
+      const mo = now.getMonth();
+      const currentDay = now.getDate();
+
+      const offset = new Date(yr, mo, 1).getDay();
+      const totalDays = new Date(yr, mo + 1, 0).getDate();
+
       for (let i = 0; i < offset; i++) grid.appendChild(document.createElement('span'));
       for (let d = 1; d <= totalDays; d++) {
-        const cell = document.createElement('span'); cell.textContent = d;
+        const cell = document.createElement('span');
+        cell.textContent = d;
         if (d === currentDay) cell.classList.add('active-today');
         grid.appendChild(cell);
       }
     }
 
-    /* Direct Working Video Embed Engine */
+    /* Battery Engine */
+    if ('getBattery' in navigator) {
+      navigator.getBattery().then(bat => {
+        function syncBatteryState() {
+          const level = Math.round(bat.level * 100);
+          document.getElementById('battery-pct-txt').textContent = `${level}%`;
+          document.getElementById('battery-status-lbl').textContent = bat.charging ? 'CHARGING' : 'BATTERY';
+          document.getElementById('battery-rail-fill').style.strokeDashoffset = 60 - (60 * level / 100);
+        }
+        syncBatteryState();
+        bat.addEventListener('levelchange', syncBatteryState);
+        bat.addEventListener('chargingchange', syncBatteryState);
+      });
+    }
+
+    /* Weather API */
+    async function syncDhakaWeather() {
+      try {
+        const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=23.8103&longitude=90.4125&current=temperature_2m&daily=temperature_2m_max,temperature_2m_min&timezone=Asia%2FDhaka');
+        const data = await res.json();
+        if (data && data.current) {
+          const temp = Math.round(data.current.temperature_2m);
+          const max = Math.round(data.daily.temperature_2m_max[0]);
+          const min = Math.round(data.daily.temperature_2m_min[0]);
+          document.getElementById('dhaka-live-temp').textContent = `${temp}°`;
+          document.getElementById('dhaka-hl-span').textContent = `H: ${max}° L: ${min}°`;
+        }
+      } catch (err) {}
+    }
+
+    /* Reliable Direct Embed Video Playlist Engine */
     const aestheticPlaylist = [
       { title: "Desi Kalakaar", artist: "Yo Yo Honey Singh", id: "jTg15DrXhB0" },
       { title: "Montagem Zora (Slowed)", artist: "MAFIA", id: "Z5MStQfTI40" },
@@ -301,48 +424,50 @@ l<!DOCTYPE html>
     let currentIdx = 0;
     let isPlaying = false;
 
-    function renderVideoPlayer(autoplay = false) {
+    function loadVideo(play = true) {
       const track = aestheticPlaylist[currentIdx];
       document.getElementById('track-title').textContent = track.title;
       document.getElementById('track-artist').textContent = track.artist;
-      
+
       const mount = document.getElementById('video-mount-point');
-      if (autoplay) {
-        mount.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${track.id}?autoplay=1&controls=0&rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+      if (play) {
+        mount.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${track.id}?autoplay=1&controls=0&modestbranding=1&rel=0" allow="autoplay; encrypted-media"></iframe>`;
         document.getElementById('play-pause-btn').textContent = "⏸ Pause";
         document.getElementById('audio-status-badge').textContent = "PLAYING";
         isPlaying = true;
       } else {
-        mount.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,0.5);font-size:10px;">▶ 'Play' এ ক্লিক করুন</div>`;
+        mount.innerHTML = `<div style="display:flex; align-items:center; justify-content:center; height:100%; color:rgba(255,255,255,0.5); font-size:10px;">Paused</div>`;
         document.getElementById('play-pause-btn').textContent = "▶ Play";
-        document.getElementById('audio-status-badge').textContent = "READY";
+        document.getElementById('audio-status-badge').textContent = "PAUSED";
         isPlaying = false;
       }
     }
 
     function togglePlayPause() {
       if (isPlaying) {
-        document.getElementById('video-mount-point').innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,0.5);font-size:10px;">Paused</div>`;
-        document.getElementById('play-pause-btn').textContent = "▶ Play";
-        document.getElementById('audio-status-badge').textContent = "PAUSED";
-        isPlaying = false;
+        loadVideo(false);
       } else {
-        renderVideoPlayer(true);
+        loadVideo(true);
       }
     }
 
     function nextTrack() {
       currentIdx = (currentIdx + 1) % aestheticPlaylist.length;
-      renderVideoPlayer(true);
+      loadVideo(true);
     }
 
     function prevTrack() {
       currentIdx = (currentIdx - 1 + aestheticPlaylist.length) % aestheticPlaylist.length;
-      renderVideoPlayer(true);
+      loadVideo(true);
     }
 
-    /* Market Engine */
-    let marketTickers = { usd: [12, 13, 11, 15, 14, 16, 15], sar: [10, 11, 9, 12, 11, 13, 12] };
+    /* TradingView Market Simulation Engine */
+    let marketTickers = {
+      usd: { points: [12, 13, 11, 15, 14, 16, 15], color: '#30d158', grad: 'url(#tv-green-grad)' },
+      sar: { points: [10, 11, 9, 12, 11, 13, 12], color: '#30d158', grad: 'url(#tv-green-grad)' },
+      aed: { points: [11, 10, 13, 12, 14, 13, 15], color: '#30d158', grad: 'url(#tv-green-grad)' }
+    };
+
     function renderPath(arr) {
       let min = Math.min(...arr), max = Math.max(...arr), range = max - min || 1;
       let pts = arr.map((val, idx) => ({ x: (idx / 6) * 70, y: 14 - ((val - min) / range) * 10 }));
@@ -355,18 +480,84 @@ l<!DOCTYPE html>
     }
 
     function stepMarket() {
-      ['usd', 'sar'].forEach(id => {
-        let arr = marketTickers[id], delta = (Math.random() * 1.5 - 0.73);
+      ['usd', 'sar', 'aed'].forEach(id => {
+        let t = marketTickers[id], arr = t.points;
+        let delta = (Math.random() * 1.5 - 0.73);
+        t.color = delta >= 0.2 ? '#30d158' : (delta <= -0.2 ? '#ff453a' : '#ffd60a');
+        t.grad = delta >= 0.2 ? 'url(#tv-green-grad)' : (delta <= -0.2 ? 'url(#tv-red-grad)' : 'url(#tv-yellow-grad)');
+
         arr.shift(); arr.push(Math.max(5, Math.min(25, arr[arr.length-1] + delta)));
         let p = renderPath(arr);
+
         document.getElementById(`${id}-spark`).setAttribute('d', p.strokePath);
+        document.getElementById(`${id}-spark`).style.stroke = t.color;
         document.getElementById(`${id}-fill`).setAttribute('d', p.fillPath);
+        document.getElementById(`${id}-fill`).style.fill = t.grad;
+
+        const gain = document.getElementById(`${id}-gain`);
+        gain.textContent = `${delta >= 0 ? '+' : ''}${(delta * 0.3).toFixed(2)}%`;
+        gain.style.color = t.color;
       });
     }
 
+    async function fetchRates() {
+      try {
+        const res = await fetch('https://open.er-api.com/v6/latest/USD');
+        const data = await res.json();
+        if (data && data.rates) {
+          document.getElementById('usd-price').textContent = data.rates.BDT.toFixed(2);
+          document.getElementById('sar-price').textContent = (data.rates.BDT / data.rates.SAR).toFixed(2);
+          document.getElementById('aed-price').textContent = (data.rates.BDT / data.rates.AED).toFixed(2);
+        }
+      } catch (e) {}
+    }
+
+    /* 20 Luxury Themes Engine */
+    let currentTheme = 1;
+    const themeStyles = [
+      { name: 'THEME 1 • SNOW CLIFF', accent: '#30d158', glow: 'rgba(48,209,88,0.25)', dateColor: '#ffffff', stroke: 'rgba(255,255,255,0.65)' },
+      { name: 'THEME 2 • AURORA SKY', accent: '#00d2ff', glow: 'rgba(0,210,255,0.28)', dateColor: '#a1ecff', stroke: 'rgba(120,225,255,0.7)' },
+      { name: 'THEME 3 • CYBER NEBULA', accent: '#ff7bf0', glow: 'rgba(235,60,255,0.28)', dateColor: '#ffbdf7', stroke: 'rgba(255,160,245,0.7)' },
+      { name: 'THEME 4 • DEEP OCEAN', accent: '#00ffaa', glow: 'rgba(0,255,170,0.25)', dateColor: '#9effdc', stroke: 'rgba(100,255,210,0.7)' },
+      { name: 'THEME 5 • SUNSET GLOW', accent: '#ff9f0a', glow: 'rgba(255,140,0,0.28)', dateColor: '#ffdb9d', stroke: 'rgba(255,190,120,0.7)' },
+      { name: 'THEME 6 • ROYAL GOLD', accent: '#ffd700', glow: 'rgba(255,215,0,0.28)', dateColor: '#fff1a8', stroke: 'rgba(255,230,130,0.7)' },
+      { name: 'THEME 7 • MOUNTAIN MIST', accent: '#b0c4de', glow: 'rgba(180,200,220,0.25)', dateColor: '#e6f0fa', stroke: 'rgba(200,220,240,0.7)' },
+      { name: 'THEME 8 • COSMIC NIGHT', accent: '#a855f7', glow: 'rgba(138,43,226,0.28)', dateColor: '#e9d5ff', stroke: 'rgba(210,160,255,0.7)' },
+      { name: 'THEME 9 • TOKYO NEON', accent: '#ff007f', glow: 'rgba(255,0,128,0.28)', dateColor: '#ffb3d9', stroke: 'rgba(255,120,190,0.7)' },
+      { name: 'THEME 10 • EMERALD FOREST', accent: '#10b981', glow: 'rgba(16,185,129,0.28)', dateColor: '#a7f3d0', stroke: 'rgba(130,240,190,0.7)' }
+    ];
+
+    function switchThemeWallpaper() {
+      document.getElementById(`wall-${currentTheme}`).classList.remove('active');
+      currentTheme = (currentTheme % 10) + 1;
+      document.getElementById(`wall-${currentTheme}`).classList.add('active');
+
+      const style = themeStyles[currentTheme - 1];
+      document.getElementById('wall-switch-txt').textContent = style.name;
+      
+      const root = document.documentElement;
+      root.style.setProperty('--theme-accent', style.accent);
+      root.style.setProperty('--theme-glow', style.glow);
+      root.style.setProperty('--theme-date', style.dateColor);
+      root.style.setProperty('--water-stroke', style.stroke);
+      root.style.setProperty('--digit-gradient', `linear-gradient(180deg, ${style.dateColor} 0%, rgba(255,255,255,0.02) 50%, ${style.accent} 100%)`);
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'w' || e.key === 'W') switchThemeWallpaper();
+    });
+
     // Core Init
-    runClockEngine(); buildCalendar(); stepMarket(); renderVideoPlayer(false);
-    setInterval(runClockEngine, 1000); setInterval(stepMarket, 2500);
+    runClockEngine();
+    buildCalendar();
+    syncDhakaWeather();
+    fetchRates();
+    stepMarket();
+
+    setInterval(runClockEngine, 1000);
+    setInterval(stepMarket, 2500);
+    setInterval(fetchRates, 600000);
+    setInterval(syncDhakaWeather, 1200000);
   </script>
 </body>
 </html>
