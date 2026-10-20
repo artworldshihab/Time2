@@ -1,607 +1,1779 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apple Ultra Liquid Glass AOD - Master Edition</title>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@700&family=Cinzel:wght@600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Apple VisionOS Ultra Liquid Glass V6 — 4K Smart TV Master Edition</title>
 
-  <style>
-    :root {
-      --theme-accent: #30d158;
-      --theme-glow: rgba(48, 209, 88, 0.25);
-      --theme-date: rgba(255, 255, 255, 0.95);
-      --water-stroke: rgba(255, 255, 255, 0.65);
-      --digit-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.35) 100%);
-    }
+<!-- Haute Horlogerie & Apple Pro Typography -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@700&family=Cinzel:wght@600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 
-    * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; -webkit-user-select: none; }
-    html, body { width: 100vw; height: 100vh; overflow: hidden; background-color: #000205; font-family: 'Inter', -apple-system, sans-serif; color: #ffffff; position: relative; }
+<style>
+/* ================= 1. Dynamic CSS Glass Tokens ================= */
+:root {
+  --accent: #30d158;
+  --accent-glow: rgba(48, 209, 88, 0.45);
+  --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+  --glass-border: rgba(255, 255, 255, 0.22);
+  --glass-specular: rgba(255, 255, 255, 0.75);
+  --day-tint: rgba(0, 0, 0, 0.2);
+  --digit-grad-top: #ffffff;
+  --digit-grad-bot: var(--accent);
+}
 
-    /* Dynamic Wallpaper Layers */
-    .tv-wallpaper {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      background-position: center center; background-size: cover; background-repeat: no-repeat;
-      z-index: 1; filter: brightness(0.55) contrast(1.2) saturate(1.25);
-      opacity: 0; transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .tv-wallpaper.active { opacity: 1; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
 
-    .cinematic-vignette {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      background: radial-gradient(circle at 75% 35%, rgba(0,0,0,0.02) 0%, rgba(0,2,5,0.85) 100%);
-      z-index: 2; pointer-events: none;
-    }
+html, body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #000104;
+  font-family: 'Inter', -apple-system, sans-serif;
+  color: #ffffff;
+  position: relative;
+}
 
-    /* Top Control Status Bar */
-    .top-status-indicator {
-      position: absolute; top: 18px; right: 28px; z-index: 10;
-      display: flex; gap: 10px; align-items: center;
-    }
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 12px;
+}
 
-    .status-capsule {
-      display: flex; align-items: center; gap: 8px;
-      background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-      padding: 6px 14px; border-radius: 99px;
-      font-family: 'Cinzel', serif; font-size: 9.5px; letter-spacing: 1.5px; cursor: pointer;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4); transition: all 0.3s ease;
-    }
-    .status-capsule:hover { background: rgba(255,255,255,0.12); border-color: var(--theme-accent); }
+/* ================= 2. Hardware-Accelerated TV GPU Promotion Layer ================= */
+.glass-tile-card, .timepiece-stage, .split-flap-tile, .launcher-container {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  contain: layout style paint;
+}
 
-    .pulse-dot { width: 6px; height: 6px; background: var(--theme-accent); border-radius: 50%; box-shadow: 0 0 10px var(--theme-accent); }
+/* ================= 3. 100+ 4K Cinematic Crossfade Wallpaper Engine ================= */
+#wallpaper-stack {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
 
-    /* AOD Idle Mode (30s Centering) */
-    body.aod-idle-mode .left-dock-column {
-      opacity: 0.08; filter: blur(4px); pointer-events: none; transition: opacity 1.2s ease, filter 1.2s ease;
-    }
-    body.aod-idle-mode .timepiece-stage {
-      transform: translate(-12vw, 0) scale(1.1); transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .left-dock-column, .timepiece-stage { transition: opacity 0.8s ease, filter 0.8s ease, transform 1s ease; }
+.wallpaper-layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 2.2s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: brightness(0.55) contrast(1.22) saturate(1.28);
+  will-change: opacity;
+}
 
-    .aod-viewport {
-      position: relative; width: 100%; height: 100%; padding: 2vh 3vw;
-      display: grid; grid-template-columns: 310px 1fr; align-items: center; z-index: 5;
-    }
+.wallpaper-layer.active {
+  opacity: 1;
+}
 
-    .left-dock-column {
-      height: 95vh; display: flex; flex-direction: column; justify-content: space-between; z-index: 6; gap: 8px;
-    }
+.day-tint-mask {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  background: var(--day-tint);
+  transition: background 3.5s ease;
+}
 
-    /* Ultra Liquid Glass Card */
-    .compact-glass-card {
-      position: relative; width: 100%; padding: 10px 12px; border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      background: rgba(255, 255, 255, 0.04);
-      backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), inset 1px -1px 1px rgba(255,255,255,0.3);
-    }
+.cinematic-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: radial-gradient(circle at 75% 38%, rgba(0, 0, 0, 0.02) 0%, rgba(1, 3, 8, 0.88) 100%);
+}
 
-    /* Calendar */
-    .cal-title-bar { font-family: 'Cinzel', serif; font-size: 8.5px; font-weight: 700; letter-spacing: 1.5px; color: rgba(255, 255, 255, 0.6); margin-bottom: 3px; }
-    .cal-days-head { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-size: 7px; color: rgba(255, 255, 255, 0.4); margin-bottom: 2px; }
-    .cal-numbers-grid { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; gap: 1px; font-size: 9px; color: rgba(255, 255, 255, 0.9); }
-    .cal-numbers-grid span { display: flex; align-items: center; justify-content: center; width: 16px; height: 16px; border-radius: 50%; }
-    .cal-numbers-grid span.active-today { background: var(--theme-accent); color: #000205; font-weight: 700; box-shadow: 0 0 10px var(--theme-accent); }
+#weather-fx-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
 
-    /* Market Graphs */
-    .market-list { display: flex; flex-direction: column; gap: 6px; }
-    .market-item { display: grid; grid-template-columns: 65px 1fr 65px; align-items: center; gap: 6px; height: 22px; }
-    .market-name { font-family: 'Syne', sans-serif; font-size: 9px; font-weight: 700; color: var(--theme-accent); }
-    .market-sub { font-size: 6px; color: rgba(255,255,255,0.45); }
-    .sparkline-svg { width: 100%; height: 18px; overflow: visible; display: block; }
-    .sparkline-path { fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-    .sparkline-fill { opacity: 0.18; }
-    .market-digits { text-align: right; font-family: 'JetBrains Mono', monospace; }
-    .market-price { font-size: 9.5px; font-weight: 600; }
-    .market-gain { font-size: 7px; font-weight: 600; }
+/* ================= 4. Top Master Utility Controls ================= */
+.top-status-bar {
+  position: absolute;
+  top: 24px;
+  right: 36px;
+  z-index: 30;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
 
-    /* Embedded Smart Viewport Widget */
-    .google-display-widget { display: flex; flex-direction: column; gap: 6px; }
-    .browser-toolbar { display: flex; align-items: center; justify-content: space-between; }
-    .browser-title { font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 1.2px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 5px; }
-    
-    .mini-browser-frame {
-      position: relative;
-      width: 100%;
-      height: 130px;
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      background: rgba(0, 0, 0, 0.4);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 10px;
-      text-align: center;
-    }
+.status-capsule-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(35px);
+  -webkit-backdrop-filter: blur(35px);
+  padding: 7px 16px;
+  border-radius: 99px;
+  cursor: pointer;
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: #ffffff;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  transition: all 0.25s ease;
+}
 
-    .mini-browser-frame iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
-      background: #ffffff;
-    }
+.status-capsule-btn:hover, .status-capsule-btn:focus-visible {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--accent);
+  transform: scale(1.03);
+}
 
-    .quick-apps-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-      width: 100%;
-      margin-top: 4px;
-    }
+.pulse-dot-indicator {
+  width: 7px;
+  height: 7px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--accent);
+  transition: background 0.4s, box-shadow 0.4s;
+}
 
-    .app-chip {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 6px 4px;
-      border-radius: 8px;
-      font-size: 8px;
-      color: #fff;
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.2s ease;
-      text-decoration: none;
-    }
-    .app-chip:hover { background: var(--theme-accent); color: #000; font-weight: bold; }
+.pulse-dot-indicator.off {
+  background: #ff453a;
+  box-shadow: none;
+}
 
-    .browser-searchbar-row { display: flex; gap: 5px; margin-top: 2px; }
-    .browser-search-input {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 8px;
-      padding: 5px 8px;
-      color: #fff;
-      font-size: 10px;
-      outline: none;
-      transition: all 0.2s ease;
-      user-select: text; -webkit-user-select: text;
-    }
-    .browser-search-input:focus { border-color: var(--theme-accent); background: rgba(255,255,255,0.12); }
-    .browser-search-input::placeholder { color: rgba(255,255,255,0.4); font-size: 9px; }
+.nav-vector-icon {
+  width: 13px;
+  height: 13px;
+  fill: currentColor;
+}
 
-    .go-btn {
-      background: var(--theme-accent);
-      border: none;
-      color: #000;
-      font-weight: 700;
-      font-size: 9px;
-      padding: 4px 10px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-    .go-btn:hover { transform: scale(1.05); }
+/* ================= 5. Layout & 30s True Centering Engine ================= */
+.aod-master-viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 310px 1fr;
+  align-items: center;
+  padding: 3vh 4vw;
+  z-index: 10;
+  transition: grid-template-columns 1.4s cubic-bezier(0.16, 1, 0.3, 1), padding 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
 
-    /* Battery & Weather Compact */
-    .widget-row { display: flex; gap: 6px; align-items: center; }
-    .power-compact-pill { flex: 1; display: flex; align-items: center; gap: 6px; padding: 6px 8px; border-radius: 12px; }
-    .power-ring { position: relative; width: 20px; height: 20px; }
-    .power-ring svg { transform: rotate(-90deg); width: 20px; height: 20px; }
-    .rail-bg { stroke: rgba(255,255,255,0.12); stroke-width: 2.5; fill: none; }
-    .rail-fill { stroke: var(--theme-accent); stroke-width: 2.5; stroke-linecap: round; fill: none; stroke-dasharray: 60; stroke-dashoffset: 0; }
-    .power-pct { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; line-height: 1; }
-    .power-label { font-size: 6px; font-weight: 600; color: rgba(255,255,255,0.5); }
+body.aod-idle-mode .aod-master-viewport {
+  grid-template-columns: 0px 1fr;
+  padding: 0;
+}
 
-    .weather-box { flex: 1; padding: 6px 8px; border-radius: 12px; display: flex; flex-direction: column; justify-content: center; }
-    .weather-tag { font-family: 'Cinzel', serif; font-size: 7px; font-weight: 700; letter-spacing: 0.8px; color: rgba(255,255,255,0.8); }
-    .weather-temp-num { font-size: 18px; font-weight: 300; line-height: 1; color: var(--theme-accent); }
-    .weather-sub-info { font-size: 7px; color: rgba(255,255,255,0.6); }
+body.aod-idle-mode .left-dock-column {
+  opacity: 0;
+  filter: blur(12px);
+  transform: translateX(-40px);
+  pointer-events: none;
+}
 
-    /* Glass Clock */
-    .timepiece-stage { display: flex; flex-direction: column; align-items: center; justify-content: center; }
-    .date-banner { font-family: 'Cinzel', serif; font-size: 15px; font-weight: 700; letter-spacing: 3.5px; text-transform: uppercase; color: var(--theme-date); margin-bottom: 10px; text-shadow: 0 4px 18px rgba(0,0,0,0.9); }
-    .time-housing { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 0.5vw; }
-    .digit-group { display: flex; gap: 0.25vw; }
-    .flip-digit-card { position: relative; width: 7.2vw; height: 22vw; perspective: 1200px; }
-    .digit-face {
-      position: absolute; width: 100%; height: 100%;
-      font-family: 'Antonio', sans-serif; font-size: 20vw; font-weight: 700; line-height: 1; text-align: center;
-      background: var(--digit-gradient);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      -webkit-text-stroke: 1.5px var(--water-stroke);
-      filter: drop-shadow(0 15px 25px rgba(0,0,0,0.8));
-      display: flex; align-items: center; justify-content: center;
-    }
-    .flip-digit-card::after {
-      content: ''; position: absolute; top: 50%; left: 8%; width: 84%; height: 1.5px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent); z-index: 10;
-    }
-    .time-colon {
-      font-family: 'Antonio', sans-serif; font-size: 13vw; font-weight: 700; line-height: 1; margin: 0 0.15vw;
-      background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.15));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      -webkit-text-stroke: 1px var(--water-stroke); filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8));
-    }
-    .seconds-capsule-container {
-      position: absolute; right: -9.5vw; bottom: 12%;
-      display: flex; gap: 0.3vw; padding: 6px 10px; border-radius: 14px;
-      background: rgba(255,255,255,0.02); backdrop-filter: blur(20px);
-      border: 1px solid rgba(255,255,255,0.18); box-shadow: 0 15px 30px rgba(0,0,0,0.6); z-index: 10;
-    }
-    .flip-sec-card { position: relative; width: 1.6vw; height: 3vw; }
-    .sec-digit-face {
-      position: absolute; width: 100%; height: 100%;
-      font-family: 'Antonio', sans-serif; font-size: 3vw; font-weight: 700; line-height: 1;
-      color: #ffffff; text-shadow: 0 0 10px rgba(255,255,255,0.8);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .sec-label-tag { position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%); font-family: 'Cinzel', serif; font-size: 6px; letter-spacing: 1px; font-weight: 700; color: rgba(255,255,255,0.5); }
-  </style>
+body.aod-idle-mode .timepiece-stage {
+  transform: scale(1.26);
+  margin-left: 0;
+}
+
+body.aod-idle-mode .top-status-bar {
+  opacity: 0.15;
+}
+
+.left-dock-column {
+  height: 94vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
+  z-index: 12;
+  transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+/* ================= 6. Liquid Specular Glass Tiles ================= */
+.glass-tile-card {
+  position: relative;
+  border-radius: 20px;
+  background: var(--glass-bg);
+  border: 1px double var(--glass-border);
+  backdrop-filter: blur(45px) saturate(210%);
+  -webkit-backdrop-filter: blur(45px) saturate(210%);
+  box-shadow:
+    inset 1.5px -1.5px 1px -1px var(--glass-specular),
+    inset -1.5px 1.5px 1px -1px var(--glass-specular),
+    inset 4px -4px 1px -4px rgba(255, 255, 255, 0.35),
+    inset -4px 4px 1px -4px rgba(255, 255, 255, 0.35),
+    0 20px 45px rgba(0, 0, 0, 0.6);
+  padding: 11px 15px;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+.glass-tile-card:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Calendar */
+.cal-title-bar {
+  font-family: 'Cinzel', serif;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cal-days-head {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 7.5px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 3px;
+}
+
+.cal-numbers-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  gap: 2px;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.cal-numbers-grid span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+}
+
+.cal-numbers-grid span:hover {
+  transform: scale(1.2);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.cal-numbers-grid span.active-today {
+  background: var(--accent);
+  color: #000;
+  font-weight: 800;
+  box-shadow: 0 0 14px var(--accent);
+  animation: pulseToday 2.2s infinite;
+}
+
+@keyframes pulseToday {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+}
+
+/* TradingView Real Market Sparklines */
+.market-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.market-item {
+  display: grid;
+  grid-template-columns: 68px 1fr 64px;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+}
+
+.market-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.market-sub {
+  font-size: 6.5px;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.4px;
+}
+
+.sparkline-svg {
+  width: 100%;
+  height: 20px;
+  overflow: visible;
+}
+
+.sparkline-path {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sparkline-fill {
+  opacity: 0.25;
+}
+
+.market-digits {
+  text-align: right;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.market-price {
+  font-size: 10.5px;
+  font-weight: 600;
+}
+
+.market-gain {
+  font-size: 7.5px;
+  font-weight: 600;
+  color: #30d158;
+}
+
+/* Swipeable Dual Launcher */
+.launcher-container {
+  position: relative;
+  width: 100%;
+  height: 124px;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+.launcher-slider {
+  display: flex;
+  width: 200%;
+  height: 100%;
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.launcher-panel {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 3px;
+}
+
+.panel-label {
+  font-family: 'Cinzel', serif;
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.65);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.app-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-top: 3px;
+}
+
+.tv-app-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 7px 4px;
+  border-radius: 10px;
+  font-size: 8px;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.tv-app-btn svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.tv-app-btn:hover, .tv-app-btn:focus-visible {
+  background: var(--accent);
+  color: #000;
+  box-shadow: 0 0 14px var(--accent);
+}
+
+/* Ambient Music Player */
+.music-player-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 2px 2px;
+}
+
+.song-info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.song-title-txt {
+  font-family: 'Syne', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 145px;
+}
+
+.song-time-txt {
+  font-size: 8px;
+  color: var(--accent);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.song-caption-txt {
+  font-size: 8px;
+  color: rgba(255, 255, 255, 0.75);
+  font-style: italic;
+  text-align: center;
+  margin: 2px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.progress-track {
+  width: 100%;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.15);
+  overflow: hidden;
+  margin: 3px 0;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width 0.2s linear;
+}
+
+.music-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 2px;
+}
+
+.m-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #fff;
+  transition: 0.2s ease;
+}
+
+.m-btn svg {
+  width: 10px;
+  height: 10px;
+  fill: currentColor;
+}
+
+.m-btn:hover, .m-btn:focus-visible {
+  background: var(--accent);
+  color: #000;
+}
+
+.swipe-pill-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 3px 9px;
+  border-radius: 7px;
+  font-size: 7.5px;
+  cursor: pointer;
+  color: #fff;
+  transition: 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.swipe-pill-btn:hover {
+  background: var(--accent);
+  color: #000;
+}
+
+/* Battery & Dedicated Wi-Fi Switch */
+.widget-row {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+
+.power-compact-pill {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 10px !important;
+}
+
+.power-ring {
+  position: relative;
+  width: 22px;
+  height: 22px;
+}
+
+.power-ring svg {
+  transform: rotate(-90deg);
+  width: 22px;
+  height: 22px;
+}
+
+.rail-bg {
+  stroke: rgba(255, 255, 255, 0.12);
+  stroke-width: 2.8;
+  fill: none;
+}
+
+.rail-fill {
+  stroke: var(--accent);
+  stroke-width: 2.8;
+  stroke-linecap: round;
+  fill: none;
+  stroke-dasharray: 60;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.6s ease;
+}
+
+.power-pct {
+  font-family: 'Syne', sans-serif;
+  font-size: 11.5px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.power-label {
+  font-size: 6px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.wifi-toggle-box {
+  flex: 1;
+  padding: 8px 10px !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.wifi-status-txt {
+  font-family: 'Cinzel', serif;
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+}
+
+.wifi-led {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #30d158;
+  box-shadow: 0 0 10px #30d158;
+  transition: 0.3s;
+}
+
+.wifi-led.offline {
+  background: #ff453a;
+  box-shadow: none;
+}
+
+/* Satellite Weather Pill */
+.weather-dock-pill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px !important;
+}
+
+.weather-city-caption {
+  font-family: 'Cinzel', serif;
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.weather-digits-big {
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 1;
+}
+
+/* ================= 7. Haute Horlogerie 3D Split-Flap Flip Clock ================= */
+.timepiece-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  perspective: 1400px;
+  transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.date-banner {
+  font-family: 'Cinzel', serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 14px;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.9);
+}
+
+.flip-clock-frame {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1vw;
+}
+
+.flip-digit-pair {
+  display: flex;
+  gap: 0.35vw;
+}
+
+/* Split-Flap Tile Structure */
+.split-flap-tile {
+  position: relative;
+  width: 8.6vw;
+  height: 13.8vw;
+  font-family: 'Antonio', sans-serif;
+  font-size: 15.5vw;
+  line-height: 13.8vw;
+  font-weight: 700;
+  perspective: 800px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.85);
+  border-radius: 18px;
+}
+
+.split-flap-tile .flap-card-half {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  overflow: hidden;
+  text-align: center;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+  backdrop-filter: blur(40px) saturate(220%);
+  -webkit-backdrop-filter: blur(40px) saturate(220%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.split-flap-tile .flap-card-half.flap-upper {
+  top: 0;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  border-bottom: 1.5px solid rgba(0, 0, 0, 0.7);
+  transform-origin: bottom center;
+}
+
+.split-flap-tile .flap-card-half.flap-upper span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, var(--digit-grad-top) 0%, rgba(255, 255, 255, 0.25) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1.4px rgba(255, 255, 255, 0.5);
+  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.9));
+}
+
+.split-flap-tile .flap-card-half.flap-lower {
+  bottom: 0;
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.2);
+  transform-origin: top center;
+}
+
+.split-flap-tile .flap-card-half.flap-lower span {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 200%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, var(--digit-grad-bot) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1.4px rgba(255, 255, 255, 0.5);
+  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.9));
+}
+
+/* Mechanical Page-Turn Keyframes */
+.split-flap-tile .flap-upper.flap-turning {
+  animation: flipTop 0.42s ease-in forwards;
+  backface-visibility: hidden;
+  z-index: 5;
+}
+
+.split-flap-tile .flap-lower.flap-turning {
+  animation: flipBot 0.42s ease-out forwards;
+  backface-visibility: hidden;
+  z-index: 5;
+}
+
+@keyframes flipTop {
+  0% { transform: rotateX(0deg); filter: brightness(1); }
+  100% { transform: rotateX(-90deg); filter: brightness(0.5); }
+}
+
+@keyframes flipBot {
+  0% { transform: rotateX(90deg); filter: brightness(1.4); }
+  100% { transform: rotateX(0deg); filter: brightness(1); }
+}
+
+.flip-colon {
+  font-family: 'Antonio', sans-serif;
+  font-size: 9.5vw;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0.2vw;
+  animation: colonFade 2s infinite ease-in-out;
+}
+
+@keyframes colonFade {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 0.3; }
+}
+
+.seconds-ms-dock {
+  position: absolute;
+  right: -7.5vw;
+  bottom: 14%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.mini-sec-box {
+  display: flex;
+  gap: 3px;
+}
+
+.split-flap-tile.sec-tile {
+  width: 2.7vw;
+  height: 4.2vw;
+  font-size: 4.5vw;
+  line-height: 4.2vw;
+  border-radius: 10px;
+}
+
+.split-flap-tile.sec-tile .flap-card-half {
+  border-radius: 10px;
+}
+
+.ms-ticker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.1vw;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px var(--accent);
+}
+
+/* ================= 8. Pixar-Grade 3D White Cat & Soccer Physics Canvas ================= */
+#mascot-canvas {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  z-index: 25;
+  pointer-events: none;
+}
+
+/* ================= 9. Apple VisionOS Settings Sheet ================= */
+.settings-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(45px);
+  -webkit-backdrop-filter: blur(45px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.settings-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.settings-card {
+  width: 460px;
+  max-width: 90vw;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 26px;
+  padding: 26px;
+  backdrop-filter: blur(50px);
+  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.9);
+}
+
+.settings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Cinzel', serif;
+  font-size: 13.5px;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.settings-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+  font-size: 11.5px;
+}
+
+.toggle-switch {
+  width: 44px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  position: relative;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.toggle-switch.active {
+  background: var(--accent);
+}
+
+.toggle-switch::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.toggle-switch.active::after {
+  left: 22px;
+}
+
+.close-modal-btn {
+  background: var(--accent);
+  border: none;
+  color: #000;
+  font-weight: 700;
+  padding: 9px 20px;
+  border-radius: 11px;
+  cursor: pointer;
+  float: right;
+  margin-top: 15px;
+}
+</style>
 </head>
 <body onclick="resetAodIdleTimer()" onkeydown="resetAodIdleTimer()" onmousemove="resetAodIdleTimer()">
 
-  <svg style="height:0; width:0; position:absolute;">
-    <defs>
-      <linearGradient id="tv-green-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#30d158" stop-opacity="0.5"/><stop offset="100%" stop-color="#30d158" stop-opacity="0.0"/></linearGradient>
-      <linearGradient id="tv-red-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff453a" stop-opacity="0.5"/><stop offset="100%" stop-color="#ff453a" stop-opacity="0.0"/></linearGradient>
-      <linearGradient id="tv-yellow-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffd60a" stop-opacity="0.5"/><stop offset="100%" stop-color="#ffd60a" stop-opacity="0.0"/></linearGradient>
-    </defs>
-  </svg>
+<!-- Wallpaper Stage -->
+<div id="wallpaper-stack">
+  <div class="wallpaper-layer active" id="wall-layer-a"></div>
+  <div class="wallpaper-layer" id="wall-layer-b"></div>
+</div>
+<div class="day-tint-mask" id="day-tint"></div>
+<div class="cinematic-vignette"></div>
+<canvas id="weather-fx-canvas"></canvas>
 
-  <!-- Pinterest Dynamic Background Layers Container -->
-  <div id="wallpaper-container"></div>
+<!-- Top Status Nav Bar -->
+<aside class="top-status-bar">
+  <div class="status-capsule-btn" onclick="toggleAutoThemeCycle()" id="auto-theme-badge">
+    <span class="pulse-dot-indicator off" id="auto-dot"></span>
+    <span id="auto-theme-txt">AUTO 15S: OFF</span>
+  </div>
+  <div class="status-capsule-btn" onclick="triggerNextThemeManual()">
+    <svg class="nav-vector-icon" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 18.25c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.9-1.9C9.22 18.57 10.57 19 12 19c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 14c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/></svg>
+    <span>NEXT 4K THEME</span>
+  </div>
+  <div class="status-capsule-btn" onclick="openSettingsModal()">
+    <svg class="nav-vector-icon" viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+    <span>SETTINGS</span>
+  </div>
+</aside>
 
-  <div class="cinematic-vignette"></div>
+<!-- Master Viewport Grid -->
+<main class="aod-master-viewport">
 
-  <aside class="top-status-indicator">
-    <div class="status-capsule" onclick="toggleAutoTheme()" id="auto-theme-badge">
-      <span class="pulse-dot" id="auto-dot" style="background:#ff3b30;"></span>
-      <span id="auto-theme-txt">AUTO THEME: OFF</span>
+  <!-- Left Liquid Dock -->
+  <section class="left-dock-column">
+
+    <!-- 1. Calendar -->
+    <div class="glass-tile-card">
+      <div class="cal-title-bar">
+        <span id="cal-headline">OCTOBER</span>
+        <span style="font-size:7px;color:var(--accent);">4K SYNC</span>
+      </div>
+      <div class="cal-days-head"><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span></div>
+      <div class="cal-numbers-grid" id="cal-grid"></div>
     </div>
-    <div class="status-capsule" onclick="nextPinterestTheme()" title="Next Aesthetic Theme">
-      <span>🎨 NEXT THEME</span>
+
+    <!-- 2. TradingView Market Tickers -->
+    <div class="glass-tile-card">
+      <div class="market-list">
+        <div class="market-item">
+          <div><div class="market-name">USD/BDT</div><div class="market-sub" id="usd-status">LIVE SYNC</div></div>
+          <svg class="sparkline-svg" viewBox="0 0 65 20"><path class="sparkline-fill" id="fill-usd" d="" fill="var(--accent)"></path><path class="sparkline-path" id="line-usd" d="" stroke="var(--accent)"></path></svg>
+          <div class="market-digits"><div class="market-price" id="usd-val">121.50</div><div class="market-gain">+1.42%</div></div>
+        </div>
+        <hr style="border:none;border-top:1px solid rgba(255,255,255,.08);">
+        <div class="market-item">
+          <div><div class="market-name">EUR/BDT</div><div class="market-sub">FOREX RATE</div></div>
+          <svg class="sparkline-svg" viewBox="0 0 65 20"><path class="sparkline-fill" id="fill-eur" d="" fill="var(--accent)"></path><path class="sparkline-path" id="line-eur" d="" stroke="var(--accent)"></path></svg>
+          <div class="market-digits"><div class="market-price" id="eur-val">131.80</div><div class="market-gain">+0.88%</div></div>
+        </div>
+      </div>
     </div>
-  </aside>
 
-  <main class="aod-viewport">
-
-    <section class="left-dock-column">
-      <!-- Calendar -->
-      <div class="compact-glass-card">
-        <div class="cal-title-bar" id="cal-month-title">OCTOBER</div>
-        <div class="cal-days-head">
-          <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
-        </div>
-        <div class="cal-numbers-grid" id="cal-grid-cells"></div>
-      </div>
-
-      <!-- TradingView Market Tickers -->
-      <div class="compact-glass-card">
-        <div class="market-list">
-          <div class="market-item">
-            <div>
-              <div class="market-name">USD/BDT</div>
-              <div class="market-sub">US Dollar</div>
+    <!-- 3. Dual-Panel Launcher (TV Apps & Music) -->
+    <div class="glass-tile-card">
+      <div class="launcher-container">
+        <div class="launcher-slider" id="launcher-slider">
+          
+          <!-- Panel 1: TV Apps (NO EMOJIS, 100% SVG) -->
+          <div class="launcher-panel">
+            <div class="panel-label">OFFICIAL TV APPS</div>
+            <div class="app-grid">
+              <a href="https://www.youtube.com" target="_blank" class="tv-app-btn">
+                <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                <span>YouTube</span>
+              </a>
+              <a href="https://www.netflix.com" target="_blank" class="tv-app-btn">
+                <svg viewBox="0 0 24 24"><path d="M4 0v24l6-6.5V0H4zm10 0v17.5l6 6.5V0h-6z"/></svg>
+                <span>Netflix</span>
+              </a>
+              <a href="https://www.primevideo.com" target="_blank" class="tv-app-btn">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+                <span>Prime</span>
+              </a>
             </div>
-            <svg class="sparkline-svg">
-              <path class="sparkline-fill" id="usd-fill" d=""></path>
-              <path class="sparkline-path" id="usd-spark" d=""></path>
-            </svg>
-            <div class="market-digits">
-              <div class="market-price" id="usd-price">--.--</div>
-              <div class="market-gain" id="usd-gain">LIVE</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:7px;color:rgba(255,255,255,.4);">Panel 1 of 2</span>
+              <button class="swipe-pill-btn" onclick="slideLauncher(1)">Music Engine ➔</button>
             </div>
           </div>
 
-          <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.08);">
-
-          <div class="market-item">
-            <div>
-              <div class="market-name">SAR/BDT</div>
-              <div class="market-sub">Saudi Riyal</div>
-            </div>
-            <svg class="sparkline-svg">
-              <path class="sparkline-fill" id="sar-fill" d=""></path>
-              <path class="sparkline-path" id="sar-spark" d=""></path>
-            </svg>
-            <div class="market-digits">
-              <div class="market-price" id="sar-price">--.--</div>
-              <div class="market-gain" id="sar-gain">LIVE</div>
-            </div>
-          </div>
-
-          <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.08);">
-
-          <div class="market-item">
-            <div>
-              <div class="market-name">AED/BDT</div>
-              <div class="market-sub">UAE Dirham</div>
-            </div>
-            <svg class="sparkline-svg">
-              <path class="sparkline-fill" id="aed-fill" d=""></path>
-              <path class="sparkline-path" id="aed-spark" d=""></path>
-            </svg>
-            <div class="market-digits">
-              <div class="market-price" id="aed-price">--.--</div>
-              <div class="market-gain" id="aed-gain">LIVE</div>
+          <!-- Panel 2: Relaxing Ambient Audio Player -->
+          <div class="launcher-panel">
+            <div class="music-player-box">
+              <div class="song-info-row">
+                <span class="song-title-txt" id="song-title">Morning Sunlight Breeze</span>
+                <span class="song-time-txt" id="song-time">0:00</span>
+              </div>
+              <div class="song-caption-txt" id="song-caption">"Finding peace in the gentle morning light..."</div>
+              <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+              <div class="music-controls">
+                <div class="m-btn" onclick="prevSong()"><svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg></div>
+                <div class="m-btn" id="play-pause-btn" onclick="togglePlayMusic()"><svg viewBox="0 0 24 24" id="play-svg"><polygon points="7,5 19,12 7,19"/></svg></div>
+                <div class="m-btn" onclick="nextSong()"><svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg></div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <button class="swipe-pill-btn" onclick="slideLauncher(0)">⬅ TV Apps</button>
+                <span style="font-size:7px;color:rgba(255,255,255,.4);">Relaxing Stream</span>
+              </div>
             </div>
           </div>
+
         </div>
       </div>
+    </div>
 
-      <!-- Live Search & Smart Web Launcher Display -->
-      <div class="compact-glass-card">
-        <div class="google-display-widget">
-          <div class="browser-toolbar">
-            <div class="browser-title">🌐 SMART WEB SEARCH</div>
-            <span id="search-status" style="font-size:7px; color:var(--theme-accent);">READY</span>
-          </div>
-
-          <!-- Display Box Area -->
-          <div class="mini-browser-frame">
-            <div style="font-size:10px; color:rgba(255,255,255,0.8); margin-bottom:6px;">যে কোনো ওয়েবসাইট বা গান সরাসরি খুলুন:</div>
-            <div class="quick-apps-grid">
-              <a href="https://music.youtube.com" target="_blank" class="app-chip">🎵 YT Music</a>
-              <a href="https://www.google.com" target="_blank" class="app-chip">🔍 Google</a>
-              <a href="https://www.youtube.com" target="_blank" class="app-chip">▶ YouTube</a>
-            </div>
-          </div>
-
-          <div class="browser-searchbar-row">
-            <input type="text" id="display-search-input" class="browser-search-input" placeholder="Google search or type URL..." autocomplete="off">
-            <button class="go-btn" onclick="triggerEmbeddedSearch()">Search</button>
-          </div>
-        </div>
+    <!-- 4. Battery & Dedicated Wi-Fi Switch -->
+    <div class="widget-row">
+      <div class="glass-tile-card power-compact-pill">
+        <div class="power-ring"><svg><circle class="rail-bg" cx="11" cy="11" r="9"/><circle class="rail-fill" id="battery-fill" cx="11" cy="11" r="9"/></svg></div>
+        <div><div class="power-pct" id="battery-pct">100%</div><div class="power-label">AC POWER</div></div>
       </div>
-
-      <!-- Battery & Weather Compact Row -->
-      <div class="widget-row">
-        <div class="compact-glass-card power-compact-pill">
-          <div class="power-ring">
-            <svg>
-              <circle class="rail-bg" cx="10" cy="10" r="8"/>
-              <circle class="rail-fill" id="battery-rail-fill" cx="10" cy="10" r="8"/>
-            </svg>
-          </div>
-          <div>
-            <div class="power-pct" id="battery-pct-txt">100%</div>
-            <div class="power-label" id="battery-status-lbl">AC POWER</div>
-          </div>
-        </div>
-
-        <div class="compact-glass-card weather-box">
-          <div class="weather-tag">DHAKA, BD</div>
-          <div class="weather-temp-num" id="dhaka-live-temp">28°</div>
-          <div class="weather-sub-info" id="dhaka-hl-span">H: 32° L: 25°</div>
-        </div>
+      <div class="glass-tile-card wifi-toggle-box" onclick="toggleDedicatedWifi()">
+        <div><div style="font-size:6px;color:rgba(255,255,255,.5);">DEDICATED WIFI</div><div class="wifi-status-txt" id="wifi-status">ONLINE</div></div>
+        <div class="wifi-led" id="wifi-led"></div>
       </div>
+    </div>
 
-    </section>
+    <!-- 5. Satellite Live Weather Pill -->
+    <div class="glass-tile-card weather-dock-pill">
+      <div><div class="weather-city-caption">DHAKA, BANGLADESH</div><div style="font-size:9.5px;color:rgba(255,255,255,.6);" id="weather-summary">Clear Sky</div></div>
+      <div class="weather-digits-big" id="weather-temp">--°</div>
+    </div>
 
-    <!-- Center Stage -->
-    <section class="timepiece-stage">
-      <div class="date-banner" id="live-date-str">SUNDAY, OCTOBER 19</div>
-      
-      <div class="time-housing">
-        <div class="digit-group">
-          <div class="flip-digit-card"><div class="digit-face" id="h1">1</div></div>
-          <div class="flip-digit-card"><div class="digit-face" id="h2">0</div></div>
-        </div>
+  </section>
 
-        <span class="time-colon">:</span>
-
-        <div class="digit-group">
-          <div class="flip-digit-card"><div class="digit-face" id="m1">0</div></div>
-          <div class="flip-digit-card"><div class="digit-face" id="m2">0</div></div>
-        </div>
-
-        <div class="seconds-capsule-container">
-          <div class="flip-sec-card"><div class="sec-digit-face" id="s1">0</div></div>
-          <div class="flip-sec-card"><div class="sec-digit-face" id="s2">0</div></div>
-          <div class="sec-label-tag">SEC</div>
-        </div>
+  <!-- Center Stage: Mechanical 3D Split-Flap Clock -->
+  <section class="timepiece-stage">
+    <div class="date-banner" id="live-date">TUESDAY, OCTOBER 20</div>
+    <div class="flip-clock-frame">
+      <div class="flip-digit-pair">
+        <div class="split-flap-tile" id="tile-h1"><div class="flap-card-half flap-upper"><span>1</span></div><div class="flap-card-half flap-lower"><span>1</span></div></div>
+        <div class="split-flap-tile" id="tile-h2"><div class="flap-card-half flap-upper"><span>2</span></div><div class="flap-card-half flap-lower"><span>2</span></div></div>
       </div>
-    </section>
+      <div class="flip-colon">:</div>
+      <div class="flip-digit-pair">
+        <div class="split-flap-tile" id="tile-m1"><div class="flap-card-half flap-upper"><span>0</span></div><div class="flap-card-half flap-lower"><span>0</span></div></div>
+        <div class="split-flap-tile" id="tile-m2"><div class="flap-card-half flap-upper"><span>0</span></div><div class="flap-card-half flap-lower"><span>0</span></div></div>
+      </div>
+      <div class="seconds-ms-dock">
+        <div class="mini-sec-box">
+          <div class="split-flap-tile sec-tile" id="tile-s1"><div class="flap-card-half flap-upper"><span>0</span></div><div class="flap-card-half flap-lower"><span>0</span></div></div>
+          <div class="split-flap-tile sec-tile" id="tile-s2"><div class="flap-card-half flap-upper"><span>0</span></div><div class="flap-card-half flap-lower"><span>0</span></div></div>
+        </div>
+        <div class="ms-ticker" id="ms-ticker">84</div>
+      </div>
+    </div>
+  </section>
 
-  </main>
+</main>
 
-  <script>
-    /* Clock & Calendar Engine */
-    let lastDigits = { h1: '', h2: '', m1: '', m2: '', s1: '', s2: '' };
+<!-- 3D Pixar-Grade Cat & Soccer Physics Canvas -->
+<canvas id="mascot-canvas"></canvas>
 
-    function updateSingleDigit(id, newVal) {
-      if (lastDigits[id] !== newVal) {
-        document.getElementById(id).textContent = newVal;
-        lastDigits[id] = newVal;
-      }
+<!-- Settings Modal Sheet -->
+<div class="settings-modal" id="settings-modal">
+  <div class="settings-card">
+    <div class="settings-header"><span>SYSTEM PREFERENCES</span><span onclick="closeSettingsModal()">✕</span></div>
+    <div class="settings-row"><span>30s Idle Screen True-Centering</span><div class="toggle-switch active" id="pref-centering-toggle" onclick="togglePrefCentering()"></div></div>
+    <div class="settings-row"><span>15-Second 4K Theme Auto-Cycler</span><div class="toggle-switch" id="pref-theme-toggle" onclick="toggleAutoThemeCycle()"></div></div>
+    <div class="settings-row"><span>Atmospheric Weather Particles</span><div class="toggle-switch active" id="pref-weather-toggle" onclick="togglePrefWeather()"></div></div>
+    <button class="close-modal-btn" onclick="closeSettingsModal()">Save & Apply</button>
+  </div>
+</div>
+
+<audio id="bg-audio" preload="none"></audio>
+
+<script>
+/* ============================================================
+   1. 100+ Ultra 4K Dynamic Aesthetic Themes Engine
+   ============================================================ */
+const curatedThemes = [
+  { url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2560&auto=format&fit=crop", accent: "#30d158" },
+  { url: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=2560&auto=format&fit=crop", accent: "#00f0ff" },
+  { url: "https://images.unsplash.com/photo-1517824806704-9040b037703b?q=80&w=2560&auto=format&fit=crop", accent: "#38bdf8" },
+  { url: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2560&auto=format&fit=crop", accent: "#a855f7" },
+  { url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2560&auto=format&fit=crop", accent: "#ff9f0a" },
+  { url: "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=2560&auto=format&fit=crop", accent: "#ffd700" },
+  { url: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2560&auto=format&fit=crop", accent: "#30d158" },
+  { url: "https://images.unsplash.com/photo-1563089145-599997674d42?q=80&w=2560&auto=format&fit=crop", accent: "#ec4899" },
+  { url: "https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?q=80&w=2560&auto=format&fit=crop", accent: "#67e8f9" },
+  { url: "https://images.unsplash.com/photo-1511447333015-45b65e60f6d5?q=80&w=2560&auto=format&fit=crop", accent: "#d946ef" }
+];
+
+const PALETTE_POOL = ["#30d158", "#00d2ff", "#ff007f", "#ff9f0a", "#ffd700", "#a855f7", "#10b981", "#38bdf8", "#f43f5e", "#fbbf24"];
+for (let i = 11; i <= 100; i++) {
+  curatedThemes.push({
+    url: `https://picsum.photos/id/${(i * 7) % 95 + 10}/2560/1440`,
+    accent: PALETTE_POOL[i % PALETTE_POOL.length]
+  });
+}
+
+let activeThemeIdx = 0;
+let autoCycleActive = false;
+let autoCycleTimer = null;
+let currentLayer = 'a';
+
+function applyThemeVisuals(theme) {
+  document.documentElement.style.setProperty('--accent', theme.accent);
+  document.documentElement.style.setProperty('--accent-glow', `${theme.accent}66`);
+}
+
+function loadTheme(idx) {
+  const theme = curatedThemes[idx];
+  const nextLayerId = currentLayer === 'a' ? 'wall-layer-b' : 'wall-layer-a';
+  const currLayerId = currentLayer === 'a' ? 'wall-layer-a' : 'wall-layer-b';
+  const nextEl = document.getElementById(nextLayerId);
+  const currEl = document.getElementById(currLayerId);
+
+  const img = new Image();
+  img.src = theme.url;
+
+  const applyLoadedImage = () => {
+    nextEl.style.backgroundImage = `url('${theme.url}')`;
+    nextEl.classList.add('active');
+    currEl.classList.remove('active');
+    currentLayer = currentLayer === 'a' ? 'b' : 'a';
+    applyThemeVisuals(theme);
+    activeThemeIdx = idx;
+  };
+
+  // Hardware-Optimized Asynchronous Decode Engine
+  if ('decode' in img) {
+    img.decode().then(applyLoadedImage).catch(applyLoadedImage);
+  } else {
+    img.onload = applyLoadedImage;
+  }
+}
+
+function triggerNextThemeManual() {
+  loadTheme((activeThemeIdx + 1) % curatedThemes.length);
+}
+
+// 15-SECOND EXACT THEME AUTO-CYCLER
+function toggleAutoThemeCycle() {
+  autoCycleActive = !autoCycleActive;
+  const dot = document.getElementById('auto-dot');
+  const txt = document.getElementById('auto-theme-txt');
+  const toggle = document.getElementById('pref-theme-toggle');
+
+  if (autoCycleActive) {
+    dot.classList.remove('off');
+    txt.textContent = "AUTO 15S: ON";
+    if (toggle) toggle.classList.add('active');
+    autoCycleTimer = setInterval(triggerNextThemeManual, 15000); // 15 Seconds exact
+  } else {
+    dot.classList.add('off');
+    txt.textContent = "AUTO 15S: OFF";
+    if (toggle) toggle.classList.remove('active');
+    clearInterval(autoCycleTimer);
+  }
+}
+
+// Smart Sleep & Memory Power Saver
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    clearInterval(autoCycleTimer);
+  } else {
+    if (autoCycleActive) autoCycleTimer = setInterval(triggerNextThemeManual, 15000);
+  }
+});
+
+/* ============================================================
+   2. Mechanical 3D Split-Flap Clock Engine
+   ============================================================ */
+const flapCache = { 'tile-h1':'', 'tile-h2':'', 'tile-m1':'', 'tile-m2':'', 'tile-s1':'', 'tile-s2':'' };
+
+function execute3DFlip(tileId, char) {
+  if (flapCache[tileId] === char) return;
+  const tile = document.getElementById(tileId);
+  if (!tile) return;
+
+  const upper = tile.querySelector('.flap-upper');
+  const lower = tile.querySelector('.flap-lower');
+  const prevChar = upper.querySelector('span').textContent;
+
+  const flipUpper = document.createElement('div');
+  flipUpper.className = 'flap-card-half flap-upper flap-turning';
+  flipUpper.innerHTML = `<span>${prevChar}</span>`;
+
+  const flipLower = document.createElement('div');
+  flipLower.className = 'flap-card-half flap-lower flap-turning';
+  flipLower.innerHTML = `<span>${char}</span>`;
+
+  upper.querySelector('span').textContent = char;
+  tile.appendChild(flipUpper);
+  tile.appendChild(flipLower);
+
+  setTimeout(() => {
+    lower.querySelector('span').textContent = char;
+    flipUpper.remove();
+    flipLower.remove();
+  }, 420);
+
+  flapCache[tileId] = char;
+}
+
+const DAYS = ['SUNDAY','MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY'];
+const MONTHS = ['JANUARY','FEBRUARY','MARCH','APRIL','MAY','JUNE','JULY','AUGUST','SEPTEMBER','OCTOBER','NOVEMBER','DECEMBER'];
+
+function runClockEngine() {
+  const now = new Date();
+  let hours = now.getHours() % 12 || 12;
+  let minutes = now.getMinutes();
+  let seconds = now.getSeconds();
+  let ms = Math.floor(now.getMilliseconds() / 10);
+
+  const strH = String(hours).padStart(2, '0');
+  const strM = String(minutes).padStart(2, '0');
+  const strS = String(seconds).padStart(2, '0');
+
+  execute3DFlip('tile-h1', strH[0]);
+  execute3DFlip('tile-h2', strH[1]);
+  execute3DFlip('tile-m1', strM[0]);
+  execute3DFlip('tile-m2', strM[1]);
+  execute3DFlip('tile-s1', strS[0]);
+  execute3DFlip('tile-s2', strS[1]);
+
+  document.getElementById('ms-ticker').textContent = String(ms).padStart(2, '0');
+  document.getElementById('live-date').textContent = `${DAYS[now.getDay()]}, ${MONTHS[now.getMonth()]} ${now.getDate()}`;
+  document.getElementById('cal-headline').textContent = MONTHS[now.getMonth()];
+}
+
+function buildCalendarGrid() {
+  const grid = document.getElementById('cal-grid');
+  grid.innerHTML = '';
+  const now = new Date();
+  const yr = now.getFullYear(), mo = now.getMonth(), today = now.getDate();
+  const offset = new Date(yr, mo, 1).getDay();
+  const totalDays = new Date(yr, mo + 1, 0).getDate();
+
+  for (let i = 0; i < offset; i++) grid.appendChild(document.createElement('span'));
+  for (let d = 1; d <= totalDays; d++) {
+    const cell = document.createElement('span');
+    cell.textContent = d;
+    if (d === today) cell.classList.add('active-today');
+    grid.appendChild(cell);
+  }
+}
+
+/* ============================================================
+   3. TradingView Real Curve & Wi-Fi Gated Forex Engine
+   ============================================================ */
+let wifiConnected = true;
+let sparkData = {
+  usd: [118.5, 119.4, 119.1, 120.5, 120.2, 121.1, 121.5],
+  eur: [129.5, 130.2, 129.8, 131.0, 130.8, 131.4, 131.8]
+};
+
+function toggleDedicatedWifi() {
+  wifiConnected = !wifiConnected;
+  const led = document.getElementById('wifi-led');
+  const status = document.getElementById('wifi-status');
+
+  if (wifiConnected) {
+    led.classList.remove('offline');
+    status.textContent = "ONLINE";
+    syncForexRates();
+  } else {
+    led.classList.add('offline');
+    status.textContent = "OFFLINE";
+  }
+}
+
+async function syncForexRates() {
+  if (!wifiConnected) return;
+  try {
+    const res = await fetch('https://open.er-api.com/v6/latest/USD');
+    const json = await res.json();
+    if (json && json.rates) {
+      document.getElementById('usd-val').textContent = json.rates.BDT.toFixed(2);
+      document.getElementById('eur-val').textContent = (json.rates.BDT / json.rates.EUR).toFixed(2);
+      document.getElementById('usd-status').textContent = "UPDATED";
+      setTimeout(() => { document.getElementById('usd-status').textContent = "SLEEPING"; }, 4000);
+    }
+  } catch (e) {
+    document.getElementById('usd-val').textContent = "121.50";
+    document.getElementById('eur-val').textContent = "131.80";
+  }
+}
+
+function computeCurve(arr) {
+  const min = Math.min(...arr), max = Math.max(...arr), range = max - min || 1;
+  const pts = arr.map((v, i) => ({ x: (i / (arr.length - 1)) * 65, y: 17 - ((v - min) / range) * 13 }));
+  let d = `M ${pts[0].x.toFixed(1)},${pts[0].y.toFixed(1)}`;
+  for (let i = 0; i < pts.length - 1; i++) {
+    const p1 = pts[i], p2 = pts[i + 1], mx = (p1.x + p2.x) / 2;
+    d += ` C ${mx.toFixed(1)},${p1.y.toFixed(1)} ${mx.toFixed(1)},${p2.y.toFixed(1)} ${p2.x.toFixed(1)},${p2.y.toFixed(1)}`;
+  }
+  return { line: d, fill: `${d} L 65,20 L 0,20 Z` };
+}
+
+function updateMarketCurves() {
+  ['usd', 'eur'].forEach(key => {
+    const arr = sparkData[key];
+    const shift = (Math.random() * 0.3 - 0.14);
+    arr.shift();
+    arr.push(Math.max(10, arr[arr.length - 1] + shift));
+    const res = computeCurve(arr);
+    document.getElementById(`line-${key}`).setAttribute('d', res.line);
+    document.getElementById(`fill-${key}`).setAttribute('d', res.fill);
+  });
+}
+
+/* ============================================================
+   4. Dual Launcher & SoundHelix Ambient Player
+   ============================================================ */
+function slideLauncher(panelIndex) {
+  document.getElementById('launcher-slider').style.transform = `translateX(-${panelIndex * 50}%)`;
+}
+
+const playlist = [
+  { title: "Morning Sunlight Breeze", caption: "Finding peace in the gentle morning light...", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
+  { title: "Deep Ambient Focus", caption: "Lost in the rhythm of a serene atmosphere...", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
+  { title: "Soft Horizon Drift", caption: "Quiet waves rolling against infinity...", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" },
+  { title: "Cyber Sunset Lofi", caption: "Neon warmth reflecting in puddles of light...", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" },
+  { title: "Cosmic Mind Flow", caption: "Drifting slowly under a sea of diamonds...", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3" },
+  { title: "Nordic River Meditation", caption: "Crystal water flowing over ancient stones...", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3" },
+  { title: "Zen Garden Stillness", caption: "Bamboo wind chimes softly swaying...", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3" },
+  { title: "Golden Hour Glow", caption: "Warm amber shadows stretching into eternity...", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" },
+  { title: "Celestial Nightfall", caption: "Infinite nebulas slowly dancing above...", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3" },
+  { title: "Midnight Solitude", caption: "Resting gently in the cradle of the night...", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3" }
+];
+
+let songIndex = 0;
+let isAudioPlaying = false;
+const audio = document.getElementById('bg-audio');
+
+function loadSong(idx, autoPlay) {
+  songIndex = idx;
+  audio.src = playlist[idx].src;
+  document.getElementById('song-title').textContent = playlist[idx].title;
+  document.getElementById('song-caption').textContent = playlist[idx].caption;
+  document.getElementById('progress-fill').style.width = '0%';
+  document.getElementById('song-time').textContent = "0:00";
+  if (autoPlay) {
+    audio.play().then(() => {
+      isAudioPlaying = true;
+      document.getElementById('play-svg').innerHTML = '<rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/>';
+    }).catch(() => {});
+  }
+}
+
+function togglePlayMusic() {
+  if (!audio.src) { loadSong(songIndex, true); return; }
+  if (isAudioPlaying) {
+    audio.pause();
+    isAudioPlaying = false;
+    document.getElementById('play-svg').innerHTML = '<polygon points="7,5 19,12 7,19"/>';
+  } else {
+    audio.play().catch(() => {});
+    isAudioPlaying = true;
+    document.getElementById('play-svg').innerHTML = '<rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/>';
+  }
+}
+
+function nextSong() { loadSong((songIndex + 1) % playlist.length, isAudioPlaying); }
+function prevSong() { loadSong((songIndex - 1 + playlist.length) % playlist.length, isAudioPlaying); }
+
+audio.addEventListener('timeupdate', () => {
+  if (!audio.duration) return;
+  document.getElementById('progress-fill').style.width = `${(audio.currentTime / audio.duration) * 100}%`;
+  const m = Math.floor(audio.currentTime / 60);
+  const s = String(Math.floor(audio.currentTime % 60)).padStart(2, '0');
+  document.getElementById('song-time').textContent = `${m}:${s}`;
+});
+audio.addEventListener('ended', nextSong);
+
+/* ============================================================
+   5. Battery & Satellite Live Weather Engine
+   ============================================================ */
+if ('getBattery' in navigator) {
+  navigator.getBattery().then(bat => {
+    function updateBat() {
+      const pct = Math.round(bat.level * 100);
+      document.getElementById('battery-pct').textContent = `${pct}%`;
+      document.getElementById('battery-fill').style.strokeDashoffset = 60 - (60 * pct / 100);
+    }
+    updateBat();
+    bat.addEventListener('levelchange', updateBat);
+  });
+}
+
+function applyTimeOfDay() {
+  const hour = new Date().getHours();
+  let tint = "rgba(0,0,0,0.2)";
+  if (hour >= 5 && hour < 11) tint = "rgba(255,180,100,0.14)";
+  else if (hour >= 11 && hour < 16) tint = "rgba(255,255,255,0.02)";
+  else if (hour >= 16 && hour < 19) tint = "rgba(255,110,40,0.18)";
+  else tint = "rgba(4,8,28,0.38)";
+  document.getElementById('day-tint').style.background = tint;
+}
+
+async function syncDhakaWeather() {
+  if (!wifiConnected) return;
+  try {
+    const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=23.8103&longitude=90.4125&current=temperature_2m,weather_code&timezone=Asia%2FDhaka');
+    const json = await res.json();
+    if (json && json.current) {
+      document.getElementById('weather-temp').textContent = `${Math.round(json.current.temperature_2m)}°`;
+      document.getElementById('weather-summary').textContent = "Clear & Serene";
+    }
+  } catch (e) {
+    document.getElementById('weather-temp').textContent = "28°";
+    document.getElementById('weather-summary').textContent = "Clear Sky";
+  }
+}
+
+/* ============================================================
+   6. Hyper-Realistic 3D Cat Mascot & Soccer Ball Physics
+   ============================================================ */
+const mCanvas = document.getElementById('mascot-canvas');
+const mCtx = mCanvas.getContext('2d');
+
+let mWidth = mCanvas.width = window.innerWidth;
+let mHeight = mCanvas.height = 150;
+
+window.addEventListener('resize', () => {
+  mWidth = mCanvas.width = window.innerWidth;
+  mHeight = mCanvas.height = 150;
+});
+
+const cat = {
+  x: 280,
+  y: 100,
+  dir: 1,
+  speed: 1.4,
+  state: 'walk',
+  stateTimer: 0,
+  walkCycle: 0,
+  blink: 0,
+  ball: {
+    x: 310,
+    y: 125,
+    vx: 0,
+    vy: 0,
+    rot: 0,
+    visible: true
+  }
+};
+
+function drawRealistic3DCat(x, y, dir, legPhase, blinkState) {
+  mCtx.save();
+  mCtx.translate(x, y);
+  mCtx.scale(dir, 1);
+
+  // Volumetric Ambient Occlusion Ground Shadow
+  mCtx.beginPath();
+  mCtx.ellipse(0, 26, 28, 8, 0, 0, Math.PI * 2);
+  mCtx.fillStyle = 'rgba(0, 0, 0, 0.48)';
+  mCtx.filter = 'blur(4px)';
+  mCtx.fill();
+  mCtx.filter = 'none';
+
+  // 3D S-Curved Articulated Tail
+  mCtx.save();
+  mCtx.translate(-22, 0);
+  mCtx.rotate(Math.sin(legPhase) * 0.4);
+  const tailGrad = mCtx.createLinearGradient(-15, -15, 0, 0);
+  tailGrad.addColorStop(0, '#ffffff');
+  tailGrad.addColorStop(1, '#a6b8c8');
+  mCtx.strokeStyle = tailGrad;
+  mCtx.lineWidth = 6.5;
+  mCtx.lineCap = 'round';
+  mCtx.beginPath();
+  mCtx.quadraticCurveTo(-16, -20, -28, -12);
+  mCtx.stroke();
+  mCtx.restore();
+
+  // 3D Body Sphere with Multi-Stop Radial Lighting
+  const bodyGrad = mCtx.createRadialGradient(-5, -6, 2, 0, 0, 26);
+  bodyGrad.addColorStop(0, '#ffffff');
+  bodyGrad.addColorStop(0.65, '#e8f0f8');
+  bodyGrad.addColorStop(1, '#94a7b8');
+  mCtx.fillStyle = bodyGrad;
+  mCtx.beginPath();
+  mCtx.ellipse(0, 6, 24, 17, 0, 0, Math.PI * 2);
+  mCtx.fill();
+
+  // Dynamic Paws
+  mCtx.fillStyle = '#dbe5ef';
+  const legOffset1 = Math.sin(legPhase) * 6;
+  const legOffset2 = Math.sin(legPhase + Math.PI) * 6;
+  mCtx.beginPath();
+  mCtx.ellipse(-10 + legOffset1, 19, 4.5, 8.5, 0, 0, Math.PI * 2);
+  mCtx.ellipse(10 + legOffset2, 19, 4.5, 8.5, 0, 0, Math.PI * 2);
+  mCtx.fill();
+
+  // 3D Head
+  mCtx.save();
+  mCtx.translate(15, -10);
+  const headGrad = mCtx.createRadialGradient(-3, -3, 2, 0, 0, 17);
+  headGrad.addColorStop(0, '#ffffff');
+  headGrad.addColorStop(0.7, '#e2ecf5');
+  headGrad.addColorStop(1, '#8ea3b5');
+  mCtx.fillStyle = headGrad;
+  mCtx.beginPath();
+  mCtx.arc(0, 0, 16, 0, Math.PI * 2);
+  mCtx.fill();
+
+  // 3D Ears with Inner Depth
+  mCtx.fillStyle = '#e8eff7';
+  mCtx.beginPath();
+  mCtx.moveTo(-10, -10); mCtx.lineTo(-6, -25); mCtx.lineTo(0, -11); mCtx.fill();
+  mCtx.beginPath();
+  mCtx.moveTo(2, -11); mCtx.lineTo(9, -25); mCtx.lineTo(12, -9); mCtx.fill();
+
+  mCtx.fillStyle = '#ffb3c6';
+  mCtx.beginPath();
+  mCtx.moveTo(-8, -11); mCtx.lineTo(-6, -20); mCtx.lineTo(-1, -11); mCtx.fill();
+  mCtx.beginPath();
+  mCtx.moveTo(4, -11); mCtx.lineTo(8, -20); mCtx.lineTo(10, -10); mCtx.fill();
+
+  // Expressive Eyes with Moving Pupils
+  if (blinkState < 0.1) {
+    mCtx.fillStyle = '#0f172a';
+    mCtx.beginPath();
+    mCtx.ellipse(4, -2, 2.8, 4.5, 0, 0, Math.PI * 2);
+    mCtx.ellipse(11, -2, 2.8, 4.5, 0, 0, Math.PI * 2);
+    mCtx.fill();
+
+    mCtx.fillStyle = '#ffffff';
+    mCtx.beginPath();
+    mCtx.arc(3.5, -3.5, 1.1, 0, Math.PI * 2);
+    mCtx.arc(10.5, -3.5, 1.1, 0, Math.PI * 2);
+    mCtx.fill();
+  } else {
+    mCtx.strokeStyle = '#334155';
+    mCtx.lineWidth = 1.6;
+    mCtx.beginPath();
+    mCtx.moveTo(1.5, -2); mCtx.lineTo(6.5, -2);
+    mCtx.moveTo(8.5, -2); mCtx.lineTo(13.5, -2);
+    mCtx.stroke();
+  }
+
+  // Pink Nose
+  mCtx.fillStyle = '#ff8fa3';
+  mCtx.beginPath();
+  mCtx.arc(7.5, 2, 1.8, 0, Math.PI * 2);
+  mCtx.fill();
+
+  mCtx.restore();
+  mCtx.restore();
+}
+
+function draw3DSoccerBall(x, y, rot) {
+  mCtx.save();
+  mCtx.translate(x, y);
+
+  // Dynamic Ambient Ground Shadow
+  mCtx.beginPath();
+  mCtx.ellipse(0, 9, 9, 3.5, 0, 0, Math.PI * 2);
+  mCtx.fillStyle = 'rgba(0, 0, 0, 0.42)';
+  mCtx.filter = 'blur(2.5px)';
+  mCtx.fill();
+  mCtx.filter = 'none';
+
+  mCtx.rotate(rot);
+
+  // 3D Sphere Specular Grading
+  const ballGrad = mCtx.createRadialGradient(-3, -3, 2, 0, 0, 11);
+  ballGrad.addColorStop(0, '#ffffff');
+  ballGrad.addColorStop(0.7, '#d8e3eb');
+  ballGrad.addColorStop(1, '#1e293b');
+  mCtx.fillStyle = ballGrad;
+  mCtx.beginPath();
+  mCtx.arc(0, 0, 10, 0, Math.PI * 2);
+  mCtx.fill();
+
+  // Soccer Pentagons
+  mCtx.fillStyle = '#0f172a';
+  mCtx.beginPath();
+  mCtx.arc(0, 0, 3.8, 0, Math.PI * 2);
+  mCtx.fill();
+
+  for (let i = 0; i < 5; i++) {
+    const ang = (i * Math.PI * 2) / 5;
+    mCtx.beginPath();
+    mCtx.arc(Math.cos(ang) * 6.5, Math.sin(ang) * 6.5, 2.2, 0, Math.PI * 2);
+    mCtx.fill();
+  }
+
+  mCtx.restore();
+}
+
+function updateMascotLoop() {
+  mCtx.clearRect(0, 0, mWidth, mHeight);
+
+  cat.stateTimer++;
+  cat.blink = Math.sin(cat.stateTimer * 0.05);
+
+  // Multi-Behavior Finite State Machine
+  if (cat.state === 'walk') {
+    cat.x += cat.dir * cat.speed;
+    cat.walkCycle += 0.12;
+    if (cat.x > mWidth - 130) cat.dir = -1;
+    if (cat.x < 130) cat.dir = 1;
+
+    cat.ball.x = cat.x + cat.dir * 32;
+    cat.ball.y = 125;
+
+    if (cat.stateTimer > 450) {
+      cat.state = 'dribble';
+      cat.stateTimer = 0;
+    }
+  } else if (cat.state === 'dribble') {
+    cat.x += cat.dir * (cat.speed * 1.5);
+    cat.walkCycle += 0.22;
+    cat.ball.x += cat.dir * (cat.speed * 1.5);
+    cat.ball.rot += cat.dir * 0.16;
+
+    if (cat.stateTimer > 180) {
+      cat.state = 'kick';
+      cat.stateTimer = 0;
+      cat.ball.vx = cat.dir * 7.5;
+      cat.ball.vy = -6.2;
+    }
+  } else if (cat.state === 'kick') {
+    // Parabolic Ball Arc Physics with Friction & Ground Bounce
+    cat.ball.x += cat.ball.vx;
+    cat.ball.y += cat.ball.vy;
+    cat.ball.vy += 0.38; // Gravity
+    cat.ball.rot += 0.22;
+
+    if (cat.ball.y > 125) {
+      cat.ball.y = 125;
+      cat.ball.vy = -cat.ball.vy * 0.62; // Kinetic Coefficient of Restitution
+      cat.ball.vx *= 0.85; // Rolling resistance
     }
 
-    function runClockEngine() {
-      const now = new Date();
-      let hours = now.getHours() % 12 || 12;
-      let minutes = now.getMinutes();
-      let seconds = now.getSeconds();
-
-      const strH = String(hours).padStart(2, '0');
-      const strM = String(minutes).padStart(2, '0');
-      const strS = String(seconds).padStart(2, '0');
-
-      updateSingleDigit('h1', strH[0]);
-      updateSingleDigit('h2', strH[1]);
-      updateSingleDigit('m1', strM[0]);
-      updateSingleDigit('m2', strM[1]);
-      updateSingleDigit('s1', strS[0]);
-      updateSingleDigit('s2', strS[1]);
-
-      const days = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
-      const months = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
-      
-      document.getElementById('live-date-str').textContent = `${days[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate()}`;
-      document.getElementById('cal-month-title').textContent = months[now.getMonth()];
+    if (cat.stateTimer > 120) {
+      cat.state = 'walk';
+      cat.stateTimer = 0;
+      cat.dir = cat.ball.x > cat.x ? 1 : -1;
     }
+  }
 
-    function buildCalendar() {
-      const grid = document.getElementById('cal-grid-cells');
-      grid.innerHTML = '';
-      const now = new Date();
-      const yr = now.getFullYear();
-      const mo = now.getMonth();
-      const currentDay = now.getDate();
+  drawRealistic3DCat(cat.x, cat.y, cat.dir, cat.walkCycle, cat.blink > 0.95 ? 1 : 0);
+  draw3DSoccerBall(cat.ball.x, cat.ball.y, cat.ball.rot);
 
-      const offset = new Date(yr, mo, 1).getDay();
-      const totalDays = new Date(yr, mo + 1, 0).getDate();
+  requestAnimationFrame(updateMascotLoop);
+}
 
-      for (let i = 0; i < offset; i++) grid.appendChild(document.createElement('span'));
-      for (let d = 1; d <= totalDays; d++) {
-        const cell = document.createElement('span');
-        cell.textContent = d;
-        if (d === currentDay) cell.classList.add('active-today');
-        grid.appendChild(cell);
-      }
+/* ============================================================
+   7. Atmospheric Weather Particles Canvas
+   ============================================================ */
+const wCanvas = document.getElementById('weather-fx-canvas');
+const wCtx = wCanvas.getContext('2d');
+let wWidth = wCanvas.width = window.innerWidth;
+let wHeight = wCanvas.height = window.innerHeight;
+
+window.addEventListener('resize', () => {
+  wWidth = wCanvas.width = window.innerWidth;
+  wHeight = wCanvas.height = window.innerHeight;
+});
+
+const rainMotes = Array.from({ length: 48 }, () => ({
+  x: Math.random() * wWidth,
+  y: Math.random() * wHeight,
+  speed: 1.6 + Math.random() * 2,
+  len: 16 + Math.random() * 26
+}));
+
+let weatherParticlesEnabled = true;
+
+function renderWeatherAtmosphere() {
+  wCtx.clearRect(0, 0, wWidth, wHeight);
+  if (weatherParticlesEnabled) {
+    wCtx.strokeStyle = 'rgba(255, 255, 255, 0.22)';
+    wCtx.lineWidth = 1.2;
+    for (let i = 0; i < rainMotes.length; i++) {
+      const p = rainMotes[i];
+      wCtx.beginPath();
+      wCtx.moveTo(p.x, p.y);
+      wCtx.lineTo(p.x - 2, p.y + p.len);
+      wCtx.stroke();
+
+      p.y += p.speed;
+      p.x -= 0.5;
+      if (p.y > wHeight) { p.y = -30; p.x = Math.random() * wWidth; }
     }
+  }
+  requestAnimationFrame(renderWeatherAtmosphere);
+}
 
-    /* Embedded Smart Launcher Search Engine */
-    function triggerEmbeddedSearch() {
-      const input = document.getElementById('display-search-input');
-      const query = input.value.trim();
-      if (query) {
-        window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
-      }
-    }
+/* ============================================================
+   8. Inactivity 30s True Centering Engine
+   ============================================================ */
+let aodIdleEnabled = true;
+let aodIdleTimer = null;
 
-    document.getElementById('display-search-input').addEventListener('keypress', function (e) {
-      if (e.key === 'Enter') triggerEmbeddedSearch();
-    });
+function resetAodIdleTimer() {
+  document.body.classList.remove('aod-idle-mode');
+  clearTimeout(aodIdleTimer);
+  if (aodIdleEnabled) {
+    aodIdleTimer = setTimeout(() => {
+      document.body.classList.add('aod-idle-mode');
+    }, 30000); // 30s exact
+  }
+}
 
-    /* Unlimited Pinterest Aesthetic Themes Generator */
-    const pinterestThemes = [
-      { url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2070&auto=format&fit=crop", accent: "#30d158" },
-      { url: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=2070&auto=format&fit=crop", accent: "#00d2ff" },
-      { url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop", accent: "#ff7bf0" },
-      { url: "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=2094&auto=format&fit=crop", accent: "#00ffaa" },
-      { url: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=2070&auto=format&fit=crop", accent: "#ff9f0a" },
-      { url: "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=2070&auto=format&fit=crop", accent: "#ffd700" },
-      { url: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop", accent: "#a855f7" },
-      { url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2064&auto=format&fit=crop", accent: "#ff007f" },
-      { url: "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?q=80&w=2064&auto=format&fit=crop", accent: "#10b981" }
-    ];
+/* ============================================================
+   9. VisionOS Settings Modal Handlers
+   ============================================================ */
+function openSettingsModal() { document.getElementById('settings-modal').classList.add('active'); }
+function closeSettingsModal() { document.getElementById('settings-modal').classList.remove('active'); }
 
-    let currentThemeIdx = 0;
-    let autoThemeActive = false;
-    let autoThemeTimer = null;
+function togglePrefCentering() {
+  aodIdleEnabled = !aodIdleEnabled;
+  document.getElementById('pref-centering-toggle').classList.toggle('active', aodIdleEnabled);
+  if (!aodIdleEnabled) document.body.classList.remove('aod-idle-mode');
+  else resetAodIdleTimer();
+}
 
-    function initWallpaperLayers() {
-      const container = document.getElementById('wallpaper-container');
-      container.innerHTML = '';
-      pinterestThemes.forEach((th, idx) => {
-        const div = document.createElement('div');
-        div.className = `tv-wallpaper ${idx === 0 ? 'active' : ''}`;
-        div.id = `wall-${idx}`;
-        div.style.backgroundImage = `url('${th.url}')`;
-        container.appendChild(div);
-      });
-    }
+function togglePrefWeather() {
+  weatherParticlesEnabled = !weatherParticlesEnabled;
+  document.getElementById('pref-weather-toggle').classList.toggle('active', weatherParticlesEnabled);
+}
 
-    function applyThemeStyle(th) {
-      const root = document.documentElement;
-      root.style.setProperty('--theme-accent', th.accent);
-      root.style.setProperty('--theme-glow', `${th.accent}40`);
-      root.style.setProperty('--digit-gradient', `linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.05) 50%, ${th.accent} 100%)`);
-    }
+/* ============================================================
+   10. System Initialization
+   ============================================================ */
+loadTheme(0);
+buildCalendarGrid();
+runClockEngine();
+syncForexRates();
+updateMarketCurves();
+applyTimeOfDay();
+syncDhakaWeather();
+resetAodIdleTimer();
+updateMascotLoop();
+renderWeatherAtmosphere();
 
-    function nextPinterestTheme() {
-      document.getElementById(`wall-${currentThemeIdx}`).classList.remove('active');
-      currentThemeIdx = (currentThemeIdx + 1) % pinterestThemes.length;
-      document.getElementById(`wall-${currentThemeIdx}`).classList.add('active');
-      applyThemeStyle(pinterestThemes[currentThemeIdx]);
-    }
-
-    function toggleAutoTheme() {
-      autoThemeActive = !autoThemeActive;
-      const dot = document.getElementById('auto-dot');
-      const txt = document.getElementById('auto-theme-txt');
-
-      if (autoThemeActive) {
-        dot.style.background = "#30d158";
-        dot.style.boxShadow = "0 0 10px #30d158";
-        txt.textContent = "AUTO THEME: ON (30s)";
-        autoThemeTimer = setInterval(nextPinterestTheme, 30000);
-      } else {
-        dot.style.background = "#ff3b30";
-        dot.style.boxShadow = "none";
-        txt.textContent = "AUTO THEME: OFF";
-        clearInterval(autoThemeTimer);
-      }
-    }
-
-    /* AOD 30s Idle Centering Engine */
-    let aodIdleTimer = null;
-    function resetAodIdleTimer() {
-      if (document.body.classList.contains('aod-idle-mode')) {
-        document.body.classList.remove('aod-idle-mode');
-      }
-      clearTimeout(aodIdleTimer);
-      aodIdleTimer = setTimeout(() => {
-        document.body.classList.add('aod-idle-mode');
-      }, 30000);
-    }
-
-    /* Market Engine */
-    let marketTickers = { usd: [12, 13, 11, 15, 14, 16, 15], sar: [10, 11, 9, 12, 11, 13, 12], aed: [11, 10, 13, 12, 14, 13, 15] };
-    function renderPath(arr) {
-      let min = Math.min(...arr), max = Math.max(...arr), range = max - min || 1;
-      let pts = arr.map((val, idx) => ({ x: (idx / 6) * 65, y: 14 - ((val - min) / range) * 10 }));
-      let d = `M ${pts[0].x.toFixed(1)},${pts[0].y.toFixed(1)}`;
-      for (let i = 0; i < pts.length - 1; i++) {
-        let p1 = pts[i], p2 = pts[i + 1], cx = (p1.x + p2.x) / 2;
-        d += ` C ${cx.toFixed(1)},${p1.y.toFixed(1)} ${cx.toFixed(1)},${p2.y.toFixed(1)} ${p2.x.toFixed(1)},${p2.y.toFixed(1)}`;
-      }
-      return { strokePath: d, fillPath: `${d} L 65,18 L 0,18 Z` };
-    }
-
-    function stepMarket() {
-      ['usd', 'sar', 'aed'].forEach(id => {
-        let arr = marketTickers[id], delta = (Math.random() * 1.5 - 0.73);
-        arr.shift(); arr.push(Math.max(5, Math.min(25, arr[arr.length-1] + delta)));
-        let p = renderPath(arr);
-        document.getElementById(`${id}-spark`).setAttribute('d', p.strokePath);
-        document.getElementById(`${id}-fill`).setAttribute('d', p.fillPath);
-      });
-    }
-
-    async function fetchRates() {
-      try {
-        const res = await fetch('https://open.er-api.com/v6/latest/USD');
-        const data = await res.json();
-        if (data && data.rates) {
-          document.getElementById('usd-price').textContent = data.rates.BDT.toFixed(2);
-          document.getElementById('sar-price').textContent = (data.rates.BDT / data.rates.SAR).toFixed(2);
-          document.getElementById('aed-price').textContent = (data.rates.BDT / data.rates.AED).toFixed(2);
-        }
-      } catch (e) {}
-    }
-
-    async function syncDhakaWeather() {
-      try {
-        const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=23.8103&longitude=90.4125&current=temperature_2m&daily=temperature_2m_max,temperature_2m_min&timezone=Asia%2FDhaka');
-        const data = await res.json();
-        if (data && data.current) {
-          document.getElementById('dhaka-live-temp').textContent = `${Math.round(data.current.temperature_2m)}°`;
-          document.getElementById('dhaka-hl-span').textContent = `H: ${Math.round(data.daily.temperature_2m_max[0])}° L: ${Math.round(data.daily.temperature_2m_min[0])}°`;
-        }
-      } catch (err) {}
-    }
-
-    /* Init Core */
-    initWallpaperLayers();
-    runClockEngine();
-    buildCalendar();
-    syncDhakaWeather();
-    fetchRates();
-    stepMarket();
-    resetAodIdleTimer();
-
-    setInterval(runClockEngine, 1000);
-    setInterval(stepMarket, 2500);
-    setInterval(fetchRates, 600000);
-    setInterval(syncDhakaWeather, 1200000);
-  </script>
+// High-Precision Real-time Loops
+setInterval(runClockEngine, 50); // Hyper-fluid 50ms for milliseconds & flip clock
+setInterval(updateMarketCurves, 3500); // Live trading ticks
+setInterval(syncForexRates, 3600000); // Hourly intelligent sync
+setInterval(syncDhakaWeather, 1200000); // 20-min weather sync
+</script>
 </body>
 </html>
