@@ -3,22 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Apple VisionOS Ultra Liquid Glass V6 — 4K Smart TV Master Edition</title>
+<title>Ultra Liquid Glass V7 — TV Optimized Engine</title>
 
-<!-- Haute Horlogerie & Apple Pro Typography -->
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@700&family=Cinzel:wght@600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 
 <style>
-/* ================= 1. Dynamic CSS Glass Tokens ================= */
 :root {
   --accent: #30d158;
   --accent-glow: rgba(48, 209, 88, 0.45);
-  --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+  --glass-bg: rgba(255, 255, 255, 0.05);
   --glass-border: rgba(255, 255, 255, 0.22);
-  --glass-specular: rgba(255, 255, 255, 0.75);
-  --day-tint: rgba(0, 0, 0, 0.2);
+  --glass-specular: rgba(255, 255, 255, 0.6);
   --digit-grad-top: #ffffff;
   --digit-grad-bot: var(--accent);
 }
@@ -29,7 +27,6 @@
   box-sizing: border-box;
   user-select: none;
   -webkit-user-select: none;
-  -webkit-tap-highlight-color: transparent;
 }
 
 html, body {
@@ -42,22 +39,14 @@ html, body {
   position: relative;
 }
 
-:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 4px;
-  border-radius: 12px;
-}
-
-/* ================= 2. Hardware-Accelerated TV GPU Promotion Layer ================= */
+/* ================= 1. GPU Composited Layers ================= */
 .glass-tile-card, .timepiece-stage, .split-flap-tile, .launcher-container {
   transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+  will-change: transform, opacity;
   contain: layout style paint;
 }
 
-/* ================= 3. 100+ 4K Cinematic Crossfade Wallpaper Engine ================= */
+/* Wallpaper Crossfade Engine */
 #wallpaper-stack {
   position: absolute;
   inset: 0;
@@ -71,9 +60,10 @@ html, body {
   background-position: center center;
   background-repeat: no-repeat;
   opacity: 0;
-  transition: opacity 2.2s cubic-bezier(0.4, 0, 0.2, 1);
-  filter: brightness(0.55) contrast(1.22) saturate(1.28);
+  transition: opacity 1.8s ease-in-out;
+  filter: brightness(0.55) contrast(1.22) saturate(1.25);
   will-change: opacity;
+  transform: translateZ(0);
 }
 
 .wallpaper-layer.active {
@@ -86,8 +76,8 @@ html, body {
   z-index: 2;
   pointer-events: none;
   mix-blend-mode: multiply;
-  background: var(--day-tint);
-  transition: background 3.5s ease;
+  background: rgba(0,0,0,0.25);
+  transition: background 3s ease;
 }
 
 .cinematic-vignette {
@@ -95,17 +85,18 @@ html, body {
   inset: 0;
   z-index: 3;
   pointer-events: none;
-  background: radial-gradient(circle at 75% 38%, rgba(0, 0, 0, 0.02) 0%, rgba(1, 3, 8, 0.88) 100%);
+  background: radial-gradient(circle at 75% 38%, rgba(0,0,0,0.01) 0%, rgba(1,3,8,0.85) 100%);
 }
 
-#weather-fx-canvas {
+/* Single Unified Hardware Master Canvas (Weather + 3D Cat + Soccer) */
+#master-engine-canvas {
   position: absolute;
   inset: 0;
-  z-index: 4;
+  z-index: 25;
   pointer-events: none;
 }
 
-/* ================= 4. Top Master Utility Controls ================= */
+/* ================= 2. Top Navigation Controls ================= */
 .top-status-bar {
   position: absolute;
   top: 24px;
@@ -120,10 +111,10 @@ html, body {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.22);
-  backdrop-filter: blur(35px);
-  -webkit-backdrop-filter: blur(35px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   padding: 7px 16px;
   border-radius: 99px;
   cursor: pointer;
@@ -131,14 +122,14 @@ html, body {
   font-size: 10px;
   letter-spacing: 1.5px;
   color: #ffffff;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
-  transition: all 0.25s ease;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  transition: transform 0.2s ease, background 0.2s ease;
 }
 
-.status-capsule-btn:hover, .status-capsule-btn:focus-visible {
-  background: rgba(255, 255, 255, 0.15);
+.status-capsule-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
   border-color: var(--accent);
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 
 .pulse-dot-indicator {
@@ -146,8 +137,7 @@ html, body {
   height: 7px;
   background: var(--accent);
   border-radius: 50%;
-  box-shadow: 0 0 12px var(--accent);
-  transition: background 0.4s, box-shadow 0.4s;
+  box-shadow: 0 0 10px var(--accent);
 }
 
 .pulse-dot-indicator.off {
@@ -161,7 +151,7 @@ html, body {
   fill: currentColor;
 }
 
-/* ================= 5. Layout & 30s True Centering Engine ================= */
+/* ================= 3. Viewport & 30s True Centering Engine ================= */
 .aod-master-viewport {
   position: relative;
   width: 100%;
@@ -171,7 +161,7 @@ html, body {
   align-items: center;
   padding: 3vh 4vw;
   z-index: 10;
-  transition: grid-template-columns 1.4s cubic-bezier(0.16, 1, 0.3, 1), padding 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: grid-template-columns 1.2s cubic-bezier(0.16, 1, 0.3, 1), padding 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 body.aod-idle-mode .aod-master-viewport {
@@ -181,18 +171,18 @@ body.aod-idle-mode .aod-master-viewport {
 
 body.aod-idle-mode .left-dock-column {
   opacity: 0;
-  filter: blur(12px);
+  filter: blur(8px);
   transform: translateX(-40px);
   pointer-events: none;
 }
 
 body.aod-idle-mode .timepiece-stage {
-  transform: scale(1.26);
+  transform: scale(1.24);
   margin-left: 0;
 }
 
 body.aod-idle-mode .top-status-bar {
-  opacity: 0.15;
+  opacity: 0.12;
 }
 
 .left-dock-column {
@@ -202,31 +192,20 @@ body.aod-idle-mode .top-status-bar {
   justify-content: space-between;
   gap: 8px;
   z-index: 12;
-  transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform, opacity;
+  transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ================= 6. Liquid Specular Glass Tiles ================= */
+/* ================= 4. Liquid Glass Tiles (Optimized) ================= */
 .glass-tile-card {
   position: relative;
   border-radius: 20px;
   background: var(--glass-bg);
   border: 1px double var(--glass-border);
-  backdrop-filter: blur(45px) saturate(210%);
-  -webkit-backdrop-filter: blur(45px) saturate(210%);
-  box-shadow:
-    inset 1.5px -1.5px 1px -1px var(--glass-specular),
-    inset -1.5px 1.5px 1px -1px var(--glass-specular),
-    inset 4px -4px 1px -4px rgba(255, 255, 255, 0.35),
-    inset -4px 4px 1px -4px rgba(255, 255, 255, 0.35),
-    0 20px 45px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: inset 1px -1px 1px var(--glass-specular), inset -1px 1px 1px var(--glass-specular), 0 16px 36px rgba(0, 0, 0, 0.55);
   padding: 11px 15px;
   overflow: hidden;
-  transition: border-color 0.3s ease;
-}
-
-.glass-tile-card:hover {
-  border-color: rgba(255, 255, 255, 0.4);
 }
 
 /* Calendar */
@@ -267,28 +246,16 @@ body.aod-idle-mode .top-status-bar {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  transition: transform 0.2s ease;
-}
-
-.cal-numbers-grid span:hover {
-  transform: scale(1.2);
-  background: rgba(255, 255, 255, 0.1);
 }
 
 .cal-numbers-grid span.active-today {
   background: var(--accent);
   color: #000;
   font-weight: 800;
-  box-shadow: 0 0 14px var(--accent);
-  animation: pulseToday 2.2s infinite;
+  box-shadow: 0 0 12px var(--accent);
 }
 
-@keyframes pulseToday {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.12); }
-}
-
-/* TradingView Real Market Sparklines */
+/* Market Sparklines */
 .market-list {
   display: flex;
   flex-direction: column;
@@ -313,7 +280,6 @@ body.aod-idle-mode .top-status-bar {
 .market-sub {
   font-size: 6.5px;
   color: rgba(255, 255, 255, 0.45);
-  letter-spacing: 0.4px;
 }
 
 .sparkline-svg {
@@ -349,7 +315,7 @@ body.aod-idle-mode .top-status-bar {
   color: #30d158;
 }
 
-/* Swipeable Dual Launcher */
+/* Swipe Launcher */
 .launcher-container {
   position: relative;
   width: 100%;
@@ -362,7 +328,7 @@ body.aod-idle-mode .top-status-bar {
   display: flex;
   width: 200%;
   height: 100%;
-  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .launcher-panel {
@@ -379,9 +345,6 @@ body.aod-idle-mode .top-status-bar {
   font-size: 8px;
   letter-spacing: 1px;
   color: rgba(255, 255, 255, 0.65);
-  display: flex;
-  align-items: center;
-  gap: 5px;
 }
 
 .app-grid {
@@ -399,10 +362,8 @@ body.aod-idle-mode .top-status-bar {
   font-size: 8px;
   color: #fff;
   text-align: center;
-  cursor: pointer;
   text-decoration: none;
   font-weight: 600;
-  transition: 0.2s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -415,19 +376,17 @@ body.aod-idle-mode .top-status-bar {
   fill: currentColor;
 }
 
-.tv-app-btn:hover, .tv-app-btn:focus-visible {
+.tv-app-btn:hover {
   background: var(--accent);
   color: #000;
-  box-shadow: 0 0 14px var(--accent);
 }
 
-/* Ambient Music Player */
+/* Music Player */
 .music-player-box {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  padding: 2px 2px;
 }
 
 .song-info-row {
@@ -447,12 +406,6 @@ body.aod-idle-mode .top-status-bar {
   max-width: 145px;
 }
 
-.song-time-txt {
-  font-size: 8px;
-  color: var(--accent);
-  font-family: 'JetBrains Mono', monospace;
-}
-
 .song-caption-txt {
   font-size: 8px;
   color: rgba(255, 255, 255, 0.75);
@@ -470,7 +423,6 @@ body.aod-idle-mode .top-status-bar {
   border-radius: 2px;
   background: rgba(255, 255, 255, 0.15);
   overflow: hidden;
-  margin: 3px 0;
 }
 
 .progress-fill {
@@ -478,7 +430,7 @@ body.aod-idle-mode .top-status-bar {
   width: 0%;
   background: var(--accent);
   border-radius: 2px;
-  transition: width 0.2s linear;
+  transition: width 0.3s linear;
 }
 
 .music-controls {
@@ -500,7 +452,6 @@ body.aod-idle-mode .top-status-bar {
   justify-content: center;
   cursor: pointer;
   color: #fff;
-  transition: 0.2s ease;
 }
 
 .m-btn svg {
@@ -509,7 +460,7 @@ body.aod-idle-mode .top-status-bar {
   fill: currentColor;
 }
 
-.m-btn:hover, .m-btn:focus-visible {
+.m-btn:hover {
   background: var(--accent);
   color: #000;
 }
@@ -522,18 +473,9 @@ body.aod-idle-mode .top-status-bar {
   font-size: 7.5px;
   cursor: pointer;
   color: #fff;
-  transition: 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 4px;
 }
 
-.swipe-pill-btn:hover {
-  background: var(--accent);
-  color: #000;
-}
-
-/* Battery & Dedicated Wi-Fi Switch */
+/* Battery & Wi-Fi Switch */
 .widget-row {
   display: flex;
   gap: 7px;
@@ -583,12 +525,6 @@ body.aod-idle-mode .top-status-bar {
   line-height: 1;
 }
 
-.power-label {
-  font-size: 6px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.5);
-}
-
 .wifi-toggle-box {
   flex: 1;
   padding: 8px 10px !important;
@@ -602,7 +538,6 @@ body.aod-idle-mode .top-status-bar {
   font-family: 'Cinzel', serif;
   font-size: 8.5px;
   font-weight: 700;
-  letter-spacing: 0.8px;
 }
 
 .wifi-led {
@@ -611,7 +546,6 @@ body.aod-idle-mode .top-status-bar {
   border-radius: 50%;
   background: #30d158;
   box-shadow: 0 0 10px #30d158;
-  transition: 0.3s;
 }
 
 .wifi-led.offline {
@@ -619,7 +553,7 @@ body.aod-idle-mode .top-status-bar {
   box-shadow: none;
 }
 
-/* Satellite Weather Pill */
+/* Weather */
 .weather-dock-pill {
   display: flex;
   align-items: center;
@@ -632,24 +566,21 @@ body.aod-idle-mode .top-status-bar {
   font-size: 8.5px;
   font-weight: 700;
   letter-spacing: 1px;
-  color: rgba(255, 255, 255, 0.8);
 }
 
 .weather-digits-big {
   font-size: 24px;
   font-weight: 300;
-  line-height: 1;
 }
 
-/* ================= 7. Haute Horlogerie 3D Split-Flap Flip Clock ================= */
+/* ================= 5. Mechanical 3D Split-Flap Clock ================= */
 .timepiece-stage {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  perspective: 1400px;
-  transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform;
+  perspective: 1200px;
+  transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .date-banner {
@@ -676,7 +607,6 @@ body.aod-idle-mode .top-status-bar {
   gap: 0.35vw;
 }
 
-/* Split-Flap Tile Structure */
 .split-flap-tile {
   position: relative;
   width: 8.6vw;
@@ -686,7 +616,7 @@ body.aod-idle-mode .top-status-bar {
   line-height: 13.8vw;
   font-weight: 700;
   perspective: 800px;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.85);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.85);
   border-radius: 18px;
 }
 
@@ -697,9 +627,7 @@ body.aod-idle-mode .top-status-bar {
   height: 50%;
   overflow: hidden;
   text-align: center;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
-  backdrop-filter: blur(40px) saturate(220%);
-  -webkit-backdrop-filter: blur(40px) saturate(220%);
+  background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
@@ -724,7 +652,6 @@ body.aod-idle-mode .top-status-bar {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke: 1.4px rgba(255, 255, 255, 0.5);
-  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.9));
 }
 
 .split-flap-tile .flap-card-half.flap-lower {
@@ -748,30 +675,28 @@ body.aod-idle-mode .top-status-bar {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke: 1.4px rgba(255, 255, 255, 0.5);
-  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.9));
 }
 
-/* Mechanical Page-Turn Keyframes */
 .split-flap-tile .flap-upper.flap-turning {
-  animation: flipTop 0.42s ease-in forwards;
+  animation: flipTop 0.38s ease-in forwards;
   backface-visibility: hidden;
   z-index: 5;
 }
 
 .split-flap-tile .flap-lower.flap-turning {
-  animation: flipBot 0.42s ease-out forwards;
+  animation: flipBot 0.38s ease-out forwards;
   backface-visibility: hidden;
   z-index: 5;
 }
 
 @keyframes flipTop {
-  0% { transform: rotateX(0deg); filter: brightness(1); }
-  100% { transform: rotateX(-90deg); filter: brightness(0.5); }
+  0% { transform: rotateX(0deg); }
+  100% { transform: rotateX(-90deg); }
 }
 
 @keyframes flipBot {
-  0% { transform: rotateX(90deg); filter: brightness(1.4); }
-  100% { transform: rotateX(0deg); filter: brightness(1); }
+  0% { transform: rotateX(90deg); }
+  100% { transform: rotateX(0deg); }
 }
 
 .flip-colon {
@@ -779,12 +704,6 @@ body.aod-idle-mode .top-status-bar {
   font-size: 9.5vw;
   color: rgba(255, 255, 255, 0.8);
   margin: 0 0.2vw;
-  animation: colonFade 2s infinite ease-in-out;
-}
-
-@keyframes colonFade {
-  0%, 100% { opacity: 0.9; }
-  50% { opacity: 0.3; }
 }
 
 .seconds-ms-dock {
@@ -820,34 +739,22 @@ body.aod-idle-mode .top-status-bar {
   font-weight: 700;
   color: var(--accent);
   letter-spacing: 1px;
-  text-shadow: 0 0 10px var(--accent);
 }
 
-/* ================= 8. Pixar-Grade 3D White Cat & Soccer Physics Canvas ================= */
-#mascot-canvas {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 150px;
-  z-index: 25;
-  pointer-events: none;
-}
-
-/* ================= 9. Apple VisionOS Settings Sheet ================= */
+/* ================= 6. Settings Sheet ================= */
 .settings-modal {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(45px);
-  -webkit-backdrop-filter: blur(45px);
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
   z-index: 100;
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.3s ease;
 }
 
 .settings-modal.active {
@@ -856,14 +763,12 @@ body.aod-idle-mode .top-status-bar {
 }
 
 .settings-card {
-  width: 460px;
+  width: 440px;
   max-width: 90vw;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.24);
-  border-radius: 26px;
-  padding: 26px;
-  backdrop-filter: blur(50px);
-  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.9);
+  border-radius: 24px;
+  padding: 24px;
 }
 
 .settings-header {
@@ -871,9 +776,9 @@ body.aod-idle-mode .top-status-bar {
   justify-content: space-between;
   align-items: center;
   font-family: 'Cinzel', serif;
-  font-size: 13.5px;
+  font-size: 13px;
   letter-spacing: 2px;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
   padding-bottom: 10px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
@@ -882,18 +787,18 @@ body.aod-idle-mode .top-status-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 15px 0;
-  font-size: 11.5px;
+  margin: 14px 0;
+  font-size: 11px;
 }
 
 .toggle-switch {
-  width: 44px;
-  height: 24px;
+  width: 42px;
+  height: 22px;
   background: rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
+  border-radius: 11px;
   position: relative;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.25s;
 }
 
 .toggle-switch.active {
@@ -905,11 +810,11 @@ body.aod-idle-mode .top-status-bar {
   position: absolute;
   top: 2px;
   left: 2px;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   background: #fff;
   border-radius: 50%;
-  transition: 0.3s;
+  transition: 0.25s;
 }
 
 .toggle-switch.active::after {
@@ -921,26 +826,28 @@ body.aod-idle-mode .top-status-bar {
   border: none;
   color: #000;
   font-weight: 700;
-  padding: 9px 20px;
-  border-radius: 11px;
+  padding: 8px 18px;
+  border-radius: 10px;
   cursor: pointer;
   float: right;
-  margin-top: 15px;
+  margin-top: 12px;
 }
 </style>
 </head>
 <body onclick="resetAodIdleTimer()" onkeydown="resetAodIdleTimer()" onmousemove="resetAodIdleTimer()">
 
-<!-- Wallpaper Stage -->
+<!-- Wallpaper Layers -->
 <div id="wallpaper-stack">
   <div class="wallpaper-layer active" id="wall-layer-a"></div>
   <div class="wallpaper-layer" id="wall-layer-b"></div>
 </div>
 <div class="day-tint-mask" id="day-tint"></div>
 <div class="cinematic-vignette"></div>
-<canvas id="weather-fx-canvas"></canvas>
 
-<!-- Top Status Nav Bar -->
+<!-- Unified Single Hardware Master Canvas -->
+<canvas id="master-engine-canvas"></canvas>
+
+<!-- Top Bar -->
 <aside class="top-status-bar">
   <div class="status-capsule-btn" onclick="toggleAutoThemeCycle()" id="auto-theme-badge">
     <span class="pulse-dot-indicator off" id="auto-dot"></span>
@@ -956,13 +863,13 @@ body.aod-idle-mode .top-status-bar {
   </div>
 </aside>
 
-<!-- Master Viewport Grid -->
+<!-- Viewport Grid -->
 <main class="aod-master-viewport">
 
-  <!-- Left Liquid Dock -->
+  <!-- Left Dock -->
   <section class="left-dock-column">
 
-    <!-- 1. Calendar -->
+    <!-- Calendar -->
     <div class="glass-tile-card">
       <div class="cal-title-bar">
         <span id="cal-headline">OCTOBER</span>
@@ -972,7 +879,7 @@ body.aod-idle-mode .top-status-bar {
       <div class="cal-numbers-grid" id="cal-grid"></div>
     </div>
 
-    <!-- 2. TradingView Market Tickers -->
+    <!-- Trading View Forex -->
     <div class="glass-tile-card">
       <div class="market-list">
         <div class="market-item">
@@ -989,12 +896,12 @@ body.aod-idle-mode .top-status-bar {
       </div>
     </div>
 
-    <!-- 3. Dual-Panel Launcher (TV Apps & Music) -->
+    <!-- Dual Launcher -->
     <div class="glass-tile-card">
       <div class="launcher-container">
         <div class="launcher-slider" id="launcher-slider">
           
-          <!-- Panel 1: TV Apps (NO EMOJIS, 100% SVG) -->
+          <!-- TV Apps -->
           <div class="launcher-panel">
             <div class="panel-label">OFFICIAL TV APPS</div>
             <div class="app-grid">
@@ -1017,12 +924,12 @@ body.aod-idle-mode .top-status-bar {
             </div>
           </div>
 
-          <!-- Panel 2: Relaxing Ambient Audio Player -->
+          <!-- Ambient Music -->
           <div class="launcher-panel">
             <div class="music-player-box">
               <div class="song-info-row">
                 <span class="song-title-txt" id="song-title">Morning Sunlight Breeze</span>
-                <span class="song-time-txt" id="song-time">0:00</span>
+                <span style="font-size:8px;color:var(--accent);" id="song-time">0:00</span>
               </div>
               <div class="song-caption-txt" id="song-caption">"Finding peace in the gentle morning light..."</div>
               <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
@@ -1033,7 +940,7 @@ body.aod-idle-mode .top-status-bar {
               </div>
               <div style="display:flex;justify-content:space-between;align-items:center;">
                 <button class="swipe-pill-btn" onclick="slideLauncher(0)">⬅ TV Apps</button>
-                <span style="font-size:7px;color:rgba(255,255,255,.4);">Relaxing Stream</span>
+                <span style="font-size:7px;color:rgba(255,255,255,.4);">Ambient Stream</span>
               </div>
             </div>
           </div>
@@ -1042,11 +949,11 @@ body.aod-idle-mode .top-status-bar {
       </div>
     </div>
 
-    <!-- 4. Battery & Dedicated Wi-Fi Switch -->
+    <!-- Battery & Wi-Fi -->
     <div class="widget-row">
       <div class="glass-tile-card power-compact-pill">
         <div class="power-ring"><svg><circle class="rail-bg" cx="11" cy="11" r="9"/><circle class="rail-fill" id="battery-fill" cx="11" cy="11" r="9"/></svg></div>
-        <div><div class="power-pct" id="battery-pct">100%</div><div class="power-label">AC POWER</div></div>
+        <div><div class="power-pct" id="battery-pct">100%</div><div style="font-size:6px;color:rgba(255,255,255,.5);">AC POWER</div></div>
       </div>
       <div class="glass-tile-card wifi-toggle-box" onclick="toggleDedicatedWifi()">
         <div><div style="font-size:6px;color:rgba(255,255,255,.5);">DEDICATED WIFI</div><div class="wifi-status-txt" id="wifi-status">ONLINE</div></div>
@@ -1054,7 +961,7 @@ body.aod-idle-mode .top-status-bar {
       </div>
     </div>
 
-    <!-- 5. Satellite Live Weather Pill -->
+    <!-- Live Weather -->
     <div class="glass-tile-card weather-dock-pill">
       <div><div class="weather-city-caption">DHAKA, BANGLADESH</div><div style="font-size:9.5px;color:rgba(255,255,255,.6);" id="weather-summary">Clear Sky</div></div>
       <div class="weather-digits-big" id="weather-temp">--°</div>
@@ -1062,7 +969,7 @@ body.aod-idle-mode .top-status-bar {
 
   </section>
 
-  <!-- Center Stage: Mechanical 3D Split-Flap Clock -->
+  <!-- Mechanical Split-Flap Clock -->
   <section class="timepiece-stage">
     <div class="date-banner" id="live-date">TUESDAY, OCTOBER 20</div>
     <div class="flip-clock-frame">
@@ -1080,17 +987,14 @@ body.aod-idle-mode .top-status-bar {
           <div class="split-flap-tile sec-tile" id="tile-s1"><div class="flap-card-half flap-upper"><span>0</span></div><div class="flap-card-half flap-lower"><span>0</span></div></div>
           <div class="split-flap-tile sec-tile" id="tile-s2"><div class="flap-card-half flap-upper"><span>0</span></div><div class="flap-card-half flap-lower"><span>0</span></div></div>
         </div>
-        <div class="ms-ticker" id="ms-ticker">84</div>
+        <div class="ms-ticker" id="ms-ticker">00</div>
       </div>
     </div>
   </section>
 
 </main>
 
-<!-- 3D Pixar-Grade Cat & Soccer Physics Canvas -->
-<canvas id="mascot-canvas"></canvas>
-
-<!-- Settings Modal Sheet -->
+<!-- Settings Modal -->
 <div class="settings-modal" id="settings-modal">
   <div class="settings-card">
     <div class="settings-header"><span>SYSTEM PREFERENCES</span><span onclick="closeSettingsModal()">✕</span></div>
@@ -1105,7 +1009,7 @@ body.aod-idle-mode .top-status-bar {
 
 <script>
 /* ============================================================
-   1. 100+ Ultra 4K Dynamic Aesthetic Themes Engine
+   1. Dynamic 4K Wallpaper Engine (Two Preloaded Layers)
    ============================================================ */
 const curatedThemes = [
   { url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2560&auto=format&fit=crop", accent: "#30d158" },
@@ -1157,7 +1061,6 @@ function loadTheme(idx) {
     activeThemeIdx = idx;
   };
 
-  // Hardware-Optimized Asynchronous Decode Engine
   if ('decode' in img) {
     img.decode().then(applyLoadedImage).catch(applyLoadedImage);
   } else {
@@ -1169,7 +1072,6 @@ function triggerNextThemeManual() {
   loadTheme((activeThemeIdx + 1) % curatedThemes.length);
 }
 
-// 15-SECOND EXACT THEME AUTO-CYCLER
 function toggleAutoThemeCycle() {
   autoCycleActive = !autoCycleActive;
   const dot = document.getElementById('auto-dot');
@@ -1180,7 +1082,7 @@ function toggleAutoThemeCycle() {
     dot.classList.remove('off');
     txt.textContent = "AUTO 15S: ON";
     if (toggle) toggle.classList.add('active');
-    autoCycleTimer = setInterval(triggerNextThemeManual, 15000); // 15 Seconds exact
+    autoCycleTimer = setInterval(triggerNextThemeManual, 15000);
   } else {
     dot.classList.add('off');
     txt.textContent = "AUTO 15S: OFF";
@@ -1189,7 +1091,6 @@ function toggleAutoThemeCycle() {
   }
 }
 
-// Smart Sleep & Memory Power Saver
 document.addEventListener("visibilitychange", () => {
   if (document.hidden) {
     clearInterval(autoCycleTimer);
@@ -1199,7 +1100,7 @@ document.addEventListener("visibilitychange", () => {
 });
 
 /* ============================================================
-   2. Mechanical 3D Split-Flap Clock Engine
+   2. Mechanical 3D Split-Flap Clock
    ============================================================ */
 const flapCache = { 'tile-h1':'', 'tile-h2':'', 'tile-m1':'', 'tile-m2':'', 'tile-s1':'', 'tile-s2':'' };
 
@@ -1228,7 +1129,7 @@ function execute3DFlip(tileId, char) {
     lower.querySelector('span').textContent = char;
     flipUpper.remove();
     flipLower.remove();
-  }, 420);
+  }, 380);
 
   flapCache[tileId] = char;
 }
@@ -1236,27 +1137,33 @@ function execute3DFlip(tileId, char) {
 const DAYS = ['SUNDAY','MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY'];
 const MONTHS = ['JANUARY','FEBRUARY','MARCH','APRIL','MAY','JUNE','JULY','AUGUST','SEPTEMBER','OCTOBER','NOVEMBER','DECEMBER'];
 
+let lastSec = -1;
 function runClockEngine() {
   const now = new Date();
   let hours = now.getHours() % 12 || 12;
   let minutes = now.getMinutes();
   let seconds = now.getSeconds();
-  let ms = Math.floor(now.getMilliseconds() / 10);
 
-  const strH = String(hours).padStart(2, '0');
-  const strM = String(minutes).padStart(2, '0');
-  const strS = String(seconds).padStart(2, '0');
+  if (seconds !== lastSec) {
+    const strH = String(hours).padStart(2, '0');
+    const strM = String(minutes).padStart(2, '0');
+    const strS = String(seconds).padStart(2, '0');
 
-  execute3DFlip('tile-h1', strH[0]);
-  execute3DFlip('tile-h2', strH[1]);
-  execute3DFlip('tile-m1', strM[0]);
-  execute3DFlip('tile-m2', strM[1]);
-  execute3DFlip('tile-s1', strS[0]);
-  execute3DFlip('tile-s2', strS[1]);
+    execute3DFlip('tile-h1', strH[0]);
+    execute3DFlip('tile-h2', strH[1]);
+    execute3DFlip('tile-m1', strM[0]);
+    execute3DFlip('tile-m2', strM[1]);
+    execute3DFlip('tile-s1', strS[0]);
+    execute3DFlip('tile-s2', strS[1]);
 
+    document.getElementById('live-date').textContent = `${DAYS[now.getDay()]}, ${MONTHS[now.getMonth()]} ${now.getDate()}`;
+    document.getElementById('cal-headline').textContent = MONTHS[now.getMonth()];
+    lastSec = seconds;
+  }
+
+  // Smooth throttled milliseconds (prevents CPU choking)
+  const ms = Math.floor(now.getMilliseconds() / 20) * 2;
   document.getElementById('ms-ticker').textContent = String(ms).padStart(2, '0');
-  document.getElementById('live-date').textContent = `${DAYS[now.getDay()]}, ${MONTHS[now.getMonth()]} ${now.getDate()}`;
-  document.getElementById('cal-headline').textContent = MONTHS[now.getMonth()];
 }
 
 function buildCalendarGrid() {
@@ -1405,7 +1312,7 @@ audio.addEventListener('timeupdate', () => {
 audio.addEventListener('ended', nextSong);
 
 /* ============================================================
-   5. Battery & Satellite Live Weather Engine
+   5. Battery & Satellite Live Weather
    ============================================================ */
 if ('getBattery' in navigator) {
   navigator.getBattery().then(bat => {
@@ -1445,197 +1352,218 @@ async function syncDhakaWeather() {
 }
 
 /* ============================================================
-   6. Hyper-Realistic 3D Cat Mascot & Soccer Ball Physics
+   6. Unified Master Canvas (Rain Particles + 3D Cat + Soccer Physics)
    ============================================================ */
-const mCanvas = document.getElementById('mascot-canvas');
-const mCtx = mCanvas.getContext('2d');
+const canvas = document.getElementById('master-engine-canvas');
+const ctx = canvas.getContext('2d');
 
-let mWidth = mCanvas.width = window.innerWidth;
-let mHeight = mCanvas.height = 150;
+let cWidth = canvas.width = window.innerWidth;
+let cHeight = canvas.height = window.innerHeight;
 
 window.addEventListener('resize', () => {
-  mWidth = mCanvas.width = window.innerWidth;
-  mHeight = mCanvas.height = 150;
+  cWidth = canvas.width = window.innerWidth;
+  cHeight = canvas.height = window.innerHeight;
 });
 
+// Weather particles (kept at 35 for high FPS)
+const rainMotes = Array.from({ length: 35 }, () => ({
+  x: Math.random() * cWidth,
+  y: Math.random() * cHeight,
+  speed: 2 + Math.random() * 2.5,
+  len: 14 + Math.random() * 18
+}));
+
+let weatherParticlesEnabled = true;
+
+// Mascot and Soccer physics state
 const cat = {
   x: 280,
-  y: 100,
+  y: cHeight - 65,
   dir: 1,
-  speed: 1.4,
+  speed: 1.2,
   state: 'walk',
   stateTimer: 0,
   walkCycle: 0,
   blink: 0,
   ball: {
     x: 310,
-    y: 125,
+    y: cHeight - 40,
     vx: 0,
     vy: 0,
-    rot: 0,
-    visible: true
+    rot: 0
   }
 };
 
 function drawRealistic3DCat(x, y, dir, legPhase, blinkState) {
-  mCtx.save();
-  mCtx.translate(x, y);
-  mCtx.scale(dir, 1);
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.scale(dir, 1);
 
-  // Volumetric Ambient Occlusion Ground Shadow
-  mCtx.beginPath();
-  mCtx.ellipse(0, 26, 28, 8, 0, 0, Math.PI * 2);
-  mCtx.fillStyle = 'rgba(0, 0, 0, 0.48)';
-  mCtx.filter = 'blur(4px)';
-  mCtx.fill();
-  mCtx.filter = 'none';
+  // Soft Occlusion Shadow
+  ctx.beginPath();
+  ctx.ellipse(0, 26, 26, 7, 0, 0, Math.PI * 2);
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.45)';
+  ctx.fill();
 
-  // 3D S-Curved Articulated Tail
-  mCtx.save();
-  mCtx.translate(-22, 0);
-  mCtx.rotate(Math.sin(legPhase) * 0.4);
-  const tailGrad = mCtx.createLinearGradient(-15, -15, 0, 0);
-  tailGrad.addColorStop(0, '#ffffff');
-  tailGrad.addColorStop(1, '#a6b8c8');
-  mCtx.strokeStyle = tailGrad;
-  mCtx.lineWidth = 6.5;
-  mCtx.lineCap = 'round';
-  mCtx.beginPath();
-  mCtx.quadraticCurveTo(-16, -20, -28, -12);
-  mCtx.stroke();
-  mCtx.restore();
+  // 3D Tail
+  ctx.save();
+  ctx.translate(-22, 0);
+  ctx.rotate(Math.sin(legPhase) * 0.4);
+  ctx.strokeStyle = '#d5e2ed';
+  ctx.lineWidth = 6;
+  ctx.lineCap = 'round';
+  ctx.beginPath();
+  ctx.quadraticCurveTo(-16, -20, -28, -12);
+  ctx.stroke();
+  ctx.restore();
 
-  // 3D Body Sphere with Multi-Stop Radial Lighting
-  const bodyGrad = mCtx.createRadialGradient(-5, -6, 2, 0, 0, 26);
+  // 3D Body
+  const bodyGrad = ctx.createRadialGradient(-5, -6, 2, 0, 0, 26);
   bodyGrad.addColorStop(0, '#ffffff');
   bodyGrad.addColorStop(0.65, '#e8f0f8');
   bodyGrad.addColorStop(1, '#94a7b8');
-  mCtx.fillStyle = bodyGrad;
-  mCtx.beginPath();
-  mCtx.ellipse(0, 6, 24, 17, 0, 0, Math.PI * 2);
-  mCtx.fill();
+  ctx.fillStyle = bodyGrad;
+  ctx.beginPath();
+  ctx.ellipse(0, 6, 24, 17, 0, 0, Math.PI * 2);
+  ctx.fill();
 
   // Dynamic Paws
-  mCtx.fillStyle = '#dbe5ef';
-  const legOffset1 = Math.sin(legPhase) * 6;
-  const legOffset2 = Math.sin(legPhase + Math.PI) * 6;
-  mCtx.beginPath();
-  mCtx.ellipse(-10 + legOffset1, 19, 4.5, 8.5, 0, 0, Math.PI * 2);
-  mCtx.ellipse(10 + legOffset2, 19, 4.5, 8.5, 0, 0, Math.PI * 2);
-  mCtx.fill();
+  ctx.fillStyle = '#dbe5ef';
+  const legOffset1 = Math.sin(legPhase) * 5;
+  const legOffset2 = Math.sin(legPhase + Math.PI) * 5;
+  ctx.beginPath();
+  ctx.ellipse(-10 + legOffset1, 19, 4, 8, 0, 0, Math.PI * 2);
+  ctx.ellipse(10 + legOffset2, 19, 4, 8, 0, 0, Math.PI * 2);
+  ctx.fill();
 
   // 3D Head
-  mCtx.save();
-  mCtx.translate(15, -10);
-  const headGrad = mCtx.createRadialGradient(-3, -3, 2, 0, 0, 17);
+  ctx.save();
+  ctx.translate(15, -10);
+  const headGrad = ctx.createRadialGradient(-3, -3, 2, 0, 0, 17);
   headGrad.addColorStop(0, '#ffffff');
   headGrad.addColorStop(0.7, '#e2ecf5');
   headGrad.addColorStop(1, '#8ea3b5');
-  mCtx.fillStyle = headGrad;
-  mCtx.beginPath();
-  mCtx.arc(0, 0, 16, 0, Math.PI * 2);
-  mCtx.fill();
+  ctx.fillStyle = headGrad;
+  ctx.beginPath();
+  ctx.arc(0, 0, 16, 0, Math.PI * 2);
+  ctx.fill();
 
-  // 3D Ears with Inner Depth
-  mCtx.fillStyle = '#e8eff7';
-  mCtx.beginPath();
-  mCtx.moveTo(-10, -10); mCtx.lineTo(-6, -25); mCtx.lineTo(0, -11); mCtx.fill();
-  mCtx.beginPath();
-  mCtx.moveTo(2, -11); mCtx.lineTo(9, -25); mCtx.lineTo(12, -9); mCtx.fill();
+  // Ears
+  ctx.fillStyle = '#e8eff7';
+  ctx.beginPath();
+  ctx.moveTo(-10, -10); ctx.lineTo(-6, -25); ctx.lineTo(0, -11); ctx.fill();
+  ctx.beginPath();
+  ctx.moveTo(2, -11); ctx.lineTo(9, -25); ctx.lineTo(12, -9); ctx.fill();
 
-  mCtx.fillStyle = '#ffb3c6';
-  mCtx.beginPath();
-  mCtx.moveTo(-8, -11); mCtx.lineTo(-6, -20); mCtx.lineTo(-1, -11); mCtx.fill();
-  mCtx.beginPath();
-  mCtx.moveTo(4, -11); mCtx.lineTo(8, -20); mCtx.lineTo(10, -10); mCtx.fill();
+  ctx.fillStyle = '#ffb3c6';
+  ctx.beginPath();
+  ctx.moveTo(-8, -11); ctx.lineTo(-6, -20); ctx.lineTo(-1, -11); ctx.fill();
+  ctx.beginPath();
+  ctx.moveTo(4, -11); ctx.lineTo(8, -20); ctx.lineTo(10, -10); ctx.fill();
 
-  // Expressive Eyes with Moving Pupils
+  // Expressive Eyes
   if (blinkState < 0.1) {
-    mCtx.fillStyle = '#0f172a';
-    mCtx.beginPath();
-    mCtx.ellipse(4, -2, 2.8, 4.5, 0, 0, Math.PI * 2);
-    mCtx.ellipse(11, -2, 2.8, 4.5, 0, 0, Math.PI * 2);
-    mCtx.fill();
+    ctx.fillStyle = '#0f172a';
+    ctx.beginPath();
+    ctx.ellipse(4, -2, 2.8, 4.5, 0, 0, Math.PI * 2);
+    ctx.ellipse(11, -2, 2.8, 4.5, 0, 0, Math.PI * 2);
+    ctx.fill();
 
-    mCtx.fillStyle = '#ffffff';
-    mCtx.beginPath();
-    mCtx.arc(3.5, -3.5, 1.1, 0, Math.PI * 2);
-    mCtx.arc(10.5, -3.5, 1.1, 0, Math.PI * 2);
-    mCtx.fill();
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    ctx.arc(3.5, -3.5, 1.1, 0, Math.PI * 2);
+    ctx.arc(10.5, -3.5, 1.1, 0, Math.PI * 2);
+    ctx.fill();
   } else {
-    mCtx.strokeStyle = '#334155';
-    mCtx.lineWidth = 1.6;
-    mCtx.beginPath();
-    mCtx.moveTo(1.5, -2); mCtx.lineTo(6.5, -2);
-    mCtx.moveTo(8.5, -2); mCtx.lineTo(13.5, -2);
-    mCtx.stroke();
+    ctx.strokeStyle = '#334155';
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.moveTo(1.5, -2); ctx.lineTo(6.5, -2);
+    ctx.moveTo(8.5, -2); ctx.lineTo(13.5, -2);
+    ctx.stroke();
   }
 
   // Pink Nose
-  mCtx.fillStyle = '#ff8fa3';
-  mCtx.beginPath();
-  mCtx.arc(7.5, 2, 1.8, 0, Math.PI * 2);
-  mCtx.fill();
+  ctx.fillStyle = '#ff8fa3';
+  ctx.beginPath();
+  ctx.arc(7.5, 2, 1.8, 0, Math.PI * 2);
+  ctx.fill();
 
-  mCtx.restore();
-  mCtx.restore();
+  ctx.restore();
+  ctx.restore();
 }
 
 function draw3DSoccerBall(x, y, rot) {
-  mCtx.save();
-  mCtx.translate(x, y);
+  ctx.save();
+  ctx.translate(x, y);
 
-  // Dynamic Ambient Ground Shadow
-  mCtx.beginPath();
-  mCtx.ellipse(0, 9, 9, 3.5, 0, 0, Math.PI * 2);
-  mCtx.fillStyle = 'rgba(0, 0, 0, 0.42)';
-  mCtx.filter = 'blur(2.5px)';
-  mCtx.fill();
-  mCtx.filter = 'none';
+  ctx.beginPath();
+  ctx.ellipse(0, 9, 8, 3, 0, 0, Math.PI * 2);
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+  ctx.fill();
 
-  mCtx.rotate(rot);
+  ctx.rotate(rot);
 
-  // 3D Sphere Specular Grading
-  const ballGrad = mCtx.createRadialGradient(-3, -3, 2, 0, 0, 11);
+  const ballGrad = ctx.createRadialGradient(-3, -3, 2, 0, 0, 11);
   ballGrad.addColorStop(0, '#ffffff');
   ballGrad.addColorStop(0.7, '#d8e3eb');
   ballGrad.addColorStop(1, '#1e293b');
-  mCtx.fillStyle = ballGrad;
-  mCtx.beginPath();
-  mCtx.arc(0, 0, 10, 0, Math.PI * 2);
-  mCtx.fill();
+  ctx.fillStyle = ballGrad;
+  ctx.beginPath();
+  ctx.arc(0, 0, 10, 0, Math.PI * 2);
+  ctx.fill();
 
-  // Soccer Pentagons
-  mCtx.fillStyle = '#0f172a';
-  mCtx.beginPath();
-  mCtx.arc(0, 0, 3.8, 0, Math.PI * 2);
-  mCtx.fill();
+  ctx.fillStyle = '#0f172a';
+  ctx.beginPath();
+  ctx.arc(0, 0, 3.8, 0, Math.PI * 2);
+  ctx.fill();
 
   for (let i = 0; i < 5; i++) {
     const ang = (i * Math.PI * 2) / 5;
-    mCtx.beginPath();
-    mCtx.arc(Math.cos(ang) * 6.5, Math.sin(ang) * 6.5, 2.2, 0, Math.PI * 2);
-    mCtx.fill();
+    ctx.beginPath();
+    ctx.arc(Math.cos(ang) * 6.5, Math.sin(ang) * 6.5, 2.2, 0, Math.PI * 2);
+    ctx.fill();
   }
 
-  mCtx.restore();
+  ctx.restore();
 }
 
-function updateMascotLoop() {
-  mCtx.clearRect(0, 0, mWidth, mHeight);
+// Unified 60 FPS Engine Loop (Combines Rain + Mascot)
+function masterCanvasLoop() {
+  ctx.clearRect(0, 0, cWidth, cHeight);
 
+  // 1. Render Atmospheric Weather
+  if (weatherParticlesEnabled) {
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.22)';
+    ctx.lineWidth = 1.2;
+    for (let i = 0; i < rainMotes.length; i++) {
+      const p = rainMotes[i];
+      ctx.beginPath();
+      ctx.moveTo(p.x, p.y);
+      ctx.lineTo(p.x - 2, p.y + p.len);
+      ctx.stroke();
+
+      p.y += p.speed;
+      p.x -= 0.4;
+      if (p.y > cHeight) { p.y = -20; p.x = Math.random() * cWidth; }
+    }
+  }
+
+  // 2. Render 3D Cat and Soccer Physics
+  cat.y = cHeight - 65;
   cat.stateTimer++;
   cat.blink = Math.sin(cat.stateTimer * 0.05);
 
-  // Multi-Behavior Finite State Machine
+  const groundY = cHeight - 40;
+
   if (cat.state === 'walk') {
     cat.x += cat.dir * cat.speed;
     cat.walkCycle += 0.12;
-    if (cat.x > mWidth - 130) cat.dir = -1;
+    if (cat.x > cWidth - 130) cat.dir = -1;
     if (cat.x < 130) cat.dir = 1;
 
     cat.ball.x = cat.x + cat.dir * 32;
-    cat.ball.y = 125;
+    cat.ball.y = groundY;
 
     if (cat.stateTimer > 450) {
       cat.state = 'dribble';
@@ -1654,16 +1582,15 @@ function updateMascotLoop() {
       cat.ball.vy = -6.2;
     }
   } else if (cat.state === 'kick') {
-    // Parabolic Ball Arc Physics with Friction & Ground Bounce
     cat.ball.x += cat.ball.vx;
     cat.ball.y += cat.ball.vy;
-    cat.ball.vy += 0.38; // Gravity
+    cat.ball.vy += 0.38;
     cat.ball.rot += 0.22;
 
-    if (cat.ball.y > 125) {
-      cat.ball.y = 125;
-      cat.ball.vy = -cat.ball.vy * 0.62; // Kinetic Coefficient of Restitution
-      cat.ball.vx *= 0.85; // Rolling resistance
+    if (cat.ball.y > groundY) {
+      cat.ball.y = groundY;
+      cat.ball.vy = -cat.ball.vy * 0.62;
+      cat.ball.vx *= 0.85;
     }
 
     if (cat.stateTimer > 120) {
@@ -1676,53 +1603,11 @@ function updateMascotLoop() {
   drawRealistic3DCat(cat.x, cat.y, cat.dir, cat.walkCycle, cat.blink > 0.95 ? 1 : 0);
   draw3DSoccerBall(cat.ball.x, cat.ball.y, cat.ball.rot);
 
-  requestAnimationFrame(updateMascotLoop);
+  requestAnimationFrame(masterCanvasLoop);
 }
 
 /* ============================================================
-   7. Atmospheric Weather Particles Canvas
-   ============================================================ */
-const wCanvas = document.getElementById('weather-fx-canvas');
-const wCtx = wCanvas.getContext('2d');
-let wWidth = wCanvas.width = window.innerWidth;
-let wHeight = wCanvas.height = window.innerHeight;
-
-window.addEventListener('resize', () => {
-  wWidth = wCanvas.width = window.innerWidth;
-  wHeight = wCanvas.height = window.innerHeight;
-});
-
-const rainMotes = Array.from({ length: 48 }, () => ({
-  x: Math.random() * wWidth,
-  y: Math.random() * wHeight,
-  speed: 1.6 + Math.random() * 2,
-  len: 16 + Math.random() * 26
-}));
-
-let weatherParticlesEnabled = true;
-
-function renderWeatherAtmosphere() {
-  wCtx.clearRect(0, 0, wWidth, wHeight);
-  if (weatherParticlesEnabled) {
-    wCtx.strokeStyle = 'rgba(255, 255, 255, 0.22)';
-    wCtx.lineWidth = 1.2;
-    for (let i = 0; i < rainMotes.length; i++) {
-      const p = rainMotes[i];
-      wCtx.beginPath();
-      wCtx.moveTo(p.x, p.y);
-      wCtx.lineTo(p.x - 2, p.y + p.len);
-      wCtx.stroke();
-
-      p.y += p.speed;
-      p.x -= 0.5;
-      if (p.y > wHeight) { p.y = -30; p.x = Math.random() * wWidth; }
-    }
-  }
-  requestAnimationFrame(renderWeatherAtmosphere);
-}
-
-/* ============================================================
-   8. Inactivity 30s True Centering Engine
+   7. Inactivity 30s True Centering Engine
    ============================================================ */
 let aodIdleEnabled = true;
 let aodIdleTimer = null;
@@ -1733,12 +1618,12 @@ function resetAodIdleTimer() {
   if (aodIdleEnabled) {
     aodIdleTimer = setTimeout(() => {
       document.body.classList.add('aod-idle-mode');
-    }, 30000); // 30s exact
+    }, 30000);
   }
 }
 
 /* ============================================================
-   9. VisionOS Settings Modal Handlers
+   8. Settings Modal Handlers
    ============================================================ */
 function openSettingsModal() { document.getElementById('settings-modal').classList.add('active'); }
 function closeSettingsModal() { document.getElementById('settings-modal').classList.remove('active'); }
@@ -1756,7 +1641,7 @@ function togglePrefWeather() {
 }
 
 /* ============================================================
-   10. System Initialization
+   9. System Launch
    ============================================================ */
 loadTheme(0);
 buildCalendarGrid();
@@ -1766,14 +1651,12 @@ updateMarketCurves();
 applyTimeOfDay();
 syncDhakaWeather();
 resetAodIdleTimer();
-updateMascotLoop();
-renderWeatherAtmosphere();
+masterCanvasLoop();
 
-// High-Precision Real-time Loops
-setInterval(runClockEngine, 50); // Hyper-fluid 50ms for milliseconds & flip clock
-setInterval(updateMarketCurves, 3500); // Live trading ticks
-setInterval(syncForexRates, 3600000); // Hourly intelligent sync
-setInterval(syncDhakaWeather, 1200000); // 20-min weather sync
+setInterval(runClockEngine, 30);
+setInterval(updateMarketCurves, 3500);
+setInterval(syncForexRates, 3600000);
+setInterval(syncDhakaWeather, 1200000);
 </script>
 </body>
 </html>
