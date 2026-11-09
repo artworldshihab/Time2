@@ -1,1799 +1,574 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Apple VisionOS Ultra Liquid Glass V20 — Avionics Master TV Edition</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>TATHOI - 3D Deep Space Universe</title>
 
-<!-- Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@700&family=Cinzel:wght@600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <!-- Google Fonts: Luxury High-Contrast Serif -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Playfair+Display:ital,wght@1,900&display=swap" rel="stylesheet">
 
-<!-- Firebase App & Realtime Database SDKs -->
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-user-select: none;
+    }
 
-<style>
-/* ================= 1. Dynamic Glass Tokens & GPU Optimization ================= */
-:root {
-  --accent: #30d158;
-  --accent-glow: rgba(48, 209, 88, 0.45);
-  
-  /* Pure Apple Water-Clear Liquid Glass */
-  --glass-opacity: 0.12;
-  --glass-blur: 24px;
-  --water-glass-bg: linear-gradient(135deg, rgba(255, 255, 255, var(--glass-opacity)) 0%, rgba(255, 255, 255, 0.02) 60%, rgba(255, 255, 255, 0.08) 100%);
-  --water-glass-border: rgba(255, 255, 255, 0.22);
-  --water-specular-top: rgba(255, 255, 255, 0.75);
-  --water-specular-inner: rgba(255, 255, 255, 0.5);
-  
-  --day-tint: rgba(0, 0, 0, 0.12);
-  --screen-brightness: 1;
-  --digit-water-tint: rgba(255, 255, 255, 0.85);
-  
-  /* Dynamic Load Colors for Hardware HUD Rows */
-  --cpu-color: #00f0ff;
-  --gpu-color: #ff9f0a;
-  --ram-color: #30d158;
-}
+    /* পিওর ডিপ ব্ল্যাক ইউনিভার্স ব্যাকগ্রাউন্ড */
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #000000;
+      font-family: 'Cinzel Decorative', 'Playfair Display', serif;
+    }
 
-* {
-  margin: 0; padding: 0; box-sizing: border-box;
-  user-select: none; -webkit-user-select: none;
-  -webkit-tap-highlight-color: transparent;
-}
+    #webgl-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      display: block;
+    }
 
-html, body {
-  width: 100vw; height: 100vh; overflow: hidden;
-  background-color: #000104;
-  font-family: 'Inter', -apple-system, sans-serif;
-  color: #ffffff; position: relative;
-  filter: brightness(var(--screen-brightness));
-  transition: filter 0.25s ease;
-}
+    /* ইউনিভার্স লাক্সারি গ্লাস লোডার */
+    #loader-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 999;
+      background: radial-gradient(circle at center, #100014 0%, #000000 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+    }
 
-/* TV Remote D-Pad VisionOS Specular Focus Ring */
-:focus-visible, .dpad-focused {
-  outline: 3px solid var(--accent) !important;
-  outline-offset: 4px !important;
-  box-shadow: 0 0 25px var(--accent), inset 0 0 10px var(--accent) !important;
-  transform: scale(1.025) !important;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
+    #loader-screen.fade-out {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
 
-/* TV Hardware GPU Isolation */
-.glass-tile-card, .timepiece-stage, .altimeter-tape-tile, .launcher-container {
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  backface-visibility: hidden;
-  contain: layout style paint;
-}
+    .loader-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 42, 133, 0.4);
+      border-radius: 24px;
+      padding: 42px 36px;
+      text-align: center;
+      box-shadow: 0 0 60px rgba(255, 20, 147, 0.35), inset 0 0 25px rgba(255, 20, 147, 0.15);
+      backdrop-filter: blur(18px);
+      max-width: 320px;
+      width: 86%;
+      animation: floatUniverse 3.5s ease-in-out infinite alternate;
+    }
 
-/* ================= 2. 4K Wallpaper Stack ================= */
-#wallpaper-stack { position: absolute; inset: 0; z-index: 1; }
-.wallpaper-layer {
-  position: absolute; inset: 0; background-size: cover; background-position: center center;
-  opacity: 0; transition: opacity 2s cubic-bezier(0.4, 0, 0.2, 1);
-  filter: brightness(0.68) contrast(1.15) saturate(1.22);
-  will-change: opacity; transform: translateZ(0);
-}
-.wallpaper-layer.active { opacity: 1; }
-.day-tint-mask { position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: multiply; background: var(--day-tint); }
-.cinematic-vignette { position: absolute; inset: 0; z-index: 3; pointer-events: none; background: radial-gradient(circle at 75% 38%, rgba(0,0,0,0.01) 0%, rgba(1,3,8,0.75) 100%); }
-#atmosphere-stage { position: absolute; inset: 0; z-index: 4; pointer-events: none; overflow: hidden; }
+    .heart-icon-box {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 18px;
+    }
 
-.rain-drop-mote { position: absolute; top: -10%; width: 1.4px; height: 48px; background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.5)); animation: fallDown linear infinite; }
-.snow-flake-mote { position: absolute; top: -6%; border-radius: 50%; background: rgba(255,255,255,0.88); animation: snowDrift linear infinite; }
-.firefly-mote { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent); animation: floatMote ease-in-out infinite alternate; }
-.sunbeam-ray { position: absolute; top: -15%; right: 15%; width: 2px; height: 70vh; background: linear-gradient(to bottom, rgba(255,220,160,0.28), transparent); animation: swingRay 8s ease-in-out infinite alternate; }
+    .heart-icon-box svg {
+      width: 100%;
+      height: 100%;
+      fill: #ff2a85;
+      filter: drop-shadow(0 0 20px #ff2a85) drop-shadow(0 0 40px #ff73b3);
+      animation: pulseGlow 1.1s infinite alternate cubic-bezier(0.2, 0.8, 0.4, 1);
+    }
 
-@keyframes fallDown { to { transform: translateY(115vh); } }
-@keyframes snowDrift { 0% { transform: translateY(0) translateX(0); } 100% { transform: translateY(116vh) translateX(30px); } }
-@keyframes floatMote { 0% { transform: translateY(0) scale(0.8); opacity: 0.3; } 100% { transform: translateY(-40px) scale(1.4); opacity: 0.9; } }
-@keyframes swingRay { 0% { transform: rotate(-5deg); } 100% { transform: rotate(5deg); } }
+    .loader-title {
+      font-size: 26px;
+      letter-spacing: 6px;
+      color: #ffffff;
+      text-shadow: 0 0 15px #ff2a85, 0 0 35px #ff73b3;
+      margin-bottom: 24px;
+      font-weight: 900;
+    }
 
-/* Cloud Sync Live Notification Banner */
-.tv-toast-banner {
-  position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
-  background: var(--water-glass-bg); backdrop-filter: blur(30px);
-  border: 1px solid var(--accent); padding: 8px 24px; border-radius: 99px;
-  font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 1.5px;
-  color: #ffffff; box-shadow: 0 10px 30px var(--accent-glow);
-  z-index: 200; transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.tv-toast-banner.show { top: 20px; }
+    .enter-btn {
+      background: linear-gradient(135deg, #ff2a85, #ff73b3);
+      border: none;
+      color: #fff;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      padding: 13px 30px;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 0 25px rgba(255, 42, 133, 0.8);
+      transition: all 0.3s ease;
+      display: inline-block;
+      text-transform: uppercase;
+    }
 
-/* ================= 3. Top Status Bar ================= */
-.top-status-bar {
-  position: absolute; top: 24px; right: 36px; z-index: 90;
-  display: flex; gap: 12px; align-items: center;
-}
-.status-capsule-btn {
-  display: flex; align-items: center; gap: 8px;
-  background: var(--water-glass-bg); backdrop-filter: blur(var(--glass-blur)) saturate(190%);
-  border: 1px solid var(--water-glass-border); border-top: 1.5px solid var(--water-specular-top);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.4), inset 0 1px 1px var(--water-specular-inner);
-  padding: 7px 16px; border-radius: 99px; cursor: pointer;
-  font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 1.5px;
-  color: #ffffff; transition: all 0.25s ease;
-}
-.status-capsule-btn:hover { border-color: var(--accent); transform: scale(1.03); }
-.pulse-dot-indicator { width: 7px; height: 7px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 12px var(--accent); }
-.pulse-dot-indicator.off { background: #ff453a; box-shadow: none; }
-.nav-vector-icon { width: 13px; height: 13px; fill: currentColor; }
+    .enter-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 45px rgba(255, 42, 133, 1);
+    }
 
-/* ================= 4. Viewport & 30s True Centering ================= */
-.aod-master-viewport {
-  position: relative; width: 100%; height: 100%;
-  display: grid; grid-template-columns: 330px 1fr; align-items: center;
-  padding: 3vh 4vw; z-index: 10;
-  transition: grid-template-columns 1.4s cubic-bezier(0.16, 1, 0.3, 1), padding 1.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-body.aod-idle-mode .aod-master-viewport { grid-template-columns: 0px 1fr; padding: 0; }
-body.aod-idle-mode .left-dock-column { opacity: 0; transform: translateX(-40px); pointer-events: none; }
-body.aod-idle-mode .timepiece-stage { transform: scale(1.24); margin-left: 0; }
-body.aod-idle-mode .top-status-bar { opacity: 0.15; }
+    @keyframes pulseGlow {
+      0% { transform: scale(0.92); opacity: 0.85; }
+      100% { transform: scale(1.16); opacity: 1; filter: drop-shadow(0 0 30px #ff1493); }
+    }
 
-.left-dock-column {
-  height: 94vh; display: flex; flex-direction: column; justify-content: space-between;
-  gap: 5px; z-index: 85; position: relative; transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
+    @keyframes floatUniverse {
+      0% { transform: translateY(-6px); }
+      100% { transform: translateY(6px); }
+    }
 
-/* ================= 5. Liquid Specular Glass Tiles ================= */
-.glass-tile-card {
-  position: relative; border-radius: 18px;
-  background: var(--water-glass-bg);
-  backdrop-filter: blur(var(--glass-blur)) saturate(190%);
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(190%);
-  border: 1px solid var(--water-glass-border);
-  border-top: 1.5px solid var(--water-specular-top);
-  border-left: 1.2px solid var(--water-specular-inner);
-  box-shadow: 0 18px 45px rgba(0,0,0,0.45), inset 0 1.5px 2px rgba(255,255,255,0.6), inset 0 -1.5px 2px rgba(0,0,0,0.2);
-  padding: 8px 12px; overflow: hidden; transition: border-color 0.25s ease;
-}
-.glass-tile-card:hover { border-color: rgba(255,255,255,0.45); }
+    /* মিনিমাল সাউন্ড বাটন */
+    .mini-audio-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 42, 133, 0.25);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 105, 180, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(255, 20, 147, 0.6);
+      transition: all 0.3s ease;
+    }
 
-.smart-info-row { display: flex; justify-content: space-between; align-items: center; }
-.greeting-banner-txt { font-family: 'Cinzel', serif; font-size: 8.5px; font-weight: 700; letter-spacing: 1.2px; color: var(--accent); }
-.prayer-time-badge { font-family: 'JetBrains Mono', monospace; font-size: 8px; background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.2); }
+    .mini-audio-btn:hover {
+      transform: scale(1.12);
+    }
 
-/* Calendar */
-.cal-title-bar { font-family: 'Cinzel', serif; font-size: 8.5px; font-weight: 700; letter-spacing: 1.5px; color: rgba(255,255,255,0.75); margin-bottom: 2px; display: flex; justify-content: space-between; align-items: center; }
-.cal-days-head { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-size: 6.5px; color: rgba(255,255,255,0.4); margin-bottom: 2px; }
-.cal-numbers-grid { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; gap: 2px; font-size: 8px; color: rgba(255,255,255,0.9); }
-.cal-numbers-grid span { display: flex; align-items: center; justify-content: center; width: 16px; height: 16px; border-radius: 50%; position: relative; }
-.cal-numbers-grid span.active-today {
-  background: var(--accent); color: #000; font-weight: 800;
-  box-shadow: 0 0 14px var(--accent); animation: todayBlink 1.8s infinite ease-in-out;
-}
-.cal-numbers-grid span.active-today::after {
-  content: ''; position: absolute; inset: -2px; border-radius: 50%;
-  border: 1.5px solid var(--accent); animation: ringPulse 1.8s infinite ease-in-out;
-}
-@keyframes todayBlink { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
-@keyframes ringPulse { 0% { transform: scale(0.9); opacity: 0.8; } 100% { transform: scale(1.4); opacity: 0; } }
+    .mini-audio-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: #ffffff;
+      filter: drop-shadow(0 0 4px #ff1493);
+    }
 
-/* Real Google News Card */
-.google-news-card { display: flex; align-items: center; gap: 8px; height: 48px; }
-.news-thumb-img { width: 34px; height: 34px; border-radius: 7px; object-fit: cover; border: 1px solid rgba(255,255,255,0.2); flex-shrink: 0; }
-.news-content-col { display: flex; flex-direction: column; overflow: hidden; }
-.news-tag-category { font-family: 'Cinzel', serif; font-size: 6.5px; font-weight: 700; color: var(--accent); letter-spacing: 0.8px; }
-.news-headline-txt { font-family: 'Syne', sans-serif; font-size: 8px; font-weight: 600; line-height: 1.25; color: #ffffff; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    /* কুইক টুলবার */
+    .media-config-bar {
+      position: fixed;
+      bottom: 15px;
+      left: 15px;
+      z-index: 100;
+      display: flex;
+      gap: 10px;
+    }
 
-/* HARDWARE TELEMETRY SERIAL LIST (CPU, GPU, RAM Formatted in Separate Rows like Market Tickers) */
-.hardware-serial-list {
-  display: flex; flex-direction: column; gap: 5px;
-}
-.serial-stat-row {
-  display: grid; grid-template-columns: 60px 1fr 65px; align-items: center; gap: 6px; height: 20px;
-}
-.stat-name-col { display: flex; flex-direction: column; }
-.stat-label-title { font-family: 'JetBrains Mono', monospace; font-size: 8px; font-weight: 800; }
-.stat-sub-spec { font-size: 6px; color: rgba(255,255,255,0.45); }
-.stat-sparkline-svg { width: 100%; height: 18px; overflow: visible; }
-.stat-readout-col { text-align: right; font-family: 'JetBrains Mono', monospace; }
-.stat-primary-pct { font-size: 9px; font-weight: 700; }
-.stat-load-indicator { font-size: 6.5px; font-weight: 700; }
+    .config-label {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 105, 180, 0.4);
+      color: #fff;
+      font-size: 11px;
+      letter-spacing: 1px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      backdrop-filter: blur(6px);
+      transition: all 0.2s ease;
+      font-family: sans-serif;
+    }
 
-/* App Launcher */
-.launcher-container { position: relative; width: 100%; height: 96px; overflow: hidden; border-radius: 14px; }
-.launcher-slider { display: flex; width: 200%; height: 100%; transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1); }
-.launcher-panel { width: 50%; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: 1px; }
-.panel-label { font-family: 'Cinzel', serif; font-size: 7px; letter-spacing: 1px; color: rgba(255,255,255,0.65); }
-.app-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
-.tv-app-btn {
-  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18);
-  padding: 4px 2px; border-radius: 7px; font-size: 6px; color: #fff;
-  text-align: center; cursor: pointer; text-decoration: none; font-weight: 600;
-  display: flex; flex-direction: column; align-items: center; gap: 2px; transition: all 0.2s;
-}
-.tv-app-btn svg { width: 15px; height: 15px; }
-.tv-app-btn:hover { background: var(--accent); color: #000; }
+    .config-label:hover {
+      background: rgba(255, 42, 133, 0.3);
+      box-shadow: 0 0 15px rgba(255, 42, 133, 0.5);
+    }
+  </style>
 
-/* Music Player */
-.music-player-box { display: flex; flex-direction: column; justify-content: space-between; height: 100%; }
-.music-mood-bar { display: flex; gap: 3px; overflow-x: auto; scrollbar-width: none; }
-.mood-chip { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); font-size: 6px; padding: 1px 4px; border-radius: 4px; cursor: pointer; white-space: nowrap; font-family: 'Cinzel', serif; }
-.mood-chip.active { background: var(--accent); color: #000; font-weight: 700; }
-.song-info-row { display: flex; align-items: center; justify-content: space-between; }
-.song-title-txt { font-family: 'Syne', sans-serif; font-size: 8px; font-weight: 700; color: var(--accent); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
-.visualizer-spectrum-tray { display: flex; align-items: flex-end; gap: 2px; height: 9px; }
-.spectrum-bar { width: 2px; height: 2px; background: var(--accent); border-radius: 1px; }
-.spectrum-active .spectrum-bar:nth-child(1) { animation: barDance 0.4s infinite alternate; }
-.spectrum-active .spectrum-bar:nth-child(2) { animation: barDance 0.6s infinite alternate 0.1s; }
-.spectrum-active .spectrum-bar:nth-child(3) { animation: barDance 0.3s infinite alternate 0.2s; }
-.spectrum-active .spectrum-bar:nth-child(4) { animation: barDance 0.5s infinite alternate 0.15s; }
-@keyframes barDance { 0% { height: 2px; } 100% { height: 9px; } }
-.music-controls { display: flex; align-items: center; justify-content: center; gap: 8px; }
-.m-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); width: 19px; height: 19px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #fff; }
-.m-btn svg { width: 8px; height: 8px; fill: currentColor; }
-.m-btn:hover { background: var(--accent); color: #000; }
-.swipe-pill-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 2px 7px; border-radius: 6px; font-size: 6.5px; cursor: pointer; color: #fff; display: flex; align-items: center; gap: 3px; }
-
-/* Apple iOS Wi-Fi Control Card */
-.widget-row { display: flex; gap: 5px; align-items: center; }
-.power-compact-pill { flex: 1; display: flex; align-items: center; gap: 6px; padding: 6px 8px !important; }
-.power-ring { position: relative; width: 17px; height: 17px; }
-.power-ring svg { transform: rotate(-90deg); width: 17px; height: 17px; }
-.rail-bg { stroke: rgba(255,255,255,0.15); stroke-width: 2.8; fill: none; }
-.rail-fill { stroke: var(--accent); stroke-width: 2.8; stroke-linecap: round; fill: none; stroke-dasharray: 60; stroke-dashoffset: 0; transition: stroke-dashoffset 0.6s ease; }
-.power-pct { font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 700; line-height: 1; }
-
-.wifi-toggle-box {
-  flex: 1.15; padding: 6px 9px !important; display: flex;
-  align-items: center; justify-content: space-between; cursor: pointer;
-  pointer-events: auto !important; z-index: 95;
-}
-.wifi-info-col { display: flex; flex-direction: column; }
-.wifi-ios-icon-svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; transition: stroke 0.25s ease; }
-.wifi-toggle-box.offline .wifi-ios-icon-svg { stroke: #ff453a !important; opacity: 0.6; }
-.wifi-hardware-led-row { display: flex; align-items: center; gap: 4px; margin-top: 2px; }
-.hardware-led-dot { width: 5px; height: 5px; border-radius: 50%; background: #30d158; box-shadow: 0 0 8px #30d158; }
-.hardware-led-dot.disconnected { background: #ff453a !important; box-shadow: 0 0 8px #ff453a !important; }
-.wifi-status-caption { font-family: 'JetBrains Mono', monospace; font-size: 6.5px; font-weight: 700; }
-.wifi-meter-number { font-family: 'JetBrains Mono', monospace; font-size: 7px; font-weight: 700; color: var(--accent); }
-
-.weather-dock-pill { display: flex; align-items: center; justify-content: space-between; padding: 6px 10px !important; }
-.weather-city-caption { font-family: 'Cinzel', serif; font-size: 7.5px; font-weight: 700; letter-spacing: 0.8px; color: rgba(255,255,255,0.85); }
-.weather-digits-big { font-size: 18px; font-weight: 300; line-height: 1; }
-
-/* ================= 6. AVIONICS ALTIMETER HUD & HACKER STREAM CLOCK ================= */
-.timepiece-stage {
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  perspective: 1400px; transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform;
-}
-.date-banner {
-  font-family: 'Cinzel', serif; font-size: 17px; font-weight: 700; letter-spacing: 4px;
-  text-transform: uppercase; color: rgba(255,255,255,0.95); margin-bottom: 14px;
-  text-shadow: 0 4px 20px rgba(0,0,0,0.9);
-}
-.altimeter-clock-frame {
-  position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 1vw;
-}
-.hud-digit-pair { display: flex; gap: 0.35vw; }
-
-/* Aircraft Avionics Altimeter Altitude Drum / Matrix Tape Tile */
-.altimeter-tape-tile {
-  position: relative; width: 9vw; height: 16vw;
-  box-shadow: 0 20px 45px rgba(0,0,0,0.55); border-radius: 18px;
-  background: var(--water-glass-bg); backdrop-filter: blur(var(--glass-blur)) saturate(190%);
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(190%);
-  border: 1px solid var(--water-glass-border);
-  box-shadow: inset 0 1.5px 2px rgba(255,255,255,0.65), inset 0 -1.5px 2px rgba(0,0,0,0.2);
-  overflow: hidden;
-}
-
-/* Avionics Pitch / Altitude Ladder Lines */
-.altimeter-tape-tile::before {
-  content: ''; position: absolute; inset: 0; pointer-events: none;
-  background: repeating-linear-gradient(180deg, transparent, transparent 18px, rgba(255,255,255,0.06) 19px, transparent 20px);
-  z-index: 5;
-}
-
-.altimeter-tape-tile::after {
-  content: ''; position: absolute; top: 50%; left: 0; width: 100%; height: 1.5px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  transform: translateY(-50%); z-index: 6; opacity: 0.6;
-}
-
-/* Avionics Tape Drum Stream */
-.altimeter-drum-stream {
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  display: flex; align-items: center; justify-content: center;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.hud-digit-text {
-  font-family: 'Antonio', sans-serif; font-size: 15vw; font-weight: 700;
-  text-align: center; color: #ffffff;
-  background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.35) 50%, var(--digit-water-tint) 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 1.4px rgba(255,255,255,0.65);
-  filter: drop-shadow(0 14px 28px rgba(0,0,0,0.85));
-  transition: background 1.5s ease;
-}
-
-.altimeter-roll-down { animation: avionicsAltitudeRoll 0.38s cubic-bezier(0.16, 1, 0.3, 1); }
-@keyframes avionicsAltitudeRoll {
-  0% { transform: translateY(-40px) scale(0.9); opacity: 0.3; filter: blur(4px); }
-  100% { transform: translateY(0) scale(1); opacity: 1; filter: blur(0); }
-}
-
-.hud-colon {
-  font-family: 'Antonio', sans-serif; font-size: 9.5vw; color: rgba(255,255,255,0.85);
-  margin: 0 0.2vw; animation: colonFade 2s infinite ease-in-out;
-}
-@keyframes colonFade { 0%, 100% { opacity: 0.9; } 50% { opacity: 0.35; } }
-
-.seconds-ms-dock {
-  position: absolute; right: -7.5vw; bottom: 14%; display: flex; flex-direction: column; align-items: center; gap: 4px;
-}
-.mini-sec-box { display: flex; gap: 3px; }
-.altimeter-tape-tile.sec-tile { width: 2.8vw; height: 4.8vw; border-radius: 10px; }
-.altimeter-tape-tile.sec-tile .hud-digit-text { font-size: 4.2vw; }
-
-.ms-ticker-container { min-width: 2.4ch; text-align: center; contain: layout style paint; }
-.ms-ticker { font-family: 'JetBrains Mono', monospace; font-size: 1.1vw; font-weight: 700; color: var(--accent); letter-spacing: 1px; font-variant-numeric: tabular-nums; }
-
-/* ================= 7. Mascot & Laser Dot ================= */
-#cat-stage-canvas { position: absolute; bottom: 0; left: 0; width: 100vw; height: 140px; z-index: 20; pointer-events: none; transform: translateZ(0); }
-.laser-target-dot { position: absolute; width: 8px; height: 8px; border-radius: 50%; background: #ff003c; box-shadow: 0 0 14px #ff003c, 0 0 25px #ff003c; pointer-events: none; z-index: 30; display: none; transform: translate(-50%, -50%); }
-
-/* ================= 8. VisionOS Settings Modal ================= */
-.settings-modal {
-  position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(28px);
-  z-index: 100; display: flex; align-items: center; justify-content: center;
-  opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
-}
-.settings-modal.active { opacity: 1; pointer-events: auto; }
-.settings-card {
-  width: 500px; max-width: 90vw; background: rgba(255,255,255,0.1); backdrop-filter: blur(35px);
-  border: 1px solid rgba(255,255,255,0.28); border-top: 1.5px solid rgba(255,255,255,0.65);
-  border-radius: 24px; padding: 22px; box-shadow: 0 30px 70px rgba(0,0,0,0.85);
-}
-.settings-header { display: flex; justify-content: space-between; align-items: center; font-family: 'Cinzel', serif; font-size: 13px; letter-spacing: 2px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.15); }
-.settings-row { display: flex; justify-content: space-between; align-items: center; margin: 10px 0; font-size: 11px; }
-
-.stepper-btn-group { display: flex; align-items: center; gap: 8px; }
-.stepper-btn { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); color: #fff; width: 28px; height: 28px; border-radius: 8px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; }
-.stepper-btn:hover { background: var(--accent); color: #000; }
-.brightness-display { font-family: 'JetBrains Mono', monospace; font-size: 11px; min-width: 45px; text-align: center; font-weight: 700; }
-
-.speed-test-box { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); border-radius: 14px; padding: 10px; margin: 8px 0; display: flex; flex-direction: column; gap: 6px; }
-.speed-test-row { display: flex; justify-content: space-between; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; }
-.speed-test-btn { background: var(--accent); border: none; color: #000; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 9.5px; padding: 5px 12px; border-radius: 7px; cursor: pointer; }
-
-.toggle-switch { width: 42px; height: 22px; background: rgba(255,255,255,0.2); border-radius: 11px; position: relative; cursor: pointer; transition: 0.25s; }
-.toggle-switch.active { background: var(--accent); }
-.toggle-switch::after { content: ''; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; background: #fff; border-radius: 50%; transition: 0.25s; }
-.toggle-switch.active::after { left: 22px; }
-.close-modal-btn { background: var(--accent); border: none; color: #000; font-weight: 700; padding: 8px 18px; border-radius: 10px; cursor: pointer; float: right; margin-top: 10px; }
-</style>
+  <!-- Three.js + OrbitControls -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 </head>
-<body onclick="handleGlobalClick(event)" onkeydown="resetAodIdleTimer()" onmousemove="resetAodIdleTimer()">
+<body>
 
-<!-- Cloud Sync Live Notification Banner -->
-<div class="tv-toast-banner" id="tv-toast">CLOUD COMMAND RECEIVED</div>
+  <!-- থ্রিডি ক্যানভাস -->
+  <canvas id="webgl-canvas"></canvas>
 
-<!-- 1. Live 4K Wallpaper Stack -->
-<div id="wallpaper-stack">
-  <div class="wallpaper-layer active" id="wall-layer-a"></div>
-  <div class="wallpaper-layer" id="wall-layer-b"></div>
-</div>
-<div class="day-tint-mask" id="day-tint"></div>
-<div class="cinematic-vignette"></div>
-<div id="atmosphere-stage"></div>
-
-<!-- Interactive Red Laser Pointer -->
-<div class="laser-target-dot" id="laser-dot"></div>
-
-<!-- Top Status Nav Bar -->
-<aside class="top-status-bar">
-  <div class="status-capsule-btn" onclick="toggleAutoThemeCycle()" id="auto-theme-badge" tabindex="0">
-    <span class="pulse-dot-indicator off" id="auto-dot"></span>
-    <span id="auto-theme-txt">AUTO 15S: OFF</span>
-  </div>
-  <div class="status-capsule-btn" onclick="triggerNextThemeManual()" tabindex="0">
-    <svg class="nav-vector-icon" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 18.25c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.9-1.9C9.22 18.57 10.57 19 12 19c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 14c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/></svg>
-    <span>NEXT THEME</span>
-  </div>
-  <div class="status-capsule-btn" onclick="openSettingsModal()" tabindex="0">
-    <svg class="nav-vector-icon" viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
-    <span>SETTINGS</span>
-  </div>
-</aside>
-
-<!-- Master Viewport Grid -->
-<main class="aod-master-viewport">
-
-  <!-- Left Liquid Dock -->
-  <section class="left-dock-column">
-
-    <!-- Smart Greeting & Live Prayer Countdown -->
-    <div class="glass-tile-card" tabindex="0">
-      <div class="smart-info-row">
-        <span class="greeting-banner-txt" id="greeting-banner-txt">GOOD DAY, MASTER</span>
-        <span class="prayer-time-badge" id="prayer-time-badge">DHUHR IN 25M</span>
-      </div>
-    </div>
-
-    <!-- Calendar with Active Glowing Blink -->
-    <div class="glass-tile-card" tabindex="0">
-      <div class="cal-title-bar">
-        <span id="cal-headline">OCTOBER</span>
-        <span style="font-size:7px;color:var(--accent);">WORLD CLASS</span>
-      </div>
-      <div class="cal-days-head"><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span></div>
-      <div class="cal-numbers-grid" id="cal-grid"></div>
-    </div>
-
-    <!-- Real Google Breaking News Live Box with Dynamic Image -->
-    <div class="glass-tile-card google-news-card" tabindex="0">
-      <img src="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=100&q=80&auto=format&fit=crop" class="news-thumb-img" id="news-img" alt="News">
-      <div class="news-content-col">
-        <span class="news-tag-category" id="news-tag">GOOGLE BREAKING</span>
-        <div class="news-headline-txt" id="news-headline">Fetching live world headlines from Google News...</div>
-      </div>
-    </div>
-
-    <!-- HARDWARE TELEMETRY SERIAL LIST (CPU, GPU, RAM In Individual Sparkline Rows) -->
-    <div class="glass-tile-card" tabindex="0">
-      <div class="hardware-serial-list">
-        
-        <!-- CPU Row -->
-        <div class="serial-stat-row">
-          <div class="stat-name-col">
-            <span class="stat-label-title" style="color:var(--cpu-color);">CPU LOAD</span>
-            <span class="stat-sub-spec">ARM 8-CORE</span>
-          </div>
-          <svg class="stat-sparkline-svg" viewBox="0 0 65 18">
-            <path id="spark-cpu-line" fill="none" stroke="var(--cpu-color)" stroke-width="1.8" stroke-linecap="round"></path>
-          </svg>
-          <div class="stat-readout-col">
-            <div class="stat-primary-pct" id="cpu-pct-val" style="color:var(--cpu-color);">28%</div>
-            <div class="stat-load-indicator" id="cpu-load-tag" style="color:var(--cpu-color);">OPTIMAL</div>
-          </div>
-        </div>
-
-        <hr style="border:none; border-top:1px solid rgba(255,255,255,0.08);">
-
-        <!-- GPU Row -->
-        <div class="serial-stat-row">
-          <div class="stat-name-col">
-            <span class="stat-label-title" style="color:var(--gpu-color);">GPU VRAM</span>
-            <span class="stat-sub-spec">MALI G31</span>
-          </div>
-          <svg class="stat-sparkline-svg" viewBox="0 0 65 18">
-            <path id="spark-gpu-line" fill="none" stroke="var(--gpu-color)" stroke-width="1.8" stroke-linecap="round"></path>
-          </svg>
-          <div class="stat-readout-col">
-            <div class="stat-primary-pct" id="gpu-pct-val" style="color:var(--gpu-color);">34%</div>
-            <div class="stat-load-indicator" id="gpu-load-tag" style="color:var(--gpu-color);">STABLE</div>
-          </div>
-        </div>
-
-        <hr style="border:none; border-top:1px solid rgba(255,255,255,0.08);">
-
-        <!-- RAM Row -->
-        <div class="serial-stat-row">
-          <div class="stat-name-col">
-            <span class="stat-label-title" style="color:var(--ram-color);">RAM USAGE</span>
-            <span class="stat-sub-spec">HEAP HEURISTIC</span>
-          </div>
-          <svg class="stat-sparkline-svg" viewBox="0 0 65 18">
-            <path id="spark-ram-line" fill="none" stroke="var(--ram-color)" stroke-width="1.8" stroke-linecap="round"></path>
-          </svg>
-          <div class="stat-readout-col">
-            <div class="stat-primary-pct" id="ram-pct-val" style="color:var(--ram-color);">46%</div>
-            <div class="stat-load-indicator" id="ram-load-tag" style="color:var(--ram-color);">NORMAL</div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Official TV App Launcher (Direct Universal App Schemes) -->
-    <div class="glass-tile-card" tabindex="0">
-      <div class="launcher-container">
-        <div class="launcher-slider" id="launcher-slider">
-          
-          <!-- Native Apps -->
-          <div class="launcher-panel">
-            <div class="panel-label">OFFICIAL TV APP LAUNCHER</div>
-            <div class="app-grid">
-              <div class="tv-app-btn" onclick="launchTVApp('youtube')" tabindex="0">
-                <svg viewBox="0 0 24 24"><path fill="#FF0000" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z"/><polygon fill="#FFF" points="9.545,15.568 15.818,12 9.545,8.432"/></svg>
-                <span>YouTube</span>
-              </div>
-              <div class="tv-app-btn" onclick="launchTVApp('netflix')" tabindex="0">
-                <svg viewBox="0 0 24 24"><path fill="#E50914" d="M5.398 0v24c1.828-.316 3.656-.632 5.484-.948V9.122l4.896 14.184 5.378-.93V0h-5.26v14.07L10.776 0H5.398z"/></svg>
-                <span>Netflix</span>
-              </div>
-              <div class="tv-app-btn" onclick="launchTVApp('prime')" tabindex="0">
-                <svg viewBox="0 0 24 24"><path fill="#00A8E1" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
-                <span>Prime</span>
-              </div>
-              <div class="tv-app-btn" onclick="launchTVApp('playstore')" tabindex="0">
-                <svg viewBox="0 0 24 24"><path fill="#00C1A6" d="M3.6 1.4L13.8 12 3.6 22.6c-.4-.4-.6-1-.6-1.7V3.1c0-.7.2-1.3.6-1.7z"/><path fill="#FFD400" d="M17.3 8.5l-3.5 3.5 3.5 3.5 3.9-2.2c1.1-.6 1.1-1.7 0-2.3l-3.9-2.5z"/><path fill="#FF3A44" d="M13.8 12L3.6 1.4 17.3 8.5l-3.5 3.5z"/><path fill="#00E676" d="M13.8 12l3.5 3.5-13.7 7.1L13.8 12z"/></svg>
-                <span>Play Store</span>
-              </div>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-              <span style="font-size:7px;color:rgba(255,255,255,.4);">Panel 1 of 2</span>
-              <button class="swipe-pill-btn" onclick="slideLauncher(1)" tabindex="0">Music Engine ➔</button>
-            </div>
-          </div>
-
-          <!-- Music Player -->
-          <div class="launcher-panel">
-            <div class="music-player-box">
-              <div class="music-mood-bar">
-                <span class="mood-chip active" onclick="switchMusicMood('chill', this)" tabindex="0">Chill</span>
-                <span class="mood-chip" onclick="switchMusicMood('rain', this)" tabindex="0">Rain</span>
-                <span class="mood-chip" onclick="switchMusicMood('fire', this)" tabindex="0">Fire</span>
-                <span class="mood-chip" onclick="switchMusicMood('sleep', this)" tabindex="0">Sleep</span>
-              </div>
-              <div class="song-info-row">
-                <span class="song-title-txt" id="song-title">Chill Lofi Waves</span>
-                <div class="visualizer-spectrum-tray" id="spectrum-bars">
-                  <div class="spectrum-bar"></div>
-                  <div class="spectrum-bar"></div>
-                  <div class="spectrum-bar"></div>
-                  <div class="spectrum-bar"></div>
-                </div>
-              </div>
-              <div class="music-controls">
-                <label class="m-btn" title="Load USB MP3" style="cursor:pointer;" tabindex="0">
-                  <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-                  <input type="file" id="local-audio-input" accept="audio/*" style="display:none;" onchange="handleUserAudioUpload(event)">
-                </label>
-                <div class="m-btn" onclick="prevSong()" tabindex="0"><svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg></div>
-                <div class="m-btn" id="play-pause-btn" onclick="togglePlayMusic()" tabindex="0"><svg viewBox="0 0 24 24" id="play-svg"><polygon points="7,5 19,12 7,19"/></svg></div>
-                <div class="m-btn" onclick="nextSong()" tabindex="0"><svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg></div>
-              </div>
-              <div style="display:flex;justify-content:space-between;align-items:center;">
-                <button class="swipe-pill-btn" onclick="slideLauncher(0)" tabindex="0">⬅ TV Apps</button>
-                <span style="font-size:7px;color:rgba(255,255,255,.4);" id="music-mood-indicator">Live Audio</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <!-- Battery & 100% WORKING APPLE iOS WI-FI WITH DIRECT HARDWARE CLICK -->
-    <div class="widget-row">
-      <div class="glass-tile-card power-compact-pill" tabindex="0">
-        <div class="power-ring"><svg><circle class="rail-bg" cx="9" cy="9" r="8"/><circle class="rail-fill" id="battery-fill" cx="9" cy="9" r="8"/></svg></div>
-        <div><div class="power-pct" id="battery-pct">100%</div><div class="power-label">AC POWER</div></div>
-      </div>
-      
-      <!-- Guaranteed Clickable Apple iOS Wi-Fi Card -->
-      <div class="glass-tile-card wifi-toggle-box" id="wifi-toggle-card" onclick="toggleDedicatedWifi()" tabindex="0">
-        <div class="wifi-info-col">
-          <div style="font-size:6px;color:rgba(255,255,255,.5);">APPLE WI-FI</div>
-          <div class="wifi-meter-number" id="wifi-live-throughput">34.8 KB/s</div>
-          <div class="wifi-hardware-led-row">
-            <span class="hardware-led-dot" id="hardware-led-dot"></span>
-            <span class="wifi-status-caption" id="wifi-status-caption" style="color:var(--accent);">ONLINE</span>
-          </div>
-        </div>
-        <svg class="wifi-ios-icon-svg" viewBox="0 0 24 24">
-          <path d="M 4 8.5 A 11.5 11.5 0 0 1 20 8.5" stroke-width="2.2" stroke-linecap="round"/>
-          <path d="M 7.2 12.2 A 7 7 0 0 1 16.8 12.2" stroke-width="2.2" stroke-linecap="round"/>
-          <path d="M 10.2 15.6 A 2.6 2.6 0 0 1 13.8 15.6" stroke-width="2.2" stroke-linecap="round"/>
-          <circle cx="12" cy="19.2" r="1.4" fill="currentColor"/>
+  <!-- প্রিমিয়াম লোডার স্ক্রিন -->
+  <div id="loader-screen">
+    <div class="loader-card">
+      <div class="heart-icon-box">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
         </svg>
       </div>
+      <div class="loader-title">TATHOI</div>
+      <button class="enter-btn" id="enterBtn">✨ ENTER UNIVERSE ✨</button>
     </div>
-
-    <!-- Satellite Weather & World Clock -->
-    <div class="glass-tile-card weather-dock-pill" tabindex="0">
-      <div>
-        <div class="weather-city-caption">DHAKA, BANGLADESH</div>
-        <div style="font-size:8px;color:rgba(255,255,255,.6);" id="weather-summary">Clear Sky</div>
-      </div>
-      <div class="weather-digits-big" id="weather-temp">--°</div>
-    </div>
-
-  </section>
-
-  <!-- Center Stage: Avionics Altimeter Altitude & Apple Depth Clock -->
-  <section class="timepiece-stage">
-    <div class="date-banner" id="live-date">SATURDAY, OCTOBER 24</div>
-    <div class="altimeter-clock-frame">
-      <div class="hud-digit-pair">
-        <!-- H1 -->
-        <div class="altimeter-tape-tile" id="tile-h1">
-          <div class="altimeter-drum-stream"><span class="hud-digit-text">1</span></div>
-        </div>
-        <!-- H2 -->
-        <div class="altimeter-tape-tile" id="tile-h2">
-          <div class="altimeter-drum-stream"><span class="hud-digit-text">2</span></div>
-        </div>
-      </div>
-
-      <div class="hud-colon">:</div>
-
-      <div class="hud-digit-pair">
-        <!-- M1 -->
-        <div class="altimeter-tape-tile" id="tile-m1">
-          <div class="altimeter-drum-stream"><span class="hud-digit-text">0</span></div>
-        </div>
-        <!-- M2 -->
-        <div class="altimeter-tape-tile" id="tile-m2">
-          <div class="altimeter-drum-stream"><span class="hud-digit-text">0</span></div>
-        </div>
-      </div>
-
-      <div class="seconds-ms-dock">
-        <div class="mini-sec-box">
-          <!-- S1 -->
-          <div class="altimeter-tape-tile sec-tile" id="tile-s1">
-            <div class="altimeter-drum-stream"><span class="hud-digit-text">0</span></div>
-          </div>
-          <!-- S2 -->
-          <div class="altimeter-tape-tile sec-tile" id="tile-s2">
-            <div class="altimeter-drum-stream"><span class="hud-digit-text">0</span></div>
-          </div>
-        </div>
-        <div class="ms-ticker-container">
-          <div class="ms-ticker" id="ms-ticker">84</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<!-- Comical 3D Pixar Cat Canvas (Comical Banana Slip & Laser Mode) -->
-<canvas id="cat-stage-canvas"></canvas>
-
-<!-- Apple VisionOS Settings Modal -->
-<div class="settings-modal" id="settings-modal">
-  <div class="settings-card">
-    <div class="settings-header"><span>SYSTEM PREFERENCES</span><span onclick="closeSettingsModal()" tabindex="0" style="cursor:pointer;">✕</span></div>
-    
-    <!-- TV Screen Brightness Stepper Controller -->
-    <div class="settings-row">
-      <span>Screen Brightness</span>
-      <div class="stepper-btn-group">
-        <button class="stepper-btn" onclick="adjustBrightness(-0.1)" tabindex="0">−</button>
-        <span class="brightness-display" id="brightness-text">100%</span>
-        <button class="stepper-btn" onclick="adjustBrightness(0.1)" tabindex="0">+</button>
-      </div>
-    </div>
-
-    <!-- Glass Opacity Stepper -->
-    <div class="settings-row">
-      <span>Glass Opacity (Water Clarity)</span>
-      <div class="stepper-btn-group">
-        <button class="stepper-btn" onclick="adjustGlassOpacity(-0.04)" tabindex="0">−</button>
-        <span class="brightness-display" id="opacity-text">12%</span>
-        <button class="stepper-btn" onclick="adjustGlassOpacity(0.04)" tabindex="0">+</button>
-      </div>
-    </div>
-
-    <!-- Wi-Fi Speed Test -->
-    <div class="speed-test-box">
-      <div class="speed-test-row">
-        <span>WI-FI SPEED TEST</span>
-        <button class="speed-test-btn" id="speed-test-btn" onclick="runRealWifiSpeedTest()" tabindex="0">Run Test</button>
-      </div>
-      <div class="speed-test-row" style="color:rgba(255,255,255,0.7); font-size:10px;">
-        <span>Latency: <strong id="ping-readout" style="color:#fff;">-- ms</strong></span>
-        <span>Download: <strong id="speed-readout" style="color:var(--accent);">-- Mbps</strong></span>
-      </div>
-    </div>
-
-    <!-- Preview Hourly Zen Chime -->
-    <div class="settings-row">
-      <span>Play Hourly Zen Chime</span>
-      <button class="speed-test-btn" onclick="playZenChimeSound()" tabindex="0">Preview Chime</button>
-    </div>
-
-    <!-- 30s True Centering -->
-    <div class="settings-row">
-      <span>30s Idle Screen True-Centering</span>
-      <div class="toggle-switch active" id="pref-centering-toggle" onclick="togglePrefCentering()" tabindex="0"></div>
-    </div>
-    
-    <!-- 15-Second Auto Cycle -->
-    <div class="settings-row">
-      <span>15-Second Dynamic Theme Auto-Cycle</span>
-      <div class="toggle-switch" id="pref-theme-toggle" onclick="toggleAutoThemeCycle()" tabindex="0"></div>
-    </div>
-    
-    <!-- Atmosphere Particles -->
-    <div class="settings-row">
-      <span>Theme-Matched Weather Particles</span>
-      <div class="toggle-switch active" id="pref-weather-toggle" onclick="togglePrefWeather()" tabindex="0"></div>
-    </div>
-    
-    <button class="close-modal-btn" onclick="closeSettingsModal()" tabindex="0">Save & Apply</button>
   </div>
-</div>
 
-<audio id="bg-audio" preload="none"></audio>
+  <!-- সাউন্ড টগল -->
+  <div class="mini-audio-btn" id="audioToggle">
+    <svg id="audioIcon" viewBox="0 0 24 24">
+      <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+    </svg>
+  </div>
 
-<script>
-/* ============================================================
-   FIREBASE REALTIME DATABASE SYNC ENGINE (IoT MASTER)
-   ============================================================ */
-const firebaseConfig = {
-  apiKey: "AIzaSyCQPpXx1NOUse8Oug8N_Cc2HslMoF2JUI4",
-  authDomain: "stext-84991.firebaseapp.com",
-  databaseURL: "https://stext-84991-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "stext-84991",
-  storageBucket: "stext-84991.firebasestorage.app",
-  messagingSenderId: "140874177440",
-  appId: "1:140874177440:web:bfd947d49322c0c0cd62c5"
-};
+  <audio id="bgMusic" loop preload="auto">
+    <source src="music.mp3" type="audio/mp3">
+  </audio>
 
-let db = null;
-let lastExecutedCommandId = 0;
+  <div class="media-config-bar">
+    <label class="config-label">📷 Change Photo <input type="file" id="photoInput" accept="image/*" style="display:none"></label>
+    <label class="config-label">🎵 Change Music <input type="file" id="audioInput" accept="audio/*" style="display:none"></label>
+  </div>
 
-try {
-  firebase.initializeApp(firebaseConfig);
-  db = firebase.database();
-  
-  db.ref('aod_tv').on('value', snapshot => {
-    const data = snapshot.val();
-    if (!data) return;
+  <script>
+    /* ==========================================================================
+       👉 ১. আপনার ছবির নাম এখানে লিখুন (JPG বা PNG):
+       (ফাইলটি index.html ফাইলের সাথে একই ফোল্ডারে রাখবেন)
+    ========================================================================== */
+    const MY_IMAGE_FILE = "character.jpg"; 
 
-    // 1. Live Brightness Sync from Phone
-    if (data.settings && data.settings.brightness !== undefined) {
-      currentBrightness = data.settings.brightness;
-      document.documentElement.style.setProperty('--screen-brightness', currentBrightness.toFixed(2));
-      document.getElementById('brightness-text').textContent = Math.round(currentBrightness * 100) + '%';
+
+    // --- ২. Three.js ডিপ স্পেস ইউনিভার্স সেটআপ ---
+    const canvas = document.getElementById('webgl-canvas');
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x000000); // খাঁটি পিচ ব্ল্যাক মহাকাশ
+    scene.fog = new THREE.FogExp2(0x000000, 0.0016);
+
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1400);
+    camera.position.set(0, 10, 130);
+
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.06;
+    controls.rotateSpeed = 0.85;
+    controls.enablePan = false;
+    controls.minDistance = 25;
+    controls.maxDistance = 260;
+
+    // --- ৩. মহাকাশের নক্ষত্ররাজি (৩০০০+ Twinkling Stars in 360°) ---
+    const starCount = 3200;
+    const starGeo = new THREE.BufferGeometry();
+    const starPos = new Float32Array(starCount * 3);
+    for (let i = 0; i < starCount * 3; i += 3) {
+      starPos[i] = (Math.random() - 0.5) * 800;
+      starPos[i + 1] = (Math.random() - 0.5) * 800;
+      starPos[i + 2] = (Math.random() - 0.5) * 800;
     }
-
-    // 2. Live Glass Transparency Sync from Phone
-    if (data.settings && data.settings.glassOpacity !== undefined) {
-      currentGlassOpacity = data.settings.glassOpacity;
-      document.documentElement.style.setProperty('--glass-opacity', currentGlassOpacity.toFixed(2));
-      document.getElementById('opacity-text').textContent = Math.round(currentGlassOpacity * 100) + '%';
-    }
-
-    // 3. Remote Cloud Commands (Chime, Kick Ball, Next Theme)
-    if (data.command && data.command.id !== lastExecutedCommandId) {
-      lastExecutedCommandId = data.command.id;
-      executeRemoteCommand(data.command.action);
-    }
-
-    // 4. Cloud Notification Toast Banner
-    if (data.announcement && data.announcement.text) {
-      showToastBanner(data.announcement.text);
-    }
-  });
-} catch(err) {
-  console.log("Offline mode active.");
-}
-
-function executeRemoteCommand(action) {
-  if (action === 'chime') playZenChimeSound();
-  else if (action === 'kick_ball') triggerCatFunInteraction();
-  else if (action === 'next_theme') triggerNextThemeManual();
-  else if (action === 'toggle_wifi') toggleDedicatedWifi();
-}
-
-function showToastBanner(msg) {
-  const toast = document.getElementById('tv-toast');
-  toast.textContent = msg;
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 5000);
-}
-
-/* ============================================================
-   1. 30+ VERIFIED LUXURY THEMES & ADAPTIVE WATER REFLECTION
-   ============================================================ */
-let activeThemeIndex = 0;
-let currentLayer = 'a';
-let autoCycleActive = false;
-let autoCycleTimer = null;
-let currentThemeWeather = "rain";
-let currentBrightness = 1.0;
-let currentGlassOpacity = 0.12;
-
-const verifiedThemes = [
-  { url: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1920&q=75&auto=format&fit=crop", accent: "#00f0ff", waterTint: "rgba(0, 240, 255, 0.75)", weather: "rain" },
-  { url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1920&q=75&auto=format&fit=crop", accent: "#30d158", waterTint: "rgba(48, 209, 88, 0.75)", weather: "snow" },
-  { url: "https://images.unsplash.com/photo-1517824806704-9040b037703b?w=1920&q=75&auto=format&fit=crop", accent: "#38bdf8", waterTint: "rgba(56, 189, 248, 0.75)", weather: "fireflies" },
-  { url: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=75&auto=format&fit=crop", accent: "#a855f7", waterTint: "rgba(168, 85, 247, 0.75)", weather: "fireflies" },
-  { url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&q=75&auto=format&fit=crop", accent: "#ff9f0a", waterTint: "rgba(255, 159, 10, 0.75)", weather: "sunbeams" },
-  { url: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1920&q=75&auto=format&fit=crop", accent: "#ffd700", waterTint: "rgba(255, 215, 0, 0.75)", weather: "sunbeams" },
-  { url: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1920&q=75&auto=format&fit=crop", accent: "#30d158", waterTint: "rgba(48, 209, 88, 0.75)", weather: "fireflies" },
-  { url: "https://images.unsplash.com/photo-1563089145-599997674d42?w=1920&q=75&auto=format&fit=crop", accent: "#ec4899", waterTint: "rgba(236, 72, 153, 0.75)", weather: "rain" },
-  { url: "https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=1920&q=75&auto=format&fit=crop", accent: "#67e8f9", waterTint: "rgba(103, 232, 249, 0.75)", weather: "snow" },
-  { url: "https://images.unsplash.com/photo-1511447333015-45b65e60f6d5?w=1920&q=75&auto=format&fit=crop", accent: "#d946ef", waterTint: "rgba(217, 70, 239, 0.75)", weather: "rain" }
-];
-
-function updateAtmosphericParticles(weatherType) {
-  currentThemeWeather = weatherType;
-  const stage = document.getElementById('atmosphere-stage');
-  stage.innerHTML = '';
-
-  if (weatherType === 'rain') {
-    for (let i = 0; i < 35; i++) {
-      const d = document.createElement('div');
-      d.className = 'rain-drop-mote';
-      d.style.left = Math.random() * 100 + '%';
-      d.style.animationDuration = (0.7 + Math.random() * 0.5) + 's';
-      d.style.animationDelay = (Math.random() * 2) + 's';
-      stage.appendChild(d);
-    }
-  } else if (weatherType === 'snow') {
-    for (let i = 0; i < 35; i++) {
-      const s = document.createElement('div');
-      s.className = 'snow-flake-mote';
-      const sz = (2 + Math.random() * 4) + 'px';
-      s.style.width = sz; s.style.height = sz;
-      s.style.left = Math.random() * 100 + '%';
-      s.style.animationDuration = (4 + Math.random() * 5) + 's';
-      s.style.animationDelay = (Math.random() * 4) + 's';
-      stage.appendChild(s);
-    }
-  } else if (weatherType === 'sunbeams') {
-    for (let i = 0; i < 3; i++) {
-      const r = document.createElement('div');
-      r.className = 'sunbeam-ray';
-      r.style.right = (10 + i * 14) + '%';
-      r.style.animationDelay = (i * 2.5) + 's';
-      stage.appendChild(r);
-    }
-  } else if (weatherType === 'fireflies') {
-    for (let i = 0; i < 22; i++) {
-      const f = document.createElement('div');
-      f.className = 'firefly-mote';
-      f.style.left = Math.random() * 100 + '%';
-      f.style.top = (20 + Math.random() * 70) + '%';
-      f.style.animationDuration = (3 + Math.random() * 4) + 's';
-      f.style.animationDelay = (Math.random() * 3) + 's';
-      stage.appendChild(f);
-    }
-  }
-}
-
-function applyThemeHarmony(theme) {
-  document.documentElement.style.setProperty('--accent', theme.accent);
-  document.documentElement.style.setProperty('--accent-glow', `${theme.accent}66`);
-  document.documentElement.style.setProperty('--digit-water-tint', theme.waterTint);
-  updateAtmosphericParticles(theme.weather);
-}
-
-function loadThemeIndex(idx) {
-  const nextLayerId = currentLayer === 'a' ? 'wall-layer-b' : 'wall-layer-a';
-  const currLayerId = currentLayer === 'a' ? 'wall-layer-a' : 'wall-layer-b';
-  const nextEl = document.getElementById(nextLayerId);
-  const currEl = document.getElementById(currLayerId);
-
-  const theme = verifiedThemes[idx % verifiedThemes.length];
-  const img = new Image();
-  img.src = theme.url;
-
-  const onLoaded = () => {
-    nextEl.style.backgroundImage = `url('${theme.url}')`;
-    nextEl.classList.add('active');
-    currEl.classList.remove('active');
-    setTimeout(() => { currEl.style.backgroundImage = 'none'; }, 1800);
-    currentLayer = currentLayer === 'a' ? 'b' : 'a';
-    applyThemeHarmony(theme);
-    activeThemeIndex = idx;
-  };
-
-  img.onerror = () => {
-    nextEl.style.backgroundImage = `radial-gradient(circle at 50% 50%, #0d1e38 0%, #03060f 100%)`;
-    nextEl.classList.add('active');
-    currEl.classList.remove('active');
-    currentLayer = currentLayer === 'a' ? 'b' : 'a';
-    applyThemeHarmony(theme);
-  };
-
-  if ('decode' in img) {
-    img.decode().then(onLoaded).catch(onLoaded);
-  } else {
-    img.onload = onLoaded;
-  }
-}
-
-function triggerNextThemeManual() {
-  loadThemeIndex(activeThemeIndex + 1);
-}
-
-function toggleAutoThemeCycle() {
-  autoCycleActive = !autoCycleActive;
-  const dot = document.getElementById('auto-dot');
-  const txt = document.getElementById('auto-theme-txt');
-  const toggle = document.getElementById('pref-theme-toggle');
-
-  if (autoCycleActive) {
-    dot.classList.remove('off');
-    txt.textContent = "AUTO 15S: ON";
-    if (toggle) toggle.classList.add('active');
-    autoCycleTimer = setInterval(triggerNextThemeManual, 15000);
-  } else {
-    dot.classList.add('off');
-    txt.textContent = "AUTO 15S: OFF";
-    if (toggle) toggle.classList.remove('active');
-    clearInterval(autoCycleTimer);
-  }
-}
-
-/* ============================================================
-   2. SCREEN BRIGHTNESS & GLASS OPACITY CONTROLLERS
-   ============================================================ */
-function adjustBrightness(delta) {
-  currentBrightness = Math.max(0.2, Math.min(1.5, currentBrightness + delta));
-  document.documentElement.style.setProperty('--screen-brightness', currentBrightness.toFixed(2));
-  document.getElementById('brightness-text').textContent = Math.round(currentBrightness * 100) + '%';
-  if (db) db.ref('aod_tv/settings/brightness').set(currentBrightness);
-}
-
-function adjustGlassOpacity(delta) {
-  currentGlassOpacity = Math.max(0.04, Math.min(0.40, currentGlassOpacity + delta));
-  document.documentElement.style.setProperty('--glass-opacity', currentGlassOpacity.toFixed(2));
-  document.getElementById('opacity-text').textContent = Math.round(currentGlassOpacity * 100) + '%';
-  if (db) db.ref('aod_tv/settings/glassOpacity').set(currentGlassOpacity);
-}
-
-/* ============================================================
-   3. AVIONICS ALTIMETER TAPE HUD CLOCK ENGINE
-   ============================================================ */
-const flapCache = { 'tile-h1':'', 'tile-h2':'', 'tile-m1':'', 'tile-m2':'', 'tile-s1':'', 'tile-s2':'' };
-
-function executeAltimeterTapeRoll(tileId, newChar) {
-  if (flapCache[tileId] === newChar) return;
-  const tile = document.getElementById(tileId);
-  if (!tile) return;
-  
-  const textEl = tile.querySelector('.hud-digit-text');
-  textEl.textContent = newChar;
-  textEl.classList.remove('altimeter-roll-down');
-  void textEl.offsetWidth; // Clean GPU Reflow
-  textEl.classList.add('altimeter-roll-down');
-
-  flapCache[tileId] = newChar;
-}
-
-const DAYS = ['SUNDAY','MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY'];
-const MONTHS = ['JANUARY','FEBRUARY','MARCH','APRIL','MAY','JUNE','JULY','AUGUST','SEPTEMBER','OCTOBER','NOVEMBER','DECEMBER'];
-
-let lastCheckedHour = -1;
-let lastSec = -1;
-
-function runClockEngine() {
-  const now = new Date();
-  let hours = now.getHours() % 12 || 12;
-  let rawHours = now.getHours();
-  let minutes = now.getMinutes();
-  let seconds = now.getSeconds();
-
-  if (seconds !== lastSec) {
-    const strH = String(hours).padStart(2, '0');
-    const strM = String(minutes).padStart(2, '0');
-    const strS = String(seconds).padStart(2, '0');
-
-    executeAltimeterTapeRoll('tile-h1', strH[0]);
-    executeAltimeterTapeRoll('tile-h2', strH[1]);
-    executeAltimeterTapeRoll('tile-m1', strM[0]);
-    executeAltimeterTapeRoll('tile-m2', strM[1]);
-    executeAltimeterTapeRoll('tile-s1', strS[0]);
-    executeAltimeterTapeRoll('tile-s2', strS[1]);
-
-    document.getElementById('live-date').textContent = `${DAYS[now.getDay()]}, ${MONTHS[now.getMonth()]} ${now.getDate()}`;
-    document.getElementById('cal-headline').textContent = MONTHS[now.getMonth()];
-
-    updateGreetingBanner(rawHours);
-    lastSec = seconds;
-
-    if (minutes === 0 && seconds === 0 && rawHours !== lastCheckedHour) {
-      playZenChimeSound();
-      lastCheckedHour = rawHours;
-    }
-  }
-
-  const ms = Math.floor(now.getMilliseconds() / 20) * 2;
-  document.getElementById('ms-ticker').textContent = String(ms).padStart(2, '0');
-}
-
-function updateGreetingBanner(hour) {
-  const banner = document.getElementById('greeting-banner-txt');
-  if (hour >= 5 && hour < 12) banner.textContent = "GOOD MORNING, MASTER";
-  else if (hour >= 12 && hour < 17) banner.textContent = "GOOD AFTERNOON, MASTER";
-  else if (hour >= 17 && hour < 21) banner.textContent = "WELCOME HOME, MASTER";
-  else banner.textContent = "RESTFUL NIGHT, MASTER";
-}
-
-function buildCalendarGrid() {
-  const grid = document.getElementById('cal-grid');
-  grid.innerHTML = '';
-  const now = new Date();
-  const yr = now.getFullYear(), mo = now.getMonth(), today = now.getDate();
-  const offset = new Date(yr, mo, 1).getDay();
-  const totalDays = new Date(yr, mo + 1, 0).getDate();
-
-  for (let i = 0; i < offset; i++) grid.appendChild(document.createElement('span'));
-  for (let d = 1; d <= totalDays; d++) {
-    const cell = document.createElement('span');
-    cell.textContent = d;
-    if (d === today) cell.classList.add('active-today');
-    grid.appendChild(cell);
-  }
-}
-
-/* ============================================================
-   4. HARDWARE TELEMETRY SERIAL LIST ENGINE (CPU, GPU, RAM)
-   ============================================================ */
-let cpuStream = [20, 24, 28, 35, 30, 26, 28];
-let gpuStream = [15, 20, 25, 34, 30, 22, 25];
-let ramStream = [35, 38, 42, 45, 48, 44, 46];
-
-function renderSerialMetric(metricName, dataArr, lineId, textId, tagId, unit, colorVar) {
-  let simShift = Math.random() * 6 - 3;
-  let nextVal = Math.max(15, Math.min(95, dataArr[dataArr.length - 1] + simShift));
-  dataArr.shift();
-  dataArr.push(nextVal);
-
-  // Dynamic Multi-Color Stress Assessment
-  let dynamicColor = '#30d158'; // Green (< 50%)
-  let statusTag = "OPTIMAL";
-  if (nextVal > 80) { dynamicColor = '#ff453a'; statusTag = "HIGH LOAD"; }
-  else if (nextVal > 68) { dynamicColor = '#ff9f0a'; statusTag = "STRESSED"; }
-  else if (nextVal > 50) { dynamicColor = '#ffd60a'; statusTag = "ELEVATED"; }
-
-  document.documentElement.style.setProperty(colorVar, dynamicColor);
-
-  const pts = dataArr.map((v, i) => ({ x: (i / 6) * 65, y: 16 - ((v / 100) * 14) }));
-  let d = pts.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(' ');
-
-  document.getElementById(lineId).setAttribute('d', d);
-  document.getElementById(textId).textContent = `${Math.round(nextVal)}${unit}`;
-  document.getElementById(tagId).textContent = statusTag;
-}
-
-function updateAllTelemetrySerials() {
-  renderSerialMetric('cpu', cpuStream, 'spark-cpu-line', 'cpu-pct-val', 'cpu-load-tag', '%', '--cpu-color');
-  renderSerialMetric('gpu', gpuStream, 'spark-gpu-line', 'gpu-pct-val', 'gpu-load-tag', '%', '--gpu-color');
-  renderSerialMetric('ram', ramStream, 'spark-ram-line', 'ram-pct-val', 'ram-load-tag', '%', '--ram-color');
-
-  // Push telemetry broadcast to Firebase for Phone Remote
-  if (db && wifiConnected) {
-    db.ref('aod_tv/telemetry').set({
-      cpu: Math.round(cpuStream[cpuStream.length - 1]),
-      gpu: Math.round(gpuStream[gpuStream.length - 1]),
-      ram: Math.round(ramStream[ramStream.length - 1]),
-      timestamp: Date.now()
+    starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+    const starMat = new THREE.PointsMaterial({
+      color: 0xffffff,
+      size: 1.6,
+      transparent: true,
+      opacity: 0.85
     });
-  }
-}
+    const starField = new THREE.Points(starGeo, starMat);
+    scene.add(starField);
 
-/* ============================================================
-   5. REAL GOOGLE NEWS DYNAMIC RSS STREAM
-   ============================================================ */
-const liveGoogleNews = [
-  { tag: "TECH AI", headline: "Generative Intelligence Accelerates Smart TV Platforms Worldwide", img: "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=100&q=80&auto=format&fit=crop" },
-  { tag: "WORLD REPORT", headline: "Deep Sky Telescope Unveils Historic Cosmic Dust Clusters", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=100&q=80&auto=format&fit=crop" },
-  { tag: "GLOBAL ECONOMY", headline: "Global Green Energy Transition Surpasses Expected Benchmarks", img: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=100&q=80&auto=format&fit=crop" }
-];
+    // --- ৪. আল্ট্রা-শার্প হাই রেজোলিউশন টেক্সট (2048x512) ---
+    function createUltraCrispTextTexture(text) {
+      const c = document.createElement('canvas');
+      const ctx = c.getContext('2d');
+      c.width = 2048;
+      c.height = 512;
 
-let newsIndex = 0;
-function cycleGoogleNews() {
-  newsIndex = (newsIndex + 1) % liveGoogleNews.length;
-  const item = liveGoogleNews[newsIndex];
-  
-  const headlineEl = document.getElementById('news-headline');
-  headlineEl.style.opacity = '0';
-  
-  setTimeout(() => {
-    document.getElementById('news-tag').textContent = item.tag;
-    headlineEl.textContent = item.headline;
-    document.getElementById('news-img').src = item.img;
-    headlineEl.style.opacity = '1';
-  }, 300);
-}
+      ctx.clearRect(0, 0, c.width, c.height);
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.font = '900 135px "Cinzel Decorative", "Playfair Display", Georgia, serif';
 
-/* ============================================================
-   6. NATIVE ANDROID TV APP INTENT LAUNCHER
-   ============================================================ */
-function launchTVApp(appName) {
-  const appProtocols = {
-    youtube: "vnd.youtube://",
-    netflix: "nflx://",
-    prime: "primevideo://",
-    playstore: "market://"
-  };
+      // সফট শার্প হোয়াইট নিয়ন কোর
+      ctx.shadowColor = '#ffffff';
+      ctx.shadowBlur = 18;
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText(text, c.width / 2, c.height / 2);
 
-  const fallbacks = {
-    youtube: "https://www.youtube.com/tv",
-    netflix: "https://www.netflix.com",
-    prime: "https://www.primevideo.com",
-    playstore: "https://play.google.com/store"
-  };
+      // শার্প আউটলাইন
+      ctx.shadowBlur = 0;
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = '#ffffff';
+      ctx.strokeText(text, c.width / 2, c.height / 2);
+      ctx.fillText(text, c.width / 2, c.height / 2);
 
-  const start = Date.now();
-  window.location.href = appProtocols[appName] || fallbacks[appName];
-
-  setTimeout(() => {
-    if (Date.now() - start < 1500) {
-      window.open(fallbacks[appName], '_blank');
+      const texture = new THREE.CanvasTexture(c);
+      texture.minFilter = THREE.LinearFilter;
+      texture.magFilter = THREE.LinearFilter;
+      return texture;
     }
-  }, 800);
-}
-
-/* ============================================================
-   7. 100% WORKING APPLE iOS WI-FI WITH DIRECT HARDWARE CLICK
-   ============================================================ */
-let wifiConnected = true;
-
-function toggleDedicatedWifi() {
-  wifiConnected = !wifiConnected;
-  const toggleCard = document.getElementById('wifi-toggle-card');
-  const ledDot = document.getElementById('hardware-led-dot');
-  const statusCaption = document.getElementById('wifi-status-caption');
-  const meterReadout = document.getElementById('wifi-live-throughput');
-
-  if (wifiConnected) {
-    toggleCard.classList.remove('offline');
-    ledDot.classList.remove('disconnected');
-    statusCaption.textContent = "ONLINE";
-    statusCaption.style.color = "var(--accent)";
-    meterReadout.textContent = "34.8 KB/s";
-  } else {
-    toggleCard.classList.add('offline');
-    ledDot.classList.add('disconnected');
-    statusCaption.textContent = "DISCONNECTED";
-    statusCaption.style.color = "#ff453a";
-    meterReadout.textContent = "0.0 KB/s";
-  }
-}
-
-setInterval(() => {
-  const readout = document.getElementById('wifi-live-throughput');
-  if (!wifiConnected) {
-    readout.textContent = "0.0 KB/s";
-    return;
-  }
-  const speed = (Math.random() * 20.4 + 14.2).toFixed(1);
-  readout.textContent = `${speed} KB/s`;
-}, 1400);
-
-async function runRealWifiSpeedTest() {
-  const btn = document.getElementById('speed-test-btn');
-  const pingEl = document.getElementById('ping-readout');
-  const speedEl = document.getElementById('speed-readout');
-
-  if (!wifiConnected) {
-    pingEl.textContent = "OFFLINE";
-    speedEl.textContent = "0.00 Mbps";
-    return;
-  }
-
-  btn.textContent = "Testing...";
-  btn.disabled = true;
-
-  setTimeout(() => {
-    const ping = Math.floor(Math.random() * 15 + 18);
-    const mbps = ((Math.random() * 25) + 38.5).toFixed(2);
-    pingEl.textContent = `${ping} ms`;
-    speedEl.textContent = `${mbps} Mbps`;
-    btn.textContent = "Run Test";
-    btn.disabled = false;
-  }, 1200);
-}
-
-/* ============================================================
-   8. REAL AMBIENT MUSIC & SOUNDSCAPES
-   ============================================================ */
-function slideLauncher(panelIndex) {
-  document.getElementById('launcher-slider').style.transform = `translateX(-${panelIndex * 50}%)`;
-}
-
-const moodPlaylists = {
-  chill: [
-    { title: "Chill Lofi Waves", type: "stream", url: "https://streams.ilovemusic.de/iloveradio17.mp3" },
-    { title: "Nightfall Lofi", type: "stream", url: "https://stream.zeno.fm/f3wvbbqmdg8uv" }
-  ],
-  rain: [
-    { title: "Gentle Rain Soundscape", type: "nature", sound: "rain" }
-  ],
-  fire: [
-    { title: "Campfire Warm Glow", type: "nature", sound: "fire" }
-  ],
-  sleep: [
-    { title: "Deep Sleep Meditation", type: "nature", sound: "sleep" }
-  ]
-};
-
-let currentMood = 'chill';
-let songIndex = 0;
-let isAudioPlaying = false;
-let audioCtx = null;
-let natureNoiseNode = null;
-const audioEl = document.getElementById('bg-audio');
-
-function switchMusicMood(mood, chipEl) {
-  currentMood = mood;
-  songIndex = 0;
-  document.querySelectorAll('.mood-chip').forEach(c => c.classList.remove('active'));
-  chipEl.classList.add('active');
-  updateSongTrack();
-  if (isAudioPlaying) playCurrentSelection();
-}
-
-function updateSongTrack() {
-  const track = moodPlaylists[currentMood][songIndex];
-  document.getElementById('song-title').textContent = track.title;
-}
-
-function initAudioContext() {
-  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  if (audioCtx.state === 'suspended') audioCtx.resume();
-}
-
-function startNatureSoundscape(soundType) {
-  initAudioContext();
-  stopNatureSoundscape();
-
-  const bufferSize = audioCtx.sampleRate * 2;
-  const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-  const output = noiseBuffer.getChannelData(0);
-
-  let lastOut = 0.0;
-  for (let i = 0; i < bufferSize; i++) {
-    const white = Math.random() * 2 - 1;
-    output[i] = (lastOut + (0.02 * white)) / 1.02;
-    lastOut = output[i];
-    output[i] *= 3.5;
-  }
-
-  const whiteNoise = audioCtx.createBufferSource();
-  whiteNoise.buffer = noiseBuffer;
-  whiteNoise.loop = true;
-
-  const filter = audioCtx.createBiquadFilter();
-  if (soundType === 'rain') { filter.type = 'lowpass'; filter.frequency.value = 850; }
-  else if (soundType === 'fire') { filter.type = 'bandpass'; filter.frequency.value = 400; }
-  else { filter.type = 'lowpass'; filter.frequency.value = 250; }
-
-  const gain = audioCtx.createGain();
-  gain.gain.value = 0.08;
-
-  whiteNoise.connect(filter);
-  filter.connect(gain);
-  gain.connect(audioCtx.destination);
-  whiteNoise.start();
-
-  natureNoiseNode = { source: whiteNoise, gain: gain };
-}
-
-function stopNatureSoundscape() {
-  if (natureNoiseNode) {
-    try { natureNoiseNode.source.stop(); natureNoiseNode.source.disconnect(); } catch(e){}
-    natureNoiseNode = null;
-  }
-}
-
-function playCurrentSelection() {
-  initAudioContext();
-  const track = moodPlaylists[currentMood][songIndex];
-
-  if (track.type === 'stream') {
-    stopNatureSoundscape();
-    audioEl.src = track.url;
-    audioEl.play().then(() => {
-      isAudioPlaying = true;
-      document.getElementById('play-svg').innerHTML = '<rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/>';
-      document.getElementById('spectrum-bars').classList.add('spectrum-active');
-    }).catch(() => {
-      startNatureSoundscape('rain');
-      isAudioPlaying = true;
-      document.getElementById('play-svg').innerHTML = '<rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/>';
-      document.getElementById('spectrum-bars').classList.add('spectrum-active');
-    });
-  } else if (track.type === 'nature') {
-    audioEl.pause();
-    startNatureSoundscape(track.sound);
-    isAudioPlaying = true;
-    document.getElementById('play-svg').innerHTML = '<rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/>';
-    document.getElementById('spectrum-bars').classList.add('spectrum-active');
-  }
-}
-
-function togglePlayMusic() {
-  if (isAudioPlaying) {
-    audioEl.pause();
-    stopNatureSoundscape();
-    isAudioPlaying = false;
-    document.getElementById('play-svg').innerHTML = '<polygon points="7,5 19,12 7,19"/>';
-    document.getElementById('spectrum-bars').classList.remove('spectrum-active');
-  } else {
-    playCurrentSelection();
-  }
-}
-
-function nextSong() {
-  songIndex = (songIndex + 1) % moodPlaylists[currentMood].length;
-  updateSongTrack();
-  if (isAudioPlaying) playCurrentSelection();
-}
-
-function prevSong() {
-  songIndex = (songIndex - 1 + moodPlaylists[currentMood].length) % moodPlaylists[currentMood].length;
-  updateSongTrack();
-  if (isAudioPlaying) playCurrentSelection();
-}
-
-function playZenChimeSound() {
-  initAudioContext();
-  const fundamental = 432;
-  const overtones = [fundamental, fundamental * 2.76, fundamental * 5.4];
-
-  overtones.forEach((freq, idx) => {
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-
-    const amp = 0.08 / (idx + 1);
-    gain.gain.setValueAtTime(0, audioCtx.currentTime);
-    gain.gain.linearRampToValueAtTime(amp, audioCtx.currentTime + 0.05);
-    gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 5.5);
-
-    osc.connect(gain);
-    gain.connect(audioCtx.destination);
-    osc.start();
-    osc.stop(audioCtx.currentTime + 5.5);
-  });
-}
-
-function handleUserAudioUpload(event) {
-  const file = event.target.files[0];
-  if (file) {
-    stopNatureSoundscape();
-    audioEl.src = URL.createObjectURL(file);
-    document.getElementById('song-title').textContent = file.name.replace(/\.[^/.]+$/, "");
-    audioEl.play().then(() => {
-      isAudioPlaying = true;
-      document.getElementById('play-svg').innerHTML = '<rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/>';
-      document.getElementById('spectrum-bars').classList.add('spectrum-active');
-    }).catch(() => {});
-  }
-}
-
-/* ============================================================
-   9. HILARIOUS PIXAR 3D CAT (BANANA SLIP, LASER & ACROBATICS)
-   ============================================================ */
-const catCanvas = document.getElementById('cat-stage-canvas');
-const catCtx = catCanvas.getContext('2d');
-
-let stripW = catCanvas.width = window.innerWidth;
-let stripH = catCanvas.height = 140;
-
-window.addEventListener('resize', () => {
-  stripW = catCanvas.width = window.innerWidth;
-  stripH = catCanvas.height = 140;
-});
-
-const cat = {
-  x: 280,
-  y: 90,
-  dir: 1,
-  speed: 1.4,
-  state: 'walk',
-  stateTimer: 0,
-  walkCycle: 0,
-  blink: 0,
-  headTilt: 0,
-  spinRot: 0,
-  targetX: null,
-  ball: { x: 310, y: 115, vx: 0, vy: 0, rot: 0 }
-};
-
-function handleGlobalClick(e) {
-  resetAodIdleTimer();
-  
-  const laser = document.getElementById('laser-dot');
-  laser.style.left = e.clientX + 'px';
-  laser.style.top = e.clientY + 'px';
-  laser.style.display = 'block';
-
-  cat.state = 'laser_hunt';
-  cat.targetX = e.clientX;
-  cat.dir = cat.targetX > cat.x ? 1 : -1;
-  cat.stateTimer = 0;
-
-  setTimeout(() => { laser.style.display = 'none'; }, 1200);
-}
-
-function triggerCatFunInteraction() {
-  cat.state = 'kick';
-  cat.stateTimer = 0;
-  cat.ball.vx = cat.dir * 8.5;
-  cat.ball.vy = -7.2;
-}
-
-function renderHilarious3DCat(x, y, dir, legPhase, blinkState) {
-  catCtx.save();
-  catCtx.translate(x, y);
-  catCtx.scale(dir, 1);
-
-  if (cat.state === 'slip_spin') catCtx.rotate(cat.spinRot);
-
-  // Soft Radial Shadow (Zero CPU Blur Filter)
-  const shadowGrad = catCtx.createRadialGradient(0, 24, 2, 0, 24, 26);
-  shadowGrad.addColorStop(0, 'rgba(0, 0, 0, 0.45)');
-  shadowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-  catCtx.fillStyle = shadowGrad;
-  catCtx.beginPath();
-  catCtx.ellipse(0, 24, 28, 7, 0, 0, Math.PI * 2);
-  catCtx.fill();
-
-  // 3D Tail
-  catCtx.save();
-  catCtx.translate(-22, 0);
-  catCtx.rotate(Math.sin(legPhase) * 0.45);
-  const tailGrad = catCtx.createLinearGradient(-15, -15, 0, 0);
-  tailGrad.addColorStop(0, '#ffffff');
-  tailGrad.addColorStop(1, '#a6b8c8');
-  catCtx.strokeStyle = tailGrad;
-  catCtx.lineWidth = 6.5;
-  catCtx.lineCap = 'round';
-  catCtx.beginPath();
-  catCtx.quadraticCurveTo(-16, -20, -28, -12);
-  catCtx.stroke();
-  catCtx.restore();
-
-  // 3D Body Sphere
-  const bodyGrad = catCtx.createRadialGradient(-5, -6, 2, 0, 0, 26);
-  bodyGrad.addColorStop(0, '#ffffff');
-  bodyGrad.addColorStop(0.65, '#e8f0f8');
-  bodyGrad.addColorStop(1, '#94a7b8');
-  catCtx.fillStyle = bodyGrad;
-  catCtx.beginPath();
-  catCtx.ellipse(0, 6, 24, 17, 0, 0, Math.PI * 2);
-  catCtx.fill();
-
-  // Scarf
-  if (currentThemeWeather === 'snow') {
-    catCtx.fillStyle = '#ff3b30';
-    catCtx.beginPath();
-    catCtx.ellipse(12, 0, 8, 4, -0.2, 0, Math.PI * 2);
-    catCtx.fill();
-    catCtx.fillRect(6, 0, 5, 14);
-  }
-
-  // Paws
-  catCtx.fillStyle = '#dbe5ef';
-  const legOffset1 = Math.sin(legPhase) * 6;
-  const legOffset2 = Math.sin(legPhase + Math.PI) * 6;
-  catCtx.beginPath();
-  catCtx.ellipse(-10 + legOffset1, 19, 4.5, 8.5, 0, 0, Math.PI * 2);
-  catCtx.ellipse(10 + legOffset2, 19, 4.5, 8.5, 0, 0, Math.PI * 2);
-  catCtx.fill();
-
-  // 3D Head
-  catCtx.save();
-  catCtx.translate(15, -10);
-  catCtx.rotate(cat.headTilt);
-  const headGrad = catCtx.createRadialGradient(-3, -3, 2, 0, 0, 17);
-  headGrad.addColorStop(0, '#ffffff');
-  headGrad.addColorStop(0.7, '#e2ecf5');
-  headGrad.addColorStop(1, '#8ea3b5');
-  catCtx.fillStyle = headGrad;
-  catCtx.beginPath();
-  catCtx.arc(0, 0, 16, 0, Math.PI * 2);
-  catCtx.fill();
-
-  // Ears
-  catCtx.fillStyle = '#e8eff7';
-  catCtx.beginPath();
-  catCtx.moveTo(-10, -10); catCtx.lineTo(-6, -25); catCtx.lineTo(0, -11); catCtx.fill();
-  catCtx.beginPath();
-  catCtx.moveTo(2, -11); catCtx.lineTo(9, -25); catCtx.lineTo(12, -9); catCtx.fill();
-
-  // Sunglasses
-  if (currentThemeWeather === 'sunbeams') {
-    catCtx.fillStyle = '#0f172a';
-    catCtx.fillRect(2, -5, 6, 6);
-    catCtx.fillRect(9, -5, 6, 6);
-    catCtx.strokeStyle = '#000';
-    catCtx.lineWidth = 1.5;
-    catCtx.beginPath();
-    catCtx.moveTo(0, -3); catCtx.lineTo(16, -3);
-    catCtx.stroke();
-  } else if (blinkState < 0.1) {
-    catCtx.fillStyle = '#0f172a';
-    catCtx.beginPath();
-    catCtx.ellipse(4, -2, 2.8, 4.5, 0, 0, Math.PI * 2);
-    catCtx.ellipse(11, -2, 2.8, 4.5, 0, 0, Math.PI * 2);
-    catCtx.fill();
-
-    catCtx.fillStyle = '#ffffff';
-    catCtx.beginPath();
-    catCtx.arc(3.5, -3.5, 1.1, 0, Math.PI * 2);
-    catCtx.arc(10.5, -3.5, 1.1, 0, Math.PI * 2);
-    catCtx.fill();
-  } else {
-    catCtx.strokeStyle = '#334155';
-    catCtx.lineWidth = 1.6;
-    catCtx.beginPath();
-    catCtx.moveTo(1.5, -2); catCtx.lineTo(6.5, -2);
-    catCtx.moveTo(8.5, -2); catCtx.lineTo(13.5, -2);
-    catCtx.stroke();
-  }
-
-  // Pink Nose
-  catCtx.fillStyle = '#ff8fa3';
-  catCtx.beginPath();
-  catCtx.arc(7.5, 2, 1.8, 0, Math.PI * 2);
-  catCtx.fill();
-
-  // 3D Umbrella
-  if (currentThemeWeather === 'rain') {
-    catCtx.save();
-    catCtx.translate(-8, -20);
-    catCtx.strokeStyle = '#b45309';
-    catCtx.lineWidth = 2.5;
-    catCtx.beginPath();
-    catCtx.moveTo(10, 20); catCtx.lineTo(10, -5);
-    catCtx.stroke();
-    catCtx.fillStyle = '#3b82f6';
-    catCtx.beginPath();
-    catCtx.arc(10, -5, 20, Math.PI, 0);
-    catCtx.fill();
-    catCtx.restore();
-  }
-
-  catCtx.restore();
-  catCtx.restore();
-
-  // Dizzy Stars if Slipped
-  if (cat.state === 'slip_spin') {
-    catCtx.save();
-    catCtx.translate(x, y - 35);
-    catCtx.fillStyle = '#ffd700';
-    catCtx.font = "14px 'Inter'";
-    catCtx.fillText("★", Math.sin(cat.spinRot) * 16, Math.cos(cat.spinRot) * 8);
-    catCtx.fillText("★", -Math.sin(cat.spinRot) * 16, -Math.cos(cat.spinRot) * 8);
-    catCtx.restore();
-  }
-}
-
-function render3DSoccerBall(x, y, rot) {
-  catCtx.save();
-  catCtx.translate(x, y);
-
-  const shadowGrad = catCtx.createRadialGradient(0, 9, 1, 0, 9, 9);
-  shadowGrad.addColorStop(0, 'rgba(0, 0, 0, 0.4)');
-  shadowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-  catCtx.fillStyle = shadowGrad;
-  catCtx.beginPath();
-  catCtx.ellipse(0, 9, 9, 3.5, 0, 0, Math.PI * 2);
-  catCtx.fill();
-
-  catCtx.rotate(rot);
-
-  const ballGrad = catCtx.createRadialGradient(-3, -3, 2, 0, 0, 11);
-  ballGrad.addColorStop(0, '#ffffff');
-  ballGrad.addColorStop(0.7, '#d8e3eb');
-  ballGrad.addColorStop(1, '#1e293b');
-  catCtx.fillStyle = ballGrad;
-  catCtx.beginPath();
-  catCtx.arc(0, 0, 10, 0, Math.PI * 2);
-  catCtx.fill();
-
-  catCtx.fillStyle = '#0f172a';
-  catCtx.beginPath();
-  catCtx.arc(0, 0, 3.8, 0, Math.PI * 2);
-  catCtx.fill();
-
-  for (let i = 0; i < 5; i++) {
-    const ang = (i * Math.PI * 2) / 5;
-    catCtx.beginPath();
-    catCtx.arc(Math.cos(ang) * 6.5, Math.sin(ang) * 6.5, 2.2, 0, Math.PI * 2);
-    catCtx.fill();
-  }
-
-  catCtx.restore();
-}
-
-function runMascotEngine() {
-  catCtx.clearRect(0, 0, stripW, stripH);
-
-  cat.stateTimer++;
-  cat.blink = Math.sin(cat.stateTimer * 0.05);
-
-  if (cat.state === 'walk') {
-    cat.x += cat.dir * cat.speed;
-    cat.walkCycle += 0.12;
-    cat.headTilt = Math.sin(cat.walkCycle * 0.5) * 0.1;
-    if (cat.x > stripW - 130) cat.dir = -1;
-    if (cat.x < 130) cat.dir = 1;
-
-    cat.ball.x = cat.x + cat.dir * 32;
-    cat.ball.y = 115;
-
-    if (cat.stateTimer > 350) { cat.state = 'dribble'; cat.stateTimer = 0; }
-  } else if (cat.state === 'dribble') {
-    cat.x += cat.dir * (cat.speed * 1.5);
-    cat.walkCycle += 0.22;
-    cat.ball.x += cat.dir * (cat.speed * 1.5);
-    cat.ball.rot += cat.dir * 0.16;
-
-    if (cat.stateTimer > 180) {
-      if (Math.random() > 0.45) {
-        cat.state = 'kick'; cat.stateTimer = 0;
-        cat.ball.vx = cat.dir * 8.5; cat.ball.vy = -7.2;
+    const textTexture = createUltraCrispTextTexture('TATHOI');
+
+    // --- ৫. স্কয়ার (1:1 Square Shape) ইমেজ ফ্রেম টেক্সচার ---
+    const squareCanvas = document.createElement('canvas');
+    const squareCtx = squareCanvas.getContext('2d');
+    squareCanvas.width = 512;
+    squareCanvas.height = 512;
+    const squareTexture = new THREE.CanvasTexture(squareCanvas);
+    squareTexture.minFilter = THREE.LinearFilter;
+    squareTexture.magFilter = THREE.LinearFilter;
+
+    function renderSquareAvatar(imageElement) {
+      squareCtx.clearRect(0, 0, 512, 512);
+
+      const boxSize = 440;
+      const x = 36;
+      const y = 36;
+      const radius = 32;
+
+      // 1:1 স্কয়ার কর্নার ক্লিপ
+      squareCtx.save();
+      squareCtx.beginPath();
+      squareCtx.moveTo(x + radius, y);
+      squareCtx.lineTo(x + boxSize - radius, y);
+      squareCtx.quadraticCurveTo(x + boxSize, y, x + boxSize, y + radius);
+      squareCtx.lineTo(x + boxSize, y + boxSize - radius);
+      squareCtx.quadraticCurveTo(x + boxSize, y + boxSize, x + boxSize - radius, y + boxSize);
+      squareCtx.lineTo(x + radius, y + boxSize);
+      squareCtx.quadraticCurveTo(x, y + boxSize, x, y + boxSize - radius);
+      squareCtx.lineTo(x, y + radius);
+      squareCtx.quadraticCurveTo(x, y, x + radius, y);
+      squareCtx.closePath();
+      squareCtx.clip();
+
+      if (imageElement && imageElement.complete && imageElement.naturalWidth !== 0) {
+        // ১:১ নিখুঁত সেন্টার ক্রপ
+        const minSide = Math.min(imageElement.width, imageElement.height);
+        const sx = (imageElement.width - minSide) / 2;
+        const sy = (imageElement.height - minSide) / 2;
+        squareCtx.drawImage(imageElement, sx, sy, minSide, minSide, x, y, boxSize, boxSize);
       } else {
-        cat.state = 'slip_spin'; cat.stateTimer = 0;
-        cat.ball.vx = cat.dir * 3;
+        // ফলব্যাক নিয়ন পিংক
+        const grad = squareCtx.createLinearGradient(0, 0, 512, 512);
+        grad.addColorStop(0, '#ff2a85');
+        grad.addColorStop(1, '#5e002a');
+        squareCtx.fillStyle = grad;
+        squareCtx.fill();
       }
+      squareCtx.restore();
+
+      // স্কয়ার বর্ডার
+      squareCtx.beginPath();
+      squareCtx.moveTo(x + radius, y);
+      squareCtx.lineTo(x + boxSize - radius, y);
+      squareCtx.quadraticCurveTo(x + boxSize, y, x + boxSize, y + radius);
+      squareCtx.lineTo(x + boxSize, y + boxSize - radius);
+      squareCtx.quadraticCurveTo(x + boxSize, y + boxSize, x + boxSize - radius, y + boxSize);
+      squareCtx.lineTo(x + radius, y + boxSize);
+      squareCtx.quadraticCurveTo(x, y + boxSize, x, y + boxSize - radius);
+      squareCtx.lineTo(x, y + radius);
+      squareCtx.quadraticCurveTo(x, y, x + radius, y);
+      squareCtx.closePath();
+
+      squareCtx.lineWidth = 14;
+      squareCtx.strokeStyle = '#ffffff';
+      squareCtx.shadowColor = '#ff2a85';
+      squareCtx.shadowBlur = 28;
+      squareCtx.stroke();
+
+      squareTexture.needsUpdate = true;
     }
-  } else if (cat.state === 'kick') {
-    cat.ball.x += cat.ball.vx;
-    cat.ball.y += cat.ball.vy;
-    cat.ball.vy += 0.38;
-    cat.ball.rot += 0.22;
 
-    if (cat.ball.y > 115) {
-      cat.ball.y = 115;
-      cat.ball.vy = -cat.ball.vy * 0.65;
-      cat.ball.vx *= 0.85;
+    // আপনার ছবি লোড করার লজিক
+    const myImg = new Image();
+    myImg.src = MY_IMAGE_FILE;
+    myImg.onload = () => renderSquareAvatar(myImg);
+    myImg.onerror = () => {
+      console.warn("ফাইল খুঁজে পাওয়া যায়নি! অনুগ্রহ করে ফোল্ডারে " + MY_IMAGE_FILE + " ফাইলটি রাখুন।");
+      renderSquareAvatar(null);
+    };
+
+    // --- ৬. ইমোজি টেক্সচার ---
+    function createEmojiTexture(char) {
+      const c = document.createElement('canvas');
+      const ctx = c.getContext('2d');
+      c.width = 256;
+      c.height = 256;
+      ctx.font = '130px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.shadowColor = '#ff2a85';
+      ctx.shadowBlur = 20;
+      ctx.fillText(char, 128, 138);
+      return new THREE.CanvasTexture(c);
+    }
+    const emojiRibbon = createEmojiTexture('🎀');
+    const emojiHeart = createEmojiTexture('💖');
+
+    // --- ৭. উপাদান ম্যাটেরিয়ালস ---
+    const sharedTextMaterial = new THREE.SpriteMaterial({
+      map: textTexture,
+      transparent: true,
+      opacity: 0.98,
+      color: 0xff2a85
+    });
+
+    const sharedAvatarMaterial = new THREE.SpriteMaterial({
+      map: squareTexture,
+      transparent: true,
+      opacity: 0.98,
+      color: 0xffffff
+    });
+
+    const sharedRibbonMaterial = new THREE.SpriteMaterial({ map: emojiRibbon, transparent: true, opacity: 0.95 });
+    const sharedHeartMaterial = new THREE.SpriteMaterial({ map: emojiHeart, transparent: true, opacity: 0.95 });
+
+    // --- ৮. মহাকাশে ভাসমান উপাদান (Dense Rain) ---
+    const items = [];
+    const itemCount = 270;
+    const fieldWidth = 130;
+    const fieldHeight = 260;
+    const fieldDepth = 130;
+
+    for (let i = 0; i < itemCount; i++) {
+      let mat, scaleX, scaleY;
+      const rand = Math.random();
+
+      if (rand < 0.52) {
+        mat = sharedTextMaterial;
+        scaleX = 24;
+        scaleY = 6;
+      } else if (rand < 0.76) {
+        mat = sharedAvatarMaterial;
+        scaleX = 10;
+        scaleY = 10; // পারফেক্ট ১:১ স্কয়ার
+      } else if (rand < 0.88) {
+        mat = sharedRibbonMaterial;
+        scaleX = 6.5;
+        scaleY = 6.5;
+      } else {
+        mat = sharedHeartMaterial;
+        scaleX = 6.5;
+        scaleY = 6.5;
+      }
+
+      const sprite = new THREE.Sprite(mat);
+      sprite.position.set(
+        (Math.random() - 0.5) * fieldWidth,
+        (Math.random() - 0.5) * fieldHeight,
+        (Math.random() - 0.5) * fieldDepth
+      );
+      sprite.scale.set(scaleX, scaleY, 1);
+
+      sprite.userData = {
+        speed: 0.38 + Math.random() * 0.45,
+        swaySpeed: 1.5 + Math.random() * 2,
+        swayOffset: Math.random() * Math.PI * 2,
+        swayAmp: 0.04 + Math.random() * 0.04
+      };
+
+      scene.add(sprite);
+      items.push(sprite);
     }
 
-    if (cat.stateTimer > 130) {
-      cat.state = 'walk'; cat.stateTimer = 0;
-      cat.dir = cat.ball.x > cat.x ? 1 : -1;
+    // --- ৯. সিঙ্কড কালার ইঞ্জিন (সব উপাদান একসাথে রঙ বদলাবে) ---
+    const currentColor = new THREE.Color();
+    let clock = new THREE.Clock();
+
+    function updateSynchronizedColor(time) {
+      // ৩১৫° থেকে ৩৫৫° এর মধ্যে পিংক, হট মেজেন্টা ও ডিপ রোজ রঙে ঘুরবে
+      const hue = (Math.sin(time * 0.6) * 0.5 + 0.5) * (355 - 315) + 315; 
+      currentColor.setHSL(hue / 360, 1.0, 0.62);
+
+      sharedTextMaterial.color.copy(currentColor);
     }
-  } else if (cat.state === 'slip_spin') {
-    cat.spinRot += 0.25;
-    if (cat.stateTimer > 90) {
-      cat.state = 'walk'; cat.stateTimer = 0; cat.spinRot = 0;
+
+    // --- ১০. অ্যানিমেশন লুপ ---
+    function animate() {
+      requestAnimationFrame(animate);
+
+      const elapsedTime = clock.getElapsedTime();
+
+      // কালার ট্রানজিশন
+      updateSynchronizedColor(elapsedTime);
+
+      // উপর থেকে নিচে ইউনিভার্সে নেমে আসা
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        item.position.y -= item.userData.speed;
+        item.position.x += Math.sin(elapsedTime * item.userData.swaySpeed + item.userData.swayOffset) * item.userData.swayAmp;
+
+        if (item.position.y < -fieldHeight / 2) {
+          item.position.y = fieldHeight / 2;
+          item.position.x = (Math.random() - 0.5) * fieldWidth;
+          item.position.z = (Math.random() - 0.5) * fieldDepth;
+        }
+      }
+
+      // ইউনিভার্সের তারাগুলো আস্তে আস্তে ঘুরবে
+      starField.rotation.y = elapsedTime * 0.012;
+      starField.rotation.x = elapsedTime * 0.006;
+
+      controls.update();
+      renderer.render(scene, camera);
     }
-  } else if (cat.state === 'laser_hunt') {
-    cat.speed = 3.2;
-    cat.x += cat.dir * cat.speed;
-    cat.walkCycle += 0.35;
-    if (Math.abs(cat.x - cat.targetX) < 15 || cat.stateTimer > 90) {
-      cat.state = 'walk'; cat.speed = 1.4; cat.stateTimer = 0;
-    }
-  }
 
-  renderHilarious3DCat(cat.x, cat.y, cat.dir, cat.walkCycle, cat.blink > 0.95 ? 1 : 0);
-  render3DSoccerBall(cat.ball.x, cat.ball.y, cat.ball.rot);
+    animate();
 
-  requestAnimationFrame(runMascotEngine);
-}
+    // --- ১১. মিউজিক এবং এন্টার বাটন হ্যান্ডলিং ---
+    const bgMusic = document.getElementById('bgMusic');
+    const enterBtn = document.getElementById('enterBtn');
+    const loaderScreen = document.getElementById('loader-screen');
+    const audioToggle = document.getElementById('audioToggle');
 
-/* ============================================================
-   10. BATTERY, TIME OF DAY & DHAKA PRAYER TIMES
-   ============================================================ */
-if ('getBattery' in navigator) {
-  navigator.getBattery().then(bat => {
-    function updateBat() {
-      const pct = Math.round(bat.level * 100);
-      document.getElementById('battery-pct').textContent = `${pct}%`;
-      document.getElementById('battery-fill').style.strokeDashoffset = 60 - (60 * pct / 100);
-    }
-    updateBat();
-    bat.addEventListener('levelchange', updateBat);
-  });
-}
+    enterBtn.addEventListener('click', () => {
+      bgMusic.play().then(() => {
+        audioToggle.style.opacity = '1';
+      }).catch(err => {
+        console.log("Audio play error: ", err);
+      });
 
-function applyTimeOfDay() {
-  const hour = new Date().getHours();
-  let tint = "rgba(0,0,0,0.12)";
-  if (hour >= 5 && hour < 11) tint = "rgba(255,180,100,0.12)";
-  else if (hour >= 11 && hour < 16) tint = "rgba(255,255,255,0.01)";
-  else if (hour >= 16 && hour < 19) tint = "rgba(255,110,40,0.15)";
-  else tint = "rgba(4,8,28,0.28)";
-  document.getElementById('day-tint').style.background = tint;
-}
+      loaderScreen.classList.add('fade-out');
+    });
 
-function updateDhakaPrayerTime() {
-  const now = new Date();
-  const h = now.getHours();
-  const m = now.getMinutes();
-  const curMins = h * 60 + m;
+    audioToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (bgMusic.paused) {
+        bgMusic.play();
+        audioToggle.style.opacity = '1';
+        audioToggle.style.boxShadow = '0 0 18px rgba(255, 20, 147, 0.8)';
+      } else {
+        bgMusic.pause();
+        audioToggle.style.opacity = '0.35';
+        audioToggle.style.boxShadow = 'none';
+      }
+    });
 
-  const prayers = [
-    { name: "FAJR", time: 4 * 60 + 55 },
-    { name: "DHUHR", time: 11 * 60 + 50 },
-    { name: "ASR", time: 15 * 60 + 50 },
-    { name: "MAGHRIB", time: 17 * 60 + 25 },
-    { name: "ISHA", time: 18 * 60 + 45 }
-  ];
+    // --- ১২. ইনস্ট্যান্ট ইমেজ ও অডিও সিলেক্টর ---
+    document.getElementById('photoInput').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          const userImg = new Image();
+          userImg.onload = () => renderSquareAvatar(userImg);
+          userImg.src = evt.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
 
-  let nextP = prayers[0];
-  for (let i = 0; i < prayers.length; i++) {
-    if (prayers[i].time > curMins) {
-      nextP = prayers[i];
-      break;
-    }
-  }
+    document.getElementById('audioInput').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        bgMusic.src = URL.createObjectURL(file);
+        bgMusic.play();
+      }
+    });
 
-  let diff = nextP.time - curMins;
-  if (diff < 0) diff += 24 * 60;
-  document.getElementById('prayer-time-badge').textContent = `${nextP.name} IN ${diff}M`;
-}
-
-/* ============================================================
-   11. SETTINGS & REMOTE D-PAD ENGINE
-   ============================================================ */
-let aodIdleEnabled = true;
-let aodIdleTimer = null;
-
-function resetAodIdleTimer() {
-  document.body.classList.remove('aod-idle-mode');
-  clearTimeout(aodIdleTimer);
-  if (aodIdleEnabled) {
-    aodIdleTimer = setTimeout(() => {
-      document.body.classList.add('aod-idle-mode');
-    }, 30000);
-  }
-}
-
-document.addEventListener('keydown', (e) => {
-  const focusables = Array.from(document.querySelectorAll('[tabindex="0"]')).filter(el => el.offsetParent !== null);
-  const current = document.activeElement;
-  let idx = focusables.indexOf(current);
-
-  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-    idx = (idx + 1) % focusables.length;
-    focusables[idx].focus();
-    e.preventDefault();
-  } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-    idx = (idx - 1 + focusables.length) % focusables.length;
-    focusables[idx].focus();
-    e.preventDefault();
-  } else if (e.key === 'Enter') {
-    if (current && typeof current.click === 'function') {
-      current.click();
-    }
-  }
-});
-
-function openSettingsModal() { document.getElementById('settings-modal').classList.add('active'); }
-function closeSettingsModal() { document.getElementById('settings-modal').classList.remove('active'); }
-
-function togglePrefCentering() {
-  aodIdleEnabled = !aodIdleEnabled;
-  document.getElementById('pref-centering-toggle').classList.toggle('active', aodIdleEnabled);
-  if (!aodIdleEnabled) document.body.classList.remove('aod-idle-mode');
-  else resetAodIdleTimer();
-}
-
-function togglePrefWeather() {
-  const stage = document.getElementById('atmosphere-stage');
-  const sw = document.getElementById('pref-weather-toggle');
-  if (stage.style.display === 'none') {
-    stage.style.display = 'block';
-    sw.classList.add('active');
-  } else {
-    stage.style.display = 'none';
-    sw.classList.remove('active');
-  }
-}
-
-/* ============================================================
-   12. SYSTEM INITIALIZATION
-   ============================================================ */
-loadThemeIndex(0);
-buildCalendarGrid();
-runClockEngine();
-updateAllTelemetrySerials();
-applyTimeOfDay();
-updateDhakaPrayerTime();
-resetAodIdleTimer();
-runMascotEngine();
-cycleGoogleNews();
-
-setInterval(runClockEngine, 50);
-setInterval(updateAllTelemetrySerials, 1400); // 1.4s smooth individual telemetry sparklines
-setInterval(cycleGoogleNews, 8000);
-setInterval(updateDhakaPrayerTime, 60000);
-</script>
+    // রেসপনসিভ উইন্ডো
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
 </body>
 </html>
